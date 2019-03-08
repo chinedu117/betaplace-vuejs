@@ -3,7 +3,7 @@ import store from '@/store'
 import * as API from '@/api'
 import haversine from 'haversine'
 import Vue from 'vue'
-import { isNullOrUndefined } from 'util';
+
 store.registerModule('places_list_store', {
   namespaced: true,
 

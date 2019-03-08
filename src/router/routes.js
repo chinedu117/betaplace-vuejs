@@ -9,6 +9,7 @@ import Places from '@/features/places_list/main.vue'
 import Agent from '@/features/agent/main.vue'
 import MyPlaces from '@/features/dashboard/AgentPlacesList.vue'
 import OurPackages from '@/features/dashboard/OurPackages.vue'
+import PackageView from '@/features/dashboard/PackageView.vue'
 import CreateEditPlace from '@/features/dashboard/PlaceCreateEdit.vue'
 import Dashboard from '@/features/dashboard/main.vue'
 import VerifyEmail from '@/auth/VerifyEmail.vue'
@@ -168,6 +169,26 @@ const routes = [
   },
   beforeEnter: (to, from, next) => {
     const title = 'Packages'
+    const layout = 'DashboardLayout'
+    //const authed = to.matched.some( (route) => route.meta.requires)
+    // Setup some per-page stuff.
+    document.title = title
+    store.dispatch('common/updateTitle', title)
+    store.dispatch('common/updateLayout', layout)
+    //  store.dispatch('common/updateToolBar',{show: true, component: 'PlacesListToolBarItems'})
+    next()
+  }
+},
+
+{ // Create or edit a place
+  path: '/package-view/:planID', //TODO the agents slug will come fiirst
+  name: 'PackageView',
+  component: PackageView,
+  meta: {
+    //requiresAuth: false
+  },
+  beforeEnter: (to, from, next) => {
+    const title = 'Package Details'
     const layout = 'DashboardLayout'
     //const authed = to.matched.some( (route) => route.meta.requires)
     // Setup some per-page stuff.

@@ -48,6 +48,11 @@ export const PLACE_CATEGORY_LIST_URL = baseUrl + '/d/cat/l'
 
 export const AGENT_PLACES_URL = baseUrl + '/ag/p'
 
+export const PACKAGES_URL = baseUrl + '/packages'
+
+export const PACKAGE_URL = (packageID) => {
+    return baseUrl + "/package/" + packageID
+}
 // AUTHENTICATION //
 export const REGISTER_URL = baseUrl + '/register'
 export const LOGIN_URL = baseUrl + '/login'
