@@ -28,10 +28,32 @@ store.registerModule('dashboard_store', {
   },
 
   actions:{
-      
-    retrievePlans({commit}){
+      placeOrder({commit},payload){
+
+      },
+    confirmPayment({commit},transactionRef){
+
+        return new Promise( (resolve,reject) =>{
+
+            Vue.http.post(API.PAYSTACK_CONFIRM_URL,{transaction_ref: transactionRef})
+             .then(function (response) {
+                     resolve(response)
+                 })
+             .catch(function (error) {
+                 //  console.log(error)
+                      reject(error)
+             });
+ 
+ 
+         })
+
+    },
+    cancelOrder({commit}){
+
+    },
+    retrievePlans({commit,state}){
        
-        // if(state.planList.lenght < 1){
+        if(state.planList.length < 1){
             return new Promise( (resolve,reject) =>{
                 Vue.http.get(API.PACKAGES_URL)
                  .then(function (response) {
@@ -51,7 +73,7 @@ store.registerModule('dashboard_store', {
      
      
              })
-        // }
+        }
         
     },
 

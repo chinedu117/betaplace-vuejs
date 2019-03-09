@@ -18,13 +18,13 @@
            <span> Expiry Date:  {{plan.expires_on}} </span>
         </v-card-text>
         <v-card-actions>
-           <v-btn color="red" large outline class="mx-auto">PAY {{plan.price}}</v-btn>
-        </v-card-actions>
+          
+        
 
             <paystack
-            
-            :amount="amount"
-            :email="email"
+            :metadata="paystackMetaData"
+            :amount="plan.price"
+            :email="agentEmail"
             :paystackkey="paystackkey"
             :reference="reference"
             :callback="callback"
@@ -32,8 +32,9 @@
             :embed="false"
         >
         <i class="fas fa-money-bill-alt"></i>
-        Make Payment
+           <v-btn color="red" large outline class="mx-auto">PAY {{plan.price}}</v-btn>
         </paystack>
+        </v-card-actions>
     </v-card>
 </template>
 
@@ -47,7 +48,7 @@ components: {
  data(){
      return {
          plan:{},
-         paystackkey: "pk_test_xxxxxxxxxxxxxxxxxxxxxxx", //paystack public key
+         paystackkey: "pk_test_22bdd340817a7abd23c1ade4fb5f131c60be3e7f", //paystack public key
           email: "foobar@example.com", // Customer email
           amount: 1000000 // in kobo
 
@@ -62,17 +63,84 @@ components: {
           text += possible.charAt(Math.floor(Math.random() * possible.length));
 
         return text;
+      },
+
+      paystackMetaData(){
+
+          return {
+              "package_id": this.$route.params.planID,
+          }
+      },
+
+      agentEmail(){
+          return this.$store.getters["auth/getUser"].email
       }
     },
  created(){
     this.getPlan(this.$route.params.planID)
  },
+ mounted(){
+     this.placeOrder()
+ },
 methods:{
+    // placeOrder(){
+    //     this.$store.dispatch('dashboard_store/placeOrder',{package_id: this.plan.id,transaction_ref:this.reference})
+    // },
     callback: function(response){
         console.log(response)
+        if(response.status == "success")
+        {  
+            //confirm Payment
+            //approve
+            this.$store.dispatch('dashboard_store/confirmPayment',response.trxref)
+            .then((response) =>{
+
+                this.$router.push({name: "MyPlaces", params:{agentSlug: this.$store.getters['auth/getUser'].slug}})
+            })
+            .catch((error) => {
+                console.log(error.response)
+                 if(error.response.status == 409){
+                    this.$store.dispatch('common/updateSnackBar',{
+                    show: true,
+                    msg: 'Payment was not successful',
+                    color: ''
+                    })
+                    
+                 }
+                 this.$router.push({name: "ourPackages"})
+            })
+            
+
+        }else{
+
+            //cancel the order
+            this.$store.dispatch('dashboard_store/cancelOrder')
+            .then((response) => {
+                this.$store.dispatch('common/updateSnackBar',{
+                show: true,
+                msg: 'Unable to Make Transaction',
+                color: ''
+                })
+            })
+
+            
+            
+            this.$router.push({ name: "OurPackages"})
+        }
+        //if succcessful
+            //confirm payment
+            //give value
+            //redirect to myplaces
+        //not successful
+            //cancel the order
+            //go back to the list of packages
+
       },
       close: function(){
           console.log("Payment closed")
+          //cancel the order
+          //go back to list of packages
+
       },
     getPlan(planID){
         this.$store.dispatch('dashboard_store/retrievePlan',planID)

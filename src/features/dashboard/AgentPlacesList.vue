@@ -66,7 +66,7 @@
                   </div>
                 </template>
                 <v-list-tile>
-                    <v-btn color="success" class="mx-auto" outline>Subscribe to Add more Places</v-btn>
+                    <v-btn color="success" class="mx-auto" outline @click="seePlanList()">Subscribe to Add more Places</v-btn>
                 </v-list-tile>
               </v-list>
               
@@ -152,6 +152,10 @@ export default {
                 
 
         //   }
+        },
+
+        seePlanList(){
+            this.$router.push({name: "ourPackages"})
         }
     },
 

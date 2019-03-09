@@ -31,7 +31,7 @@
                               </div>
                           </v-flex>
                           <v-flex xs6 align-end>
-                              <v-btn color="success" outline @click="viewPlan(subscription.id)">Subscribe</v-btn>
+                              <v-btn color="success" outline @click="viewPlan(subscription.id)">ORDER</v-btn>
                           </v-flex>
                       </v-layout>
                   </v-card>
@@ -69,7 +69,7 @@ export default {
     methods:{
         loadPlans(){
             //load packages
-            console.log("loading packages")
+            
              this.mixin_handleRequest(this.$store.dispatch("dashboard_store/retrievePlans"))
         },
 

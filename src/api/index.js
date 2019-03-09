@@ -53,6 +53,8 @@ export const PACKAGES_URL = baseUrl + '/packages'
 export const PACKAGE_URL = (packageID) => {
     return baseUrl + "/package/" + packageID
 }
+
+export const PAYSTACK_CONFIRM_URL = baseUrl + "/paystack-confirm"
 // AUTHENTICATION //
 export const REGISTER_URL = baseUrl + '/register'
 export const LOGIN_URL = baseUrl + '/login'
