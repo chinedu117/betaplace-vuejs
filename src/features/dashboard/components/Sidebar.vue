@@ -41,12 +41,21 @@
             </v-list-tile>
 
 
-            <v-list-tile avatar :to="{ name: 'MyPlaces'}">
+            <v-list-tile avatar :to="{ name: 'MyPlaces', params: {'agentSlug': agent_slug}}">
                 <v-list-tile-avatar>
                     <v-icon>place</v-icon>
                 </v-list-tile-avatar>
                 <v-list-tile-content>
                     <v-list-tile-title>My Places</v-list-tile-title>
+                </v-list-tile-content>
+            </v-list-tile>
+
+            <v-list-tile avatar :to="{ name: 'mySubscriptions', params: {'agentSlug': agent_slug}}">
+                <v-list-tile-avatar>
+                    <v-icon>subscription</v-icon>
+                </v-list-tile-avatar>
+                <v-list-tile-content>
+                    <v-list-tile-title>My Subscriptions</v-list-tile-title>
                 </v-list-tile-content>
             </v-list-tile>
 

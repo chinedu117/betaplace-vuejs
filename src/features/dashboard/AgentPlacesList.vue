@@ -53,7 +53,9 @@
                         v-on:delete-place="deletePlace"
                         v-on:place-published="publishPlace"
                         v-on:place-unpublished="unPublishPlace"
-                        ></place-actions>
+                        >
+                          
+                        </place-actions>
                      <!-- <v-avatar color="blue-grey lighten-5" >
                         
                          <v-icon @click="deletePlace(place.slug,index)" color="primary">delete</v-icon>
@@ -127,8 +129,20 @@ export default {
             
         },
         createPlace(){
-
-            this.$router.push({name: 'createEdit'})
+            //check if the agenet still has enough subscription
+            if(this.$store.getters['auth/getUser'].max_no_places > 0)
+            {
+              this.$router.push({name: 'createEdit'})
+            }else{
+              this.$store.dispatch('common/updateSnackBar',{
+                    show: true,
+                    msg: 'You do not have enough subscription to continue',
+                    color: ''
+                    })
+              this.seePlanList()
+            
+            }
+            
         },
 
         editPlace(slug){
@@ -138,20 +152,6 @@ export default {
         deletePlace(index){
             this.placeList.splice(index,1)
 
-        //     if(confirm("Do you want to delete this and all its content?")){
-        //        this.mixin_handleRequest(this.$options.service.deletePlace({'place_slug':slug})
-        //         .then(response => {
-        //             this.placeList.splice(index,1)
-        //             this.$store.dispatch('common/updateSnackBar',{
-        //             show: true,
-        //             msg: 'Deleted',
-        //             color: ''
-        //             })
-                    
-        //         }))
-                
-
-        //   }
         },
 
         seePlanList(){

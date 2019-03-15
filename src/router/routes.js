@@ -11,6 +11,7 @@ import MyPlaces from '@/features/dashboard/AgentPlacesList.vue'
 import OurPackages from '@/features/dashboard/OurPackages.vue'
 import PackageView from '@/features/dashboard/PackageView.vue'
 import CreateEditPlace from '@/features/dashboard/PlaceCreateEdit.vue'
+import MySubscriptions from '@/features/dashboard/AgentSubscriptions.vue'
 import Dashboard from '@/features/dashboard/main.vue'
 import VerifyEmail from '@/auth/VerifyEmail.vue'
 import CreateEditProfile from '@/auth/CreateEditProfile.vue'
@@ -189,6 +190,25 @@ const routes = [
   },
   beforeEnter: (to, from, next) => {
     const title = 'Package Details'
+    const layout = 'DashboardLayout'
+    //const authed = to.matched.some( (route) => route.meta.requires)
+    // Setup some per-page stuff.
+    document.title = title
+    store.dispatch('common/updateTitle', title)
+    store.dispatch('common/updateLayout', layout)
+    //  store.dispatch('common/updateToolBar',{show: true, component: 'PlacesListToolBarItems'})
+    next()
+  }
+},
+{ // Create or edit a place
+  path: '/:agentSlug/my-subscriptions', //TODO the agents slug will come fiirst
+  name: 'mySubscriptions',
+  component: MySubscriptions,
+  meta: {
+    //requiresAuth: false
+  },
+  beforeEnter: (to, from, next) => {
+    const title = 'My Subscriptions'
     const layout = 'DashboardLayout'
     //const authed = to.matched.some( (route) => route.meta.requires)
     // Setup some per-page stuff.

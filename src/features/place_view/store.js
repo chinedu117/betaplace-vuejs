@@ -40,8 +40,9 @@ store.registerModule('place_view_store', {
           .then(function (response) {
                       
                     store.commit('places_list_store/updateUserPreferences',response.data)//{root: true})
-                    store.dispatch('places_list_store/retrieveByPreferences')
-                    commit('addPlace',response.data)
+                     commit('addPlace',response.data)
+                     store.dispatch('places_list_store/retrieveByPreferences')
+                    
                      
                   resolve(response)
               })

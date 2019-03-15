@@ -41,6 +41,15 @@ export const DASHBORD_PLACE_CREATE_URL = baseUrl + '/d/p/c'
 export const DASHBOARD_PLACE_PUBLISH_URL = (placeSlug) => {
      return baseUrl + '/d/p/' + placeSlug + '/pb'
 }
+
+export  const DASHBORD_PLACE_EXPLICIT_PUBLISH_URL = (placeSlug) => {
+    return baseUrl + '/d/p/' + placeSlug + '/expl/pb'   
+}
+
+export  const DASHBORD_PLACE_EXPLICIT_UNPUBLISH_URL = (placeSlug) => {
+    return baseUrl + '/d/p/' + placeSlug + '/expl/upb'   
+}
+
 export const DASHBORD_PLACE_EDIT_URL = (placeSlug) =>{
     return baseUrl + '/d/p/' + placeSlug +'/e'
 }
@@ -53,6 +62,8 @@ export const PACKAGES_URL = baseUrl + '/packages'
 export const PACKAGE_URL = (packageID) => {
     return baseUrl + "/package/" + packageID
 }
+
+export const MY_SUBSCRIPTIONS_URL = baseUrl + "/my-subscriptions"
 
 export const PAYSTACK_CONFIRM_URL = baseUrl + "/paystack-confirm"
 // AUTHENTICATION //

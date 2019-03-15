@@ -101,7 +101,7 @@ deletePlace(payload){
   })
 }
   
-publishPlace(payload){
+publishPlaceToggle(payload){
   return Vue.http.post(API.DASHBOARD_PLACE_PUBLISH_URL(payload.place_slug))
   .then(response => {
       return new Promise((resolve) => { resolve(response) })
@@ -111,6 +111,9 @@ publishPlace(payload){
       return new Promise((resolve, reject) => { reject(error) })
   })
 }
+
+
+  
   
 
 

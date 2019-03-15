@@ -8,15 +8,16 @@
             </v-list-tile>
         </v-list>
     </v-menu> -->
-    <v-menu open-on-hover left offset-y >
-        
-           <v-btn dark color="grey lighten-2" :loading="loading"  icon slot="activator">
-            <v-icon>more_vert</v-icon>
-            </v-btn>
-       
 
-        <v-list>
-            
+  <div class="text-xs-center">
+    <v-menu offset-y>
+      <template v-slot:activator="{ on }">
+         <v-btn dark color="grey lighten-2" :loading="loading" icon v-on="on">
+              <v-icon>more_vert</v-icon>
+         </v-btn>
+      </template>
+      <v-list>
+          
             <v-list-tile  @click="deletePlace">
                 <v-list-tile-action>
                     <v-icon>delete</v-icon>
@@ -38,6 +39,38 @@
             </v-list-tile>
         </v-list>
     </v-menu>
+  </div>
+
+    <!-- <v-menu open-on-hover left>
+        
+           <v-btn dark color="grey lighten-2" :loading="loading" icon slot="activator">
+              <v-icon>more_vert</v-icon>
+            </v-btn>
+       
+
+        <v-list>
+          
+            <v-list-tile  @click="deletePlace">
+                <v-list-tile-action>
+                    <v-icon>delete</v-icon>
+                </v-list-tile-action>
+                <v-list-tile-title>Delete</v-list-tile-title>
+            </v-list-tile>
+            <v-list-tile  @click="publish">
+                <v-list-tile-action>
+                    <v-icon>delete</v-icon>
+                </v-list-tile-action>
+                <v-list-tile-title v-if="agent_published"> UnPublish</v-list-tile-title>
+                <v-list-tile-title v-else> Publish</v-list-tile-title>
+            </v-list-tile>
+            <v-list-tile  v-if="place_expired" @click="renew">
+                <v-list-tile-action>
+                    <v-icon>delete</v-icon>
+                </v-list-tile-action>
+                <v-list-tile-title > Renew </v-list-tile-title>
+            </v-list-tile>
+        </v-list>
+    </v-menu> -->
 </template>
 
 <script>
@@ -67,20 +100,20 @@ export default {
       },
       'index':{
           required: true,
-          type: Number,
+          // type: Number,
 
       }
     },
     methods: {
         publish(){
            if(this.published){
-               this.mixin_handleRequest(this.$options.service.publishPlace({'place_slug':this.slug}).then((response) => { 
+               this.mixin_handleRequest(this.$options.service.publishPlaceToggle({'place_slug':this.slug}).then((response) => { 
                     this.agent_published = false
                     this.$emit('place-unpublished',this.index)
                }))
                
            }else{
-              this.mixin_handleRequest(this.$options.service.publishPlace({'place_slug':this.slug}).then((response) => { 
+              this.mixin_handleRequest(this.$options.service.publishPlaceToggle({'place_slug':this.slug}).then((response) => { 
                     this.agent_published = true
                     this.$emit('place-published',this.index)
                }))

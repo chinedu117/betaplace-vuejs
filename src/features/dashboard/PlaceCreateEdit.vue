@@ -197,9 +197,9 @@
                          <v-card-actions class="justify-space-between">
                                
 
-                               <v-btn color="success" @click.prevent="prevPage">PREVIOUS</v-btn>
+                               <v-btn color="success" @click="prevPage">PREVIOUS</v-btn>
 
-                               <v-btn align-end color="success" @click.prevent="submitFeatures">NEXT</v-btn>
+                               <v-btn align-end v-if="features.length > 0" color="success" @click.prevent="nextPage">NEXT</v-btn>
 
                            </v-card-actions>
                      </v-card>
@@ -299,11 +299,13 @@
                             @change="onFilePicked"
                         >
 
-                        <v-card-actions class="justify-start">
+                        <v-card-actions class="justify-space-between">
                                
 
                                <v-btn color="success" @click.prevent="prevPage">PREVIOUS</v-btn>
-                               <!-- <v-btn align-end color="success" @click.prevent="nextPage">NEXT</v-btn> -->
+
+                               <v-btn align-end v-if="images.length > 0" color="success" @click="publish">PUBLISH</v-btn>
+
 
                            </v-card-actions>
                      </v-card>
@@ -357,6 +359,7 @@ export default {
            features:[],
            images:[],
            category:[],
+           featuresEdited: false
             
         }
     },
@@ -384,13 +387,19 @@ export default {
              //editing mode
              this.creating = false
              this.mixin_handleRequest(this.$store.dispatch('place_view_store/retrievePlace',this.$route.params.placeSlug)
-            .then(response=>{
+            .then((response)=>{
                 //console.log(response.data)
-                this.features = response.data.features.features
                 //delete it
+                if(response.data.features !== null)
+                {
+                   this.features = response.data.features.features
+                }
+
+                if(response.data.images !== null)
+                {
+                  this.images= response.data.images.images
+                }
                 
-                console.log(response.data);
-                this.images= response.data.images.images
                 
                 delete response.data['statistics']
                 delete response.data['images']
@@ -406,7 +415,30 @@ export default {
     },
     methods:{
        prevPage(){
-           this.pageNum--
+           
+ 
+           if(this.pageNum == 3)
+           {
+
+                   //features
+                   if(this.featuresEdited)
+                   {
+                           if(this.submitFeatures()){
+                             this.pageNum--
+                           }
+                          
+                      
+                   }else{
+                        this.pageNum--
+                   }
+           }else{
+
+              this.pageNum--
+           }
+
+           
+
+        
        },
 
        nextPage(){
@@ -414,7 +446,15 @@ export default {
            this.$validator.validate().then(result => {
         			if (result) {
 							//only go to the next field if all is well
-							this.pageNum++
+                if(this.pageNum == 3){
+
+							     if(this.submitFeatures()){
+                       this.pageNum++
+                   }
+                }else{
+                  this.pageNum++
+                }
+                
        				 }
       			})
    			
@@ -449,6 +489,7 @@ export default {
 
        addFeature(){
             
+            this.featuresEdited = true
             if(this.newFeature.feature != '' && this.newFeature.value != ''){
                     //copy the new feature
                 let newFeatureCopy = Object.assign({},this.newFeature)
@@ -462,6 +503,7 @@ export default {
             
        },
        removeFeature(index){
+            this.featuresEdited = true
             this.features.splice(index,1)
         },
 
@@ -527,12 +569,31 @@ export default {
                         })
                  
              }))
+
+            //if all the images are removed, unpublish the place
+            if(this.images.length < 1){
+
+                this.unpublish()
+            }
             
 
         },
        submitFeatures(){
+              if(this.featuresEdited){
 
-              this.mixin_handleRequest(this.$options.service.saveFeatures({
+                  if(this.features.length < 1)
+                  {
+                     //features cannot be empty
+                     this.$store.dispatch('common/updateSnackBar',{
+                          show: true,
+                          msg: 'features cannot be empty',
+                          color: ''
+                          })
+
+                     return false
+                  }
+
+                this.mixin_handleRequest(this.$options.service.saveFeatures({
                                     features:this.features,
                                     place_id:this.newPlace.id,
                                     place_slug:this.newPlace.slug
@@ -540,10 +601,15 @@ export default {
                             .then(response => {
                                 //set the new data
                                 this.features = response.data.features
-                                this.nextPage()
+                                this.featuresEdited = false
+                                // this.nextPage()
                                 // console.log(response.data.id)
                             }))//end handlereq
-               
+
+              }
+              return true
+            
+              
        },
        submitPlace(){
         const editingMode = this.newPlace.slug ? true : false
@@ -561,6 +627,24 @@ export default {
                   })
     
        },
+
+       publish(){
+              //expilicity publish a place
+              this.$store.dispatch("dashboard_store/publishPlace",{place_slug:this.newPlace.slug})
+              this.$store.dispatch('common/updateSnackBar',{
+                        show: true,
+                        msg: 'Your Acomodation has been published',
+                        color: ''
+                        })
+              //go back to list
+
+
+       },
+
+       unpublish(){
+          //expilicity unpublish a place
+          this.$store.dispatch("dashboard_store/unpublishPlace",{ place_slug:this.newPlace.slug})
+       }
   
 
     }//end method

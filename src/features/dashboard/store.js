@@ -28,9 +28,24 @@ store.registerModule('dashboard_store', {
   },
 
   actions:{
-      placeOrder({commit},payload){
+    
+    retrieveMySubscriptions({commit}){
+       
+        return new Promise( (resolve,reject) =>{
 
-      },
+            Vue.http.get(API.MY_SUBSCRIPTIONS_URL)
+             .then(function (response) {
+                     resolve(response)
+                 })
+             .catch(function (error) {
+                 //  console.log(error)
+                      reject(error)
+             });
+ 
+ 
+         })
+
+    },
     confirmPayment({commit},transactionRef){
 
         return new Promise( (resolve,reject) =>{
@@ -82,6 +97,46 @@ store.registerModule('dashboard_store', {
         // if(state.planList.lenght < 1){
             return new Promise( (resolve,reject) =>{
                 Vue.http.get(API.PACKAGE_URL(planID))
+                 .then(function (response) {
+                         resolve(response)
+                     })
+                 
+                 .catch(function (error) {
+                     //  console.log(error)
+                          reject(error)
+                 });
+     
+     
+             })
+        // }
+        
+    },
+
+     publishPlace({commit},payload){
+       
+        // if(state.planList.lenght < 1){
+            return new Promise( (resolve,reject) =>{
+                Vue.http.post(API.DASHBORD_PLACE_EXPLICIT_PUBLISH_URL(payload.place_slug))
+                 .then(function (response) {
+                         resolve(response)
+                     })
+                 
+                 .catch(function (error) {
+                     //  console.log(error)
+                          reject(error)
+                 });
+     
+     
+             })
+        // }
+        
+    },
+
+    unpublishPlace({commit},payload){
+       
+        // if(state.planList.lenght < 1){
+            return new Promise( (resolve,reject) =>{
+                Vue.http.post(API.DASHBORD_PLACE_EXPLICIT_UNPUBLISH_URL(payload.place_slug))
                  .then(function (response) {
                          resolve(response)
                      })
