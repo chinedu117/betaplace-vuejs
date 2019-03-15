@@ -1,5 +1,4 @@
 import LandingPage from '@/pages/LandingPage'
-import TodoApp from '@/features/todo/index.vue'
 import Login from '@/auth/Login'
 import Register from '@/auth/Register'
 import Logout from '@/auth/Logout'
@@ -252,27 +251,6 @@ const routes = [
       beforeEnter:(to, from, next) => {
             const title = 'Welcome'
             const layout = 'PublicLayout'
-            //const authed = to.matched.some( (route) => route.meta.requires)
-             // Setup some per-page stuff.
-             document.title = title
-             store.dispatch('common/updateTitle',title)
-             store.dispatch('common/updateLayout', layout)
-             next()
-      
-          }
-    },
-    {
-      path: '/todo',
-      name: 'Todo',
-      component: TodoApp,
-      meta: { 
-        title: 'Todo App',
-        layout: 'DefaultLayout',
-        requiresAuth: true
-      },
-      beforeEnter:(to, from, next) => {
-            const title = 'Todo App'
-            const layout = 'DefaultLayout'
             //const authed = to.matched.some( (route) => route.meta.requires)
              // Setup some per-page stuff.
              document.title = title

@@ -76,6 +76,7 @@ export const AGENT_PROFILE_IMAGE_UPLOAD_URL = baseUrl + '/profile-img'
 export const RESEND_VERIFICATION_MAIL_URL = baseUrl + '/resend-verification'
 export const FORGOT_PASSWORD_URL = baseUrl + '/forgot-password'
 export const RESET_PASSWORD_URL = baseUrl + '/reset-password'
+export const USER_INFO_URL = baseUrl + "/user"
 
 // export const PLACE_LIKE = baseUrl + '/p'
 
@@ -85,19 +86,18 @@ export const RESET_PASSWORD_URL = baseUrl + '/reset-password'
 
 
 
-export const TODO_LIST_URL = baseUrl + '/todo'
+// export const TODO_LIST_URL = baseUrl + '/todo'
 
-export const ADD_TODO_URL = TODO_LIST_URL
+// export const ADD_TODO_URL = TODO_LIST_URL
 
-export const DELETE_TODO_URL = TODO_LIST_URL + '/'
+// export const DELETE_TODO_URL = TODO_LIST_URL + '/'
 
-export const UPDATE_TODO_URL = DELETE_TODO_URL
+// export const UPDATE_TODO_URL = DELETE_TODO_URL
 
-export const CHECKALL_TODO_URL =  baseUrl  + "/todoCheckAll"
+// export const CHECKALL_TODO_URL =  baseUrl  + "/todoCheckAll"
 
-export const DELETE_COMPLETED_TODO_URL = baseUrl  + "/todoDeleteCompleted"
-
-
+// export const DELETE_COMPLETED_TODO_URL = baseUrl  + "/todoDeleteCompleted"
 
 
-export const USER_INFO_URL = baseUrl + "/user"
+
+
