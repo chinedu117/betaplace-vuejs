@@ -1,13 +1,9 @@
 <template>
-    <v-layout row v-if="$vuetify.breakpoint.smAndDown">
-        
-         <v-flex  xs12>
-          
-          <!-- template for mobile phones -->
-          <v-container grid-list-xs>
-              <v-layout row wrap>
-                  <v-flex xs12>
-                        <v-card class="pa-2">
+  <v-container grid-list-md text-xs-center class="page-wrapper">
+  <v-layout row wrap>
+     <v-flex xs12>
+       <v-card  v-bind="card_style" >
+
                             <v-card-title primary-title>
                             <v-subheader>Forgot Password</v-subheader>
                             </v-card-title>
@@ -30,8 +26,7 @@
                   </v-flex>
               </v-layout>
           </v-container>
-         </v-flex>
-    </v-layout>
+         
 </template>
 
 <script>
@@ -42,6 +37,21 @@ export default {
             email: '',
         }
     },
+    computed: {
+         card_style(){
+
+           if(!this.$vuetify.breakpoint.smAndDown){
+             return {
+              "width": "500",
+              "class": "mx-auto pa-2",
+             }
+           }else{
+             return {
+              "class": "mx-auto",
+               }
+           }
+         }
+      },
   mixins: [ HandlesRequest],
   methods:{
      submit(){

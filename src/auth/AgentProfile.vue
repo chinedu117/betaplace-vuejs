@@ -1,9 +1,8 @@
 <template>
-<v-layout row v-if="$vuetify.breakpoint.smAndDown">
-     <v-flex  xs12>
-        <v-card
-        class="ma-2"
-        >
+ <v-container grid-list-md text-xs-center class="page-wrapper">
+  <v-layout row wrap>
+     <v-flex xs12 md8>
+       <v-card  v-bind="card_style" >
             <v-img
                 :src="imageUrl ? imageUrl : profile.profile_img"
                 aspect-ratio="2.75"
@@ -88,8 +87,45 @@
                             </v-card>
                
         </v-card>
-     </v-flex>
-</v-layout>
+      </v-flex>
+      <v-flex md4>
+         <v-navigation-drawer right app >
+            <v-divider></v-divider>
+              <v-list class="pt-4 text--capitalize">
+                  <v-list-tile avatar :to="{ name: 'Home'}">
+                      <v-list-tile-avatar>
+                          <v-icon>home</v-icon>
+                      </v-list-tile-avatar>
+                      <v-list-tile-content>
+                          <v-list-tile-title>Home</v-list-tile-title>
+                      </v-list-tile-content>
+                  </v-list-tile>
+                  <v-divider></v-divider>
+                  
+                 
+
+                  <v-list-tile v-if="loggedIn" avatar :to="{ name: 'Logout'}">
+                      <v-list-tile-avatar>
+                          <v-icon>logout</v-icon>
+                      </v-list-tile-avatar>
+                      <v-list-tile-content>
+                          <v-list-tile-title>Logout</v-list-tile-title>
+                      </v-list-tile-content>
+                  </v-list-tile>
+                  
+                  <v-btn class="ml-4" v-if="!loggedIn" :to="{ name: 'Register'}" outline>Become An Agent</v-btn>
+
+                 
+
+        </v-list>
+ 
+        
+    </v-navigation-drawer>
+         </v-navigation-drawer>
+       
+      </v-flex>
+    </v-layout>
+  </v-container>
 </template>
 
 <script>
@@ -118,6 +154,21 @@ export default {
           }
       }
   },
+  computed: {
+         card_style(){
+
+           if(!this.$vuetify.breakpoint.smAndDown){
+             return {
+              "width": "500",
+              "class": "mx-auto pa-2",
+             }
+           }else{
+             return {
+              "class": "mx-auto px-2",
+               }
+           }
+         }
+      },
   watch:{
       imageUrl(val){
            this.upload()

@@ -210,13 +210,14 @@ export default {
   
       },
       
-      submitProfile({getters},profile){
+      submitProfile({getters,dispatch},profile){
 
         axios.defaults.headers.common['Authorization'] = getters.getToken
 
           return new Promise( (resolve,reject) => {
             axios.post(API.SUBMIT_PROFILE_URL,profile)
                 .then((response) => {
+                  dispatch("retrieveUser")
                  resolve(response)
                   })
                 .catch((error)=> {

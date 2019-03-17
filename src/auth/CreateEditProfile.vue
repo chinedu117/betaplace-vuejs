@@ -1,13 +1,8 @@
 <template>
- <v-layout row v-if="$vuetify.breakpoint.smAndDown">
-        
-         <v-flex  xs12>
-          
-          <!-- template for mobile phones -->
-          <v-container grid-list-xs>
-              <v-layout row wrap>
-                  <v-flex xs12>
-                        <v-card class="pa-2">
+ <v-container grid-list-md text-xs-center class="page-wrapper">
+  <v-layout row wrap>
+     <v-flex xs12>
+       <v-card  v-bind="card_style" >
                         <v-card-title primary-title>
                            <v-subheader>Your Profile</v-subheader>
                         </v-card-title>
@@ -17,12 +12,26 @@
                             label="Company Name"
                             id="agency_name"
 						    :error-messages="serverErrors.agency_name ? serverErrors.agency_name : errors.collect('agency_name')"
-                            v-validate="'required'"
+                            v-validate="'required|alpha_spaces'"
                             data-vv-name="agency_name"
                             v-model="profile.agency_name"
                             required
+                            @blur="setAgentHandle"
                             ></v-text-field>
 
+                            <v-text-field
+                            outline
+                            name="agent_handle"
+                            label="Your Handle"
+                            id="agent_handle"
+                           :error-messages="serverErrors.agent_handle ? serverErrors.agent_handle : errors.collect('agent_handle')"
+                            v-validate="'required'"
+                            disabled
+                            data-vv-name="agent_handle"
+                            v-model="profile.agent_handle"
+                            required
+                             ></v-text-field>
+    
                             <v-text-field
                             outline
                             name="phone_number_main"
@@ -76,7 +85,7 @@
                                 v-model="profile.about_us"
                                 :counter="200"
 						        :error-messages="serverErrors.about_us ? serverErrors.about_us : errors.collect('about_us')"
-                                v-validate="'required|max:200'"
+                                v-validate="'required|max:200|alpha_spaces'"
                                 data-vv-name="about_us"
                                 outline
                             ></v-textarea>
@@ -84,10 +93,9 @@
                              <v-btn color="success" @click="submit" :disabled="loading" :loading="loading">Submit</v-btn>
                          </v-card-actions>
                          </v-card>
-                  </v-flex>
-              </v-layout>
-          </v-container>
-         </v-flex>
+                       </v-flex>
+                     </v-layout>
+                   </v-container>
  </v-layout>    
 
 </template>
@@ -105,7 +113,8 @@ export default {
               state:'Edo',
               country:'Nigeria',
               agency_name:'Our Hope Accomodation',
-              about_us:'We provide accomodation to young families'
+              about_us:'We provide accomodation to young families',
+              agent_handle: ''
           }
           
       }
@@ -116,9 +125,34 @@ export default {
       if(this.$route.params.agentSlug){
           //get the user profile
           this.getMyProfile()
+          this.setAgentHandle()
       }
   },
+  computed: {
+         card_style(){
+
+           if(!this.$vuetify.breakpoint.smAndDown){
+             return {
+              "width": "500",
+              "class": "mx-auto pa-2",
+             }
+           }else{
+             return {
+              "class": "mx-auto px-2",
+               }
+           }
+         }
+      },
   methods:{
+    setAgentHandle(){
+       if(this.profile.agency_name.length < 1)return
+        let agencyName = this.profile.agency_name.trim()
+          if(agencyName.charAt(0) !== "@"){
+             agencyName  = '@'.concat(agencyName) 
+          }
+
+        this.profile.agent_handle = agencyName.replace(/\s/g,"_").toLowerCase()
+    },
     submit(){
          this.$validator.validate().then(result => {
         			if (result) {
@@ -145,7 +179,7 @@ export default {
     getMyProfile(){
          this.mixin_handleRequest(this.$store.dispatch('auth/getMyProfile')
                     .then(response => {
-             alert('I have gotten user profile')
+                
          })) 
     },
   }//end methods

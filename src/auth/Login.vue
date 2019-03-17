@@ -35,14 +35,24 @@
 				       <v-flex xs12 px-4>
 						   
 				       	   <v-btn 
-							  :loading="loading"
+							  
 							  :disabled="loading"
 							  @click="login"> Login</v-btn>
+
+							 
 				       </v-flex>
  
 
 				  
 		    </v-card>
+
+		     <v-btn 
+			  :loading="loading"
+			  :disabled="loading"
+			  flat
+			  :to="{name : 'ForgotPassword'}">
+			   Forgot Password
+			</v-btn>
 		</v-flex>
    </v-layout>
 </v-container>
