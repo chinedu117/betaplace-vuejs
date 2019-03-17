@@ -17,6 +17,11 @@ export default {
             localStorage.setItem('user',JSON.stringify(loggedUser))
       
           },
+
+          clearUser(state){
+            state.user = ""
+            localStorage.removeItem('user')
+          },
       
         //set token in the local storage after successfull log in 
           saveToken(state, token) {
@@ -147,17 +152,20 @@ export default {
       register({state, commit},params) {
   
           //console.log(params)
-          console.log('auth store register callled');
+          // console.log('auth store register callled');
           
           return new Promise((resolve,reject) => {
-           
+             
+             //clear any user saved
+             commit('clearUser')
             axios.post(API.REGISTER_URL,{
                        'name': params.name,
                        'password': params.password,
-                       'email': params.email
-                       })
+                       'email': params.email,
+                       'password_confirmation': params.password_confirmation
+                       }) 
                 .then(function (response) {
-                  
+                   
                  // console.log(response)
                   //save the token to local storage
                 //  context.commit('saveToken',response.data.access_token)
@@ -234,9 +242,11 @@ export default {
       
       },
 
-      resendVerificationMail(email){
+      resendVerificationMail({getters}){
+
+         if(!getters.getUser.email) return
          return new Promise( (resolve,reject) => {
-            axios.post(API.RESEND_VERIFICATION_MAIL_URL,{el:email})
+            axios.post(API.RESEND_VERIFICATION_MAIL_URL,{el:getters.getUser.email})
                 .then((response) => {
                  resolve(response)
                   })

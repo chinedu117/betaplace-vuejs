@@ -4,10 +4,17 @@
         <v-toolbar-title>{{ $store.state.common.title }}</v-toolbar-title> 
         <v-spacer></v-spacer>
         <v-toolbar-items>
+
+            
+
             <component :is="component" class="d-flex justify-center mt-1">
                 <slot></slot>
+                
             </component>
-        </v-toolbar-items>
+            <v-btn class="ma-2" style="height:50%" v-show="!$vuetify.breakpoint.smAndDown" v-if="!loggedIn" :to="{ name: 'Register'}" outline>Become An Agent</v-btn>
+
+            
+          </v-toolbar-items>
     </v-toolbar>
 </template>
 
@@ -38,6 +45,11 @@ export default {
             
 
         },
+
+        loggedIn(){
+
+            return this.$store.getters['auth/loggedIn']
+        }
     },
 
     mounted () {
@@ -66,6 +78,8 @@ export default {
 
             //console.log('Toggle')
         },
+
+
     }
 
 }

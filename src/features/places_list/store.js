@@ -31,7 +31,7 @@ store.registerModule('places_list_store', {
     filterType:'none',
     places: [], //hold places in the all mode
     loaded:false,
-   
+    userCoordinates:null,
   },
 
  getters: {
@@ -43,6 +43,13 @@ store.registerModule('places_list_store', {
      {
         return  state.userPreferences
      },
+     hasUserCoords(state){
+       if(state.userCoordinates !== null){
+            return true
+       }else{
+            return false
+       }
+     },
      hasLoadedPLaces(state)
      {
        return state.loaded
@@ -50,17 +57,32 @@ store.registerModule('places_list_store', {
      placesFiltered(state) {
 
         const mode = state.list_mode
+        const userCoords = state.userCoordinates !== null ? true : false
+
         if( mode == 'all'){
 
           return state.places
 
         }else if(mode == 'search'){
+           
+           if(userCoords){
+                  //
+                  return state.filter_box.filtered.sort(function (first, second) {
+                     return first.distance - second.distance
+                  })
+              }
 
           return state.search.found
           
         }else if(mode == 'filter'){
-
-          return state.filter_box.filtered
+             //sort by distance
+              if(userCoords){
+                  //
+                  return state.filter_box.filtered.sort(function (first, second) {
+                     return first.distance - second.distance
+                  })
+              }
+             return state.filter_box.filtered
 
         }else{
 
@@ -119,6 +141,18 @@ store.registerModule('places_list_store', {
             pref_location: localStorage.getItem('pref_location') || null
         })
     },
+
+    updateUserCoords(state,Coords){
+        localStorage.setItem('user_coords',JSON.stringify([Coords.latitude,Coords.longitude]))
+
+         state.userCoordinates = Object.assign({},state.userCoordinates,{ 
+          
+            user_coords: localStorage.getItem('user_coords') || null,
+           
+        })
+
+    },
+
     hasLoadedPlaces(state,val){
          state.loaded = val
     },
@@ -178,10 +212,15 @@ store.registerModule('places_list_store', {
         commit('changeMode','filter')
        if(!Object.keys(state.preferredFilters).length) return //empty
 
-       
-       
+        //add check user cords add
+      let FILTER_URL = API.PLACES_FILTER_URL
+         if(state.userCoordinates.user_coords !== null){
+             let Query = '?user_coords='+ state.userCoordinates.user_coords
+            FILTER_URL = FILTER_URL.concat(Query)
+         }
+
         return new Promise( (resolve,reject) =>{
-            Vue.http.get(API.PLACES_FILTER_URL,{params:state.preferredFilters})
+            Vue.http.get(FILTER_URL,{params:state.preferredFilters})
             .then(function (response) {
 
                     commit("updateFilterBox",{show:true,filtered:response.data})
@@ -293,10 +332,17 @@ store.registerModule('places_list_store', {
     search({commit},searchText)
     { 
         commit("addPreferredFilters",{filter_search: searchText})
-       
+        
         Vue.http.defaults.withCredentials = true
+
+         let SEARCH_URL = API.PLACES_SEARCH_URL
+         if(state.userCoordinates.user_coords !== null){
+             let Query = '?user_coords='+ state.userCoordinates.user_coords
+            SEARCH_URL = SEARCH_URL.concat(Query)
+         }
+
         return new Promise( (resolve,reject) =>{
-            Vue.http.get(API.PLACES_SEARCH_URL,{params:{search:searchText}})
+            Vue.http.get(SEARCH_URL,{params:{search:searchText}})
             .then(function (response) {
 
             

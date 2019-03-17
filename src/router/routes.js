@@ -1,4 +1,3 @@
-import LandingPage from '@/pages/LandingPage'
 import Login from '@/auth/Login'
 import Register from '@/auth/Register'
 import Logout from '@/auth/Logout'
@@ -23,18 +22,13 @@ import ResetPassword from '@/auth/ResetPassword'
 
 const routes = [
   {
-
-   
     path:'/profile-view/:agentSlug',
     component: AgentProfileView,
     name: 'AgentProfileView',
     beforeEnter:(to, from, next) => {
       const title = 'My  Profile'
       const layout = 'DashboardLayout'
-      //this is accessible to everyone so it does not require auth
-      //const authed = to.matched.some( (route) => route.meta.requires)
-       // Setup some per-page stuff.
-       document.title = title
+      document.title = title
        store.dispatch('common/updateTitle',title)
        store.dispatch('common/updateLayout', layout)
       //  store.dispatch('common/updateToolBar',{show: true, component: 'PlacesListToolBarItems'})
@@ -242,20 +236,16 @@ const routes = [
     {
       path: '/',
       name: 'Home',
-      component: LandingPage,
-      meta: {
-        layout: 'PublicLayout',
-        title: 'Welcome',
-        // public: true
-      },
+      component: Places,
       beforeEnter:(to, from, next) => {
-            const title = 'Welcome'
-            const layout = 'PublicLayout'
+             const title = 'Available Places'
+             const layout = 'DefaultLayout'
             //const authed = to.matched.some( (route) => route.meta.requires)
              // Setup some per-page stuff.
              document.title = title
              store.dispatch('common/updateTitle',title)
              store.dispatch('common/updateLayout', layout)
+             store.dispatch('common/updateToolBar',{show: true, component: 'PlacesListToolBarItems'})
              next()
       
           }
@@ -266,14 +256,14 @@ const routes = [
       component: Login,
       props: true,
       meta:{
-        layout: 'PublicLayout',
+        layout: 'DefaultLayout',
         title: 'Login',
         requiresAuth: false,
         public: true
       },
       beforeEnter:(to, from, next) => {
             const title = 'Login'
-            const layout = 'PublicLayout'
+            const layout = 'DefaultLayout'
             //const authed = to.matched.some( (route) => route.meta.requires)
              // Setup some per-page stuff.
              document.title = title
@@ -289,14 +279,14 @@ const routes = [
       name: 'Register',
       component: Register,
       meta: {
-        layout: 'PublicLayout',
+        layout: 'DefaultLayout',
         title: 'Register',
         requiresAuth: false,
         public: true
       },
       beforeEnter:(to, from, next) => {
             const title = 'Register'
-            const layout = 'PublicLayout'
+            const layout = 'DefaultLayout'
             //const authed = to.matched.some( (route) => route.meta.requires)
              // Setup some per-page stuff.
              document.title = title

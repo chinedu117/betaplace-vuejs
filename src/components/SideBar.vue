@@ -9,7 +9,7 @@
         </v-toolbar>
         
         <v-divider></v-divider>
-        <v-list class="pt-4">
+        <v-list class="pt-4 text--capitalize">
             <v-list-tile avatar :to="{ name: 'Home'}">
                 <v-list-tile-avatar>
                     <v-icon>home</v-icon>
@@ -19,23 +19,8 @@
                 </v-list-tile-content>
             </v-list-tile>
             <v-divider></v-divider>
-            <v-list-tile avatar :to="{ name: 'Todo'}">
-                <v-list-tile-avatar>
-                    <v-icon>settings</v-icon>
-                </v-list-tile-avatar>
-                <v-list-tile-content>
-                    <v-list-tile-title>App</v-list-tile-title>
-                </v-list-tile-content>
-            </v-list-tile>
-            <v-divider></v-divider>
-            <v-list-tile v-if="!loggedIn" avatar :to="{ name: 'Login'}">
-                <v-list-tile-avatar>
-                    <v-icon>account_box</v-icon>
-                </v-list-tile-avatar>
-                <v-list-tile-content>
-                    <v-list-tile-title>Login</v-list-tile-title>
-                </v-list-tile-content>
-            </v-list-tile>
+            
+           
 
             <v-list-tile v-if="loggedIn" avatar :to="{ name: 'Logout'}">
                 <v-list-tile-avatar>
@@ -45,33 +30,11 @@
                     <v-list-tile-title>Logout</v-list-tile-title>
                 </v-list-tile-content>
             </v-list-tile>
+            
+            <v-btn class="ml-4" v-if="!loggedIn" :to="{ name: 'Register'}" outline>Become An Agent</v-btn>
 
-            <v-list-tile v-if="!loggedIn" avatar :to="{ name: 'Register'}">
-                <v-list-tile-avatar>
-                    <v-icon>account_box</v-icon>
-                </v-list-tile-avatar>
-                <v-list-tile-content>
-                    <v-list-tile-title>Register</v-list-tile-title>
-                </v-list-tile-content>
-            </v-list-tile>
+           
 
-            <v-list-tile avatar :to="{ name: 'Places'}">
-                <v-list-tile-avatar>
-                    <v-icon>place</v-icon>
-                </v-list-tile-avatar>
-                <v-list-tile-content>
-                    <v-list-tile-title>Places</v-list-tile-title>
-                </v-list-tile-content>
-            </v-list-tile>
-
-            <v-list-tile avatar :to="{ name: 'PlaceView',params:{id:1}}">
-                <v-list-tile-avatar>
-                    <v-icon>place</v-icon>
-                </v-list-tile-avatar>
-                <v-list-tile-content>
-                    <v-list-tile-title>Places</v-list-tile-title>
-                </v-list-tile-content>
-            </v-list-tile>
         </v-list>
  
         

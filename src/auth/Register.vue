@@ -2,24 +2,14 @@
  <v-container grid-list-md text-xs-center class="page-wrapper">
  	<v-layout row wrap>
  	   <v-flex xs12>
-	 		<v-card>
+	 		 <v-card  v-bind="card_style" >
 			 		<v-toolbar>
 			 			<v-toolbar-side-icon/>
 			 			<v-toolbar-title>
 			 				Register
 			 		    </v-toolbar-title>
 			        </v-toolbar>
-                 <!-- <server-errors v-if="serverErrors" :errorMsg="serverErrors"></server-errors> -->
-								 
-								<!-- <div class="success-alert" v-if="successMessage">
-									<h4>Success</h4>
-										<div class="py-1">
-										
-										{{ successMessage }}
-									</div>
-								</div> -->
-								 
-								 	
+                 
                 <form action="#" @submit.prevent="beforeSubmit" >	
 	                 <v-flex xs12 px-4>
 									
@@ -104,11 +94,26 @@
 						email: '',
 						
 	    			},
+	    
 					
 	    }
 	  },
 	  mixins: [ HandleRequest ],
+      computed: {
+         card_style(){
 
+         	 if(!this.$vuetify.breakpoint.smAndDown){
+         	 	 return {
+         	 	 	"width": "500",
+         	 	 	"class": "mx-auto",
+         	 	 }
+         	 }else{
+         	 	 return {
+         	 	 	"class": "mx-auto",
+         	 	   }
+         	 }
+         }
+      },
 	  methods: {
 		  //called before form is submitted
         beforeSubmit () {

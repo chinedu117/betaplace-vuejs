@@ -46,7 +46,7 @@ export default {
                                 longitude: coordinates.lng
                             }
 
-                        this.$store.dispatch('places_list_store/updateDistance',myLocation)
+                        this.$store.commit('places_list_store/updateUserCoords',myLocation)
                         
                     })  
             

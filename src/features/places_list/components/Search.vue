@@ -4,7 +4,7 @@
         v-model="searchText"
         autofocus
         placeholder='Search Place eg. Wuse, Abuja'
-       
+        
         box
         id="search-box"
         class="pa-2 elevation-2"
@@ -51,5 +51,5 @@ export default {
 }
 </script>
 <style>
-
+   
 </style>

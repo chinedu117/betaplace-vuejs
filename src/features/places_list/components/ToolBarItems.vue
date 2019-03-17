@@ -18,6 +18,12 @@ export default {
             //hide toolBar
             //show searchBox
             //scrol up
+            //hide the sidebar
+            if(this.$store.state.common.sidebar.visible){
+
+                this.$store.dispatch('common/updateSidebar',{visible: false})
+                
+            }
             this.$store.commit('common/updateToolBar',{show: false})
             this.$store.commit('places_list_store/updateSearchBox',{show: true})
             this.$vuetify.goTo(0,this.scrollOptions)

@@ -16,7 +16,7 @@
                   >
                   <div 
                   :index="index"
-                  :key="Math.random() + '_' + place.id"
+                  :key="Math.random() + '_' + place.slug"
                   >
                   <!-- <v-subheader >{{ place.category }}</v-subheader> -->
                   <!-- <v-divider v-else-if="item.divider" :inset="item.inset" :key="index"></v-divider> -->
@@ -62,23 +62,42 @@
         <v-layout row wrap>
             <v-flex md8 lg8 >
         <div
-       
+         v-if="places.length > 0"
         > 
+           <div class="d-flex justify-space-between">
+                    <v-subheader>Available Places <v-chip align-end>{{ places.length}}</v-chip></v-subheader>
+                    
+                </div>
            <v-card
             class="mb-2"
             v-for="(place, index) in places"
-             :key="place.slug"
+             
              :index = "index"
-              
+             :key="Math.random() + '_' + place.slug"
+
             >
              
-             <v-card-title class="text-xs-left mb-0 pb-0">
-               <div>
+             <v-card-title class="text-md-left mb-0 pb-0">
+               <div style="width:100%">
+                 <div v-if="place.prefered">
+                   <span  class="grey--text font-weight-medium" >By Your Preference</span><br>
+                 </div>
                  
-                 <span class="headline">{{place.category.name}}</span>
+                 <v-layout  row wrap>
+                     <v-flex md9>
+                     <span class="headline">{{place.category.name}}</span>
+                   </v-flex>
+                   <v-flex md3>
+                     <span  class="text-md-right red--text font-weight-medium" > {{place.price | currency}}</span>
+                   </v-flex>
+                 </v-layout>
+                 
+
+ 
                  <div class="text--grey lighten-4 subheading text-capitalize">
                   <v-icon class="pr-2 lighten-4" >place</v-icon>
-                  <span class="text-capitalize">{{ place.location }}</span>
+                  <span class="text-capitalize">{{ place.location }}, {{ place.state }}</span><br>
+                  
                 </div>
                </div>
              </v-card-title>
@@ -87,17 +106,24 @@
              <v-card-text class="text-xs-left">
 
                 <span class=" wrap">{{ place.description }}</span><br>
-                <v-chip color="secondary">
-                  <span class="red--text text--darken-2" v-html="place.price | currency "></span>
-                </v-chip>
-
+                
              </v-card-text>
+              
              <v-card-actions>
-               <v-btn flat color="accent" @click="vistPlace(place.slug)">Lets visit it</v-btn>
-               <v-btn flat color="accent">Tell My Frieind</v-btn>
+               <v-layout  row wrap justify-space-between>
+                     <v-flex md6>
+                      <v-btn flat color="accent" @click="visitPlace(place.slug)">Let's See</v-btn>
+                   </v-flex>
+                   <v-flex md6>
+                     <span class="grey--text font-weight-medium" v-show="hasUserCoords" v-if="place.distance">{{place.distance}} Km from your location</span>
+                   </v-flex>
+                 </v-layout>
+              
+               
+               
              </v-card-actions>
            </v-card>
-
+            <load-more/>
          </div> <!-- large screen display wrapper -->
 
 
@@ -179,7 +205,11 @@ export default {
         },
         set(val){}
 
-    }
+    },
+    hasUserCoords(){
+
+           return this.$store.getters['places_list_store/hasUserCoords']
+        }
      
   },
  

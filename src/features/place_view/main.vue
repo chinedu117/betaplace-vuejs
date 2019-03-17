@@ -268,7 +268,7 @@
                         <v-toolbar>
                           
                             <v-toolbar-title>
-                                Self Contain
+                                {{ place.category.name }}
                                 
                             </v-toolbar-title>
                     
@@ -299,12 +299,12 @@
                         </v-carousel>
                         <v-card-title class="font-weight-bold">
                             <h1 class="hash" id="desc" @click="$vuetify.goTo('#desc',scrollOptions)">
-                                Self Contain at Lugbe, Abuja
+                                {{ place.category.name }}
                             </h1>
                         </v-card-title>
                         <v-card-text>
                             
-                            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Laborum veniam reiciendis minima nam, quibusdam sit unde cumque deleniti animi iste libero aut quaerat dolores officia mollitia recusandae eum ipsum beatae quos! Error voluptas, aperiam delectus doloremque quasi ab possimus reprehenderit reiciendis beatae ut eius necessitatibus illo facere cupiditate debitis. Hic?</p>
+                           <p>{{ place.description }}</p>
                         </v-card-text>
                          <v-card-title class="font-weight-bold">
                             <h1 class="hash">
@@ -313,10 +313,10 @@
                         </v-card-title>
                         <v-card-text>
                         
-                            <p  class="title font-weight-medium">Opposite glo Office,<br>
-                            Aminu Kano Crescent,<br>
-                            Wuse 2,<br>
-                            Abuja.</p>
+                            <p  class="title font-weight-medium">{{ place.address }}<br>
+                                {{place.location}},{{ place.state }} <br>
+                                {{ place.country}}
+                            </p>
                         
                         </v-card-text>
 
@@ -326,55 +326,57 @@
                             </h1>
                         </v-card-title>
                         <v-card-text>
-                          <v-data-table
-                              :headers="headers"
-                              :items="features"
-                              flat
-                              hide-actions
-                        
-                          >
-                          
-                            <template slot="headers" slot-scope="props">
-                                <tr class="elevation-1">
-                                  
-                                    <th
-                                        v-for="header in props.headers"
-                                        :key="header.text"
-                                        :class="['text-xs-left ']"
-                                       
-                                    >
-                                        
-                                        <span class="font-weight-bold">{{ header.text }} </span>   
-                                    </th>
-                                </tr>
-                            </template>
-                            
-                            <template slot="items" slot-scope="props">
-                                <td class="font-weight-medium subheading text-capitalize">{{ props.item.name }}</td>
-                                <td class="font-weight-medium text-xs-left subheading">{{ props.item.specification }}</td>
-                             
-                            </template>
+                          <v-container grid-list-xs class="pb-5" >
+                              <v-layout 
+                              row 
+                              wrap 
+                              v-for="(feature,index) in place.features.features" 
+                              :key="index"
+                              :index="index"
+                              fill-height
+                               >
+                                <v-flex xs4 fill-height>
+                                    <div  class="pa-2 grey lighten-4 font-weight-bold " style="word-wrap:break-word"> 
+                                        {{ feature.feature }}
+                                    </div>
+                                    
+                                </v-flex>
+                                <v-flex xs8 fill-height> 
+                                    <div style="height:auto" class="d-block pa-2 grey lighten-4">
+                                         {{ feature.value }}
+                                    </div>
 
-                          </v-data-table>
+                                </v-flex>
+                                
+                              </v-layout>
+                              
+                          </v-container>
                           <v-divider></v-divider>       
 
                         </v-card-text> 
 
                         <v-card-title class="font-weight-bold" id="price">
                             <h2 class="hash" @click="$vuetify.goTo('#price',scrollOptions)">
-                               Price: N300,000 per year
+                               Price: {{ place.price | currency }}
                             </h2>
+
                         </v-card-title>
-
-
+                             <v-card-text class="">
+                               <p>{{ place.price_description }}</p>
+                             </v-card-text>
+ 
                          <v-divider></v-divider>
                         <v-card-actions height="100px" style="position:relative" background-color="blue-grey lighten-5">
                            
+                  
+
                               <action-btn
-                               
+                               :stat_id="place.statistics.id"
+                               color="accent"
+                               class="action-btn-screen"
                                :longitude="place.longitude"
                                :latitude="place.latitude"
-                               :likes="place.statistics.likes"
+                               :likes="place.statistics.like_no"
                                :agentID="place.agent.id"
                                   />
                         </v-card-actions>

@@ -1,6 +1,7 @@
 <template>
+    <v-container grid-list-md text-xs-center class="page-wrapper">
     <v-layout>
-        <v-card class="pa-2 ma-2">
+        <v-card v-bind="card_style" >
             <v-card-text>
                <v-flex xs12>
                    <div class="d-block mx-auto">
@@ -19,6 +20,7 @@
             <v-btn :loading="loading" :disabled="loading" @click="resendVerificationEmail" class="d-block mx-auto">Resend Verification Email</v-btn>
         </v-card>
     </v-layout>
+  </v-container>
 </template>
 
 <script>
@@ -29,29 +31,34 @@ export default {
         
         }
     },
-    created(){
-      this.$nextTick(() => {
-          this.time = setInterval(() =>{
-              if(confirm("Have you verified your email?"))
-              {
-                  clearInterval(this.time)
-              }
-            //    alert('Timer called every 5 seconds')
-          },5000)
-      })
-    },
+    computed: {
+         card_style(){
 
-    props:{
-        email:{
-            type: String,
-            required: true,
-        }
-    },
+           if(!this.$vuetify.breakpoint.smAndDown){
+             return {
+              "width": "500",
+               "class": "mx-auto pa-2 my-2",
+             }
+           }else{
+             return {
+              "class": "mx-auto pa-2 my-2",
+               }
+           }
+         }
+      },
     mixins: [HandlesRequest],
     methods:{
         resendVerificationEmail(){
-            this.mixin_handleRequest(this.$store.dispatch('auth/resendVerificationMail',this.email)
-                                .then(response => {}))
+            this.mixin_handleRequest(this.$store.dispatch('auth/resendVerificationMail')
+                                .then(response => {
+
+                                  //snack sent
+                                  this.$store.dispatch('common/updateSnackBar',{
+                                   show: true,
+                                   msg: "Another Verification Email has been Sent",
+                                   color: ''
+                                   })
+                                }))
 
         },
       
