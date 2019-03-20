@@ -3,12 +3,16 @@
       <v-layout row v-if="$vuetify.breakpoint.smAndDown">
         <v-flex  xs12>
         <!-- template for mobile phones -->
-          <v-list two-line subheader class="pt-2" v-if="places.length > 0">
-                  
-                 <div class="d-flex justify-space-between">
+              <agent-info
+                 :agent_slug="$route.params.agentSlug"
+                 />
+        <div class="d-flex justify-space-between">
                     <v-subheader>Available Places <v-chip align-end>{{ places.length}}</v-chip></v-subheader>
                     
                 </div>
+          <v-list two-line subheader class="pt-2" v-if="places.length > 0">
+                  
+                 
                  
                 <template 
                   v-for="(place,index) in places"
@@ -46,7 +50,7 @@
                   </div>
                 </template>
                 
-                <load-more/>
+                <!-- <load-more/> -->
               </v-list>
               
             
@@ -61,13 +65,17 @@
       <v-container grid-list-xs  v-if="$vuetify.breakpoint.mdAndUp">
         <v-layout row wrap>
             <v-flex md8 lg8 >
-        <div
-         v-if="places.length > 0"
-        > 
-           <div class="d-flex justify-space-between">
+                <agent-info
+                 :agent_slug="$route.params.agentSlug"
+                 />
+              <div class="d-flex justify-space-between">
                     <v-subheader>Available Places <v-chip align-end>{{ places.length}}</v-chip></v-subheader>
                     
                 </div>
+          <div
+           v-if="places.length > 0"
+          > 
+           
            <v-card
             class="mb-2"
             v-for="(place, index) in places"
@@ -123,9 +131,11 @@
                
              </v-card-actions>
            </v-card>
-            <load-more/>
+            <!-- <load-more/> -->
          </div> <!-- large screen display wrapper -->
-
+        <div v-else class="pa-2 ma-3 text-xs-center subheading font-weigh-bold text--grey">
+                Nothing to display
+                </div>
 
          </v-flex>
          
@@ -151,10 +161,12 @@
 
 import store from './store' 
 import Subscribe from '@/components/Subscribe.vue'
-import LoadMore from '@/features/places_list/components/LoadMore.vue'
+// import LoadMore from '@/features/places_list/components/LoadMore.vue'
+import AgentInfo from '@/features/places_list/components/AgentInfo.vue'
+
 
 export default {
-  name: 'places-list',
+  name: 'agent-places-list',
   data () {
 
     return {
@@ -163,7 +175,7 @@ export default {
     }
   },
  
-  components: { Subscribe, LoadMore},
+  components: { Subscribe,  AgentInfo},
  
   created(){
         // console.log(this.$http)

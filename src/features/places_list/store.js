@@ -32,6 +32,8 @@ store.registerModule('places_list_store', {
     places: [], //hold places in the all mode
     loaded:false,
     userCoordinates:null,
+    agent_places:[],
+    agent_places_loaded:false,
   },
 
  getters: {
@@ -53,6 +55,9 @@ store.registerModule('places_list_store', {
      hasLoadedPLaces(state)
      {
        return state.loaded
+     },
+     hasAgentPlacesLoaded(state){
+         return state.agent_places_loaded
      },
      placesFiltered(state) {
 
@@ -83,6 +88,10 @@ store.registerModule('places_list_store', {
                   })
               }
              return state.filter_box.filtered
+
+        }else if(mode == 'agent_places'){
+
+             return state.agent_places
 
         }else{
 
@@ -156,6 +165,9 @@ store.registerModule('places_list_store', {
     hasLoadedPlaces(state,val){
          state.loaded = val
     },
+    hasAgentPlacesLoaded(state,val){
+         state.agent_places_loaded = val
+    },
     changeMode(state,newMode = 'all'){
         state.list_mode = newMode
     },
@@ -174,6 +186,12 @@ store.registerModule('places_list_store', {
      {  
         
         state.places.push(place)
+     },
+
+     addAgentPlace(state,place)
+     {  
+        
+        state.agent_places.push(place)
      },
 
       addPreferredFilters(state, filterObj) {
@@ -263,7 +281,34 @@ store.registerModule('places_list_store', {
         }
         
     },
-
+    retrieveAgentPlaces({commit,getters},agentSlug){
+       
+        if(!getters.hasAgentPlacesLoaded)
+        {  
+           alert("Ia mammsdvc")
+            commit('changeMode','agent_places')
+            return new Promise( (resolve,reject) =>{
+               Vue.http.get(API.AGENT_PUBLIC_PLACES_URL(agentSlug))
+                .then(function (response) {
+                  
+                 // commit('updateNextPage',response.data.next_page_url)
+                   response.data.forEach((place) => {
+                           commit('addAgentPlace',place)
+                        })
+                        commit("hasAgentPlacesLoaded",true)
+                        resolve(response)
+                    })
+                  
+                
+                .catch(function (error) {
+                    //  console.log(error)
+                         reject(error)
+                });
+    
+    
+            })
+        }
+    },
     retrieveByPreferences({commit,getters}){
         //use preferences to fetch others
         let Query =  ''

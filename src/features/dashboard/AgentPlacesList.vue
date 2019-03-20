@@ -130,7 +130,7 @@ export default {
         },
         createPlace(){
             //check if the agenet still has enough subscription
-            if(this.$store.getters['auth/getUser'].max_no_places > 0)
+            if(this.$store.getters['auth/getUser'].agent_statistics.max_no_places > 0)
             {
               this.$router.push({name: 'createEdit'})
             }else{

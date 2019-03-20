@@ -93,8 +93,21 @@
                                label="Address"
                                id="address"
                                 v-model="newPlace.address"
+                                @blur="showAddress = true"
                                 outline
                            ></v-textarea>
+                            
+                            <v-card v-if="showAddress"> 
+                             <v-subheader class="subheading font-weight-medium">It Will Be Shown Like this:</v-subheader>
+
+                             <v-card-text>  
+                              <span class="caption red--text">Use comma(,) to punctuate your address</span>
+                                <p  class="title font-weight-medium" :innerHtml.prop="buildAddress(newPlace.address,newPlace.location,newPlace.state,newPlace.country) | insertBreaks">
+                            </p>
+                             </v-card-text>
+                            
+                            </v-card>
+                            
 
                            <v-switch v-if="!geoLocation" label="Mark this Point" v-model="geoLocation"></v-switch>
                             <div v-if="geoLocation">
@@ -323,7 +336,7 @@
 
 <script>
 import Service from './Service.js'
-
+import insertBreaksFilter from  '@/mixins/InsertBreaksFilter'
 import UploadsImage from '@/mixins/UploadsImage'
 import HandlesRequest from '@/mixins/RequestHandler'
 export default {
@@ -359,11 +372,11 @@ export default {
            features:[],
            images:[],
            category:[],
-           featuresEdited: false
-            
+           featuresEdited: false,
+          showAddress:false
         }
     },
-    mixins: [UploadsImage, HandlesRequest],
+    mixins: [UploadsImage, HandlesRequest,insertBreaksFilter],
     watch:{
         geoLocation(val){
             if(val){

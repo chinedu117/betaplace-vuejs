@@ -62,7 +62,13 @@ export const PACKAGES_URL = baseUrl + '/packages'
 export const PACKAGE_URL = (packageID) => {
     return baseUrl + "/package/" + packageID
 }
+export const AGENT_PUBLIC_PLACES_URL = (agentSlug) =>{
+    return baseUrl + "/ag/pub/" + agentSlug
+}
 
+export const AGENT_PUBLIC_INFO_URL = (agentSlug) => {
+     return baseUrl + '/ag/pub/info/' + agentSlug
+}
 export const MY_SUBSCRIPTIONS_URL = baseUrl + "/my-subscriptions"
 
 export const PAYSTACK_CONFIRM_URL = baseUrl + "/paystack-confirm"
@@ -77,6 +83,7 @@ export const RESEND_VERIFICATION_MAIL_URL = baseUrl + '/resend-verification'
 export const FORGOT_PASSWORD_URL = baseUrl + '/forgot-password'
 export const RESET_PASSWORD_URL = baseUrl + '/reset-password'
 export const USER_INFO_URL = baseUrl + "/user"
+
 
 // export const PLACE_LIKE = baseUrl + '/p'
 

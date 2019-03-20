@@ -75,10 +75,24 @@
                                 label="Address"
                                 v-model="profile.office_address"
 						        :error-messages="serverErrors.office_address ? serverErrors.office_address : errors.collect('office_address')"
-
+                                @blur="showAddress = true"
                                 id="address"
                             ></v-text-field>
+
+                              <v-card v-if="showAddress"> 
+                             <v-subheader class="subheading font-weight-medium">It Will Be Shown Like this:</v-subheader> 
+
+                             <v-card-text>  
+                              <span class="caption red--text">Use comma(,) to punctuate your address</span>
+                                <p  class="title font-weight-medium" :innerHtml.prop="buildAddress(profile.office_address,profile.country) | insertBreaks">
+                            </p>
+                             </v-card-text>
                             
+                            </v-card>
+
+                              
+
+
                              <v-textarea
                                 label="About Us"
                                 name="about_us"
@@ -102,6 +116,8 @@
 
 <script>
 import HandleRequest from '@/mixins/RequestHandler.js'
+import insertBreaksFilter from  '@/mixins/InsertBreaksFilter'
+
 export default {
   data(){
       return {
@@ -115,11 +131,12 @@ export default {
               agency_name:'Our Hope Accomodation',
               about_us:'We provide accomodation to young families',
               agent_handle: ''
-          }
+          },
+          showAddress: false,
           
       }
   },
-  mixins: [ HandleRequest],
+  mixins: [ HandleRequest, insertBreaksFilter],
   created(){
       //check if route params was passed
       if(this.$route.params.agentSlug){

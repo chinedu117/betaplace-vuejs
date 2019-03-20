@@ -93,11 +93,8 @@
                         </v-card-title>
                         <v-card-text class="pt-0">
                         
-                            <p  class="title font-weight-medium">{{ place.address }}<br>
-                                {{place.location}},{{ place.state }} <br>
-                                {{ place.country}}
-                            </p>
-                           
+                           <p  class="title font-weight-medium" :innerHtml.prop="buildAddress(place.address,place.location,place.state,place.country) | insertBreaks">
+                           </p>
                             
                         </v-card-text>
 
@@ -163,97 +160,23 @@
                    </v-card>
                </v-tab-item>
                <v-tab-item>
-                   <v-card flat class="pa-2">
+                   
                     <v-subheader class="pb-0 font-weight-bold">AGENT INFO</v-subheader>
-                       <v-card-title class="font-weight-bold pt-0 pb-2">
-                            <h1 class="hash" id="desc" @click="$vuetify.goTo('#desc',scrollOptions)">
-                                {{ place.agent.name }}
-                            </h1>
-                            <rate-agent
+                      <agent-info
+                         :agent_slug="place.agent.slug"
+                        />
+                         
+                           <!-- <rate-agent
                                 :agent_rating="place.agent.rating"
                                 :agent_id="place.agent.id"
-                            >
-
-                            </rate-agent>
-                        </v-card-title>
-                        
-                        <v-img
-                          src=""
+                                class="mx-auto"
                           >
-                           <v-layout 
-                                slot="placeholder"
-                                fill-height
-                                align-center
-                                justify-center
-                                ma-0
-                                >
-                                    <v-progress-circular indeterminate color="grey lighten-5">
 
-                                    </v-progress-circular>
-                            </v-layout>
-                        </v-img>
-                        <v-subheader class="font-weight-bold">ABOUT US</v-subheader>
-
-                        <v-card-text class="pt-0">
-                            <p>{{ place.agent.about_us }}</p>
-                        </v-card-text>
-
-                        
-                            <v-subheader class="font-weight-bold">CONTACT</v-subheader>
-                            <v-card height="auto" class=" justify-start pa-1">
-                                <v-container grid-list-xs>
-                                    <v-layout row wrap>
-                                        <v-flex xs1>
-                                                <v-icon size="24px" class="pa-2">chat</v-icon>
-                                        </v-flex>
-                                        <v-flex xs10 offset-xs1>
-                                            <div class="d-block pa-2 font-weight-bold subheading ">
-                                               {{place.agent.phone_number_main}}
-                                            </div>
-                                        </v-flex>
-                                    </v-layout>
-                                    <v-layout row wrap v-if="place.agent.phone_number_other">
-                                        <v-flex xs1>
-                                                <v-icon size="24px" class="pa-2">chat</v-icon>
-                                        </v-flex>
-                                        <v-flex xs10 offset-xs1>
-                                            <div class="d-block pa-2 font-weight-bold subheading ">
-                                               {{place.agent.phone_number_other}}
-                                            </div>
-                                        </v-flex>
-                                    </v-layout>
-                                    <v-layout row wrap>
-                                        <v-flex xs1>
-                                                <v-icon size="24px" class="pa-2">mail</v-icon>
-                                        </v-flex>
-                                        <v-flex xs10 offset-xs1>
-                                            <div class="d-block pa-2 font-weight-bold subheading">
-                                              {{ place.agent.email}}
-                                            </div>
-                                        </v-flex>
-                                    </v-layout>
-                                    <v-layout row wrap>
-                                        <v-flex xs1>
-                                                <v-icon size="24px" class="pa-2">address</v-icon>
-                                        </v-flex>
-                                        <v-flex xs10 offset-xs1>
-                                            <div class="d-block pa-2 font-weight-bold subheading">
-                                              {{ place.agent.office_address}}
-                                            </div>
-                                        </v-flex>
-                                    </v-layout>
-                                    
-                                </v-container>
-                                
-                                
-                            </v-card>
-                        
-
-                        <v-card-actions>
-                            
-                        </v-card-actions>
-
-                   </v-card>
+                          </rate-agent> -->
+                         
+                          
+                       
+                           
                </v-tab-item>
            </v-tabs>   
               
@@ -313,13 +236,12 @@
                         </v-card-title>
                         <v-card-text>
                         
-                            <p  class="title font-weight-medium">{{ place.address }}<br>
-                                {{place.location}},{{ place.state }} <br>
-                                {{ place.country}}
+                            <p  class="title font-weight-medium" :innerHtml.prop="buildAddress(place.address,place.location,place.state,place.country) | insertBreaks">
+                             
                             </p>
                         
-                        </v-card-text>
-
+                        </v-card-text> 
+    
                          <v-card-title class="font-weight-bold" id="spec">
                             <h1 class="hash" @click="$vuetify.goTo('#spec',scrollOptions)">
                                 Details
@@ -368,7 +290,11 @@
                          <v-divider></v-divider>
                         <v-card-actions height="100px" style="position:relative" background-color="blue-grey lighten-5">
                            
-                  
+                             <custom-dialog :width="500">
+                               <agent-info
+                                :agent_slug="place.agent.slug"
+                               ></agent-info>
+                             </custom-dialog>
 
                               <action-btn
                                :stat_id="place.statistics.id"
@@ -378,7 +304,7 @@
                                :latitude="place.latitude"
                                :likes="place.statistics.like_no"
                                :agentID="place.agent.id"
-                                  />
+                                />
                         </v-card-actions>
                        
                     </v-card>
@@ -398,10 +324,13 @@
 import store from './store'
 import Subscribe from '@/components/Subscribe.vue'
 import ActionBtn from './components/ActionBtn.vue'
-import RateAgent from './components/RateAgent.vue'
-
+// import RateAgent from './components/RateAgent.vue'
+import insertBreaksFilter from  '@/mixins/InsertBreaksFilter'
+import AgentInfo from '@/features/places_list/components/AgentInfo.vue'
+import CustomDialog from '@/components/Dialog.vue'
 export default {
     name: 'place-view',
+    mixins:[insertBreaksFilter],
     data(){
         return {
           
@@ -450,7 +379,7 @@ export default {
         
     },
     components: {
-        Subscribe, ActionBtn, RateAgent
+        Subscribe, ActionBtn, AgentInfo, CustomDialog
     },
     computed: {
        

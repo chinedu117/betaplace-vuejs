@@ -1,5 +1,5 @@
 <template>
-    <v-card>
+    <v-card class="pa-2 ma-2">
         <v-card-title primary-title>
             <div class="subheading font-weight-bold py-2"> 
                                     {{plan.package_name}}
@@ -32,7 +32,7 @@
             :embed="false"
         >
         <i class="fas fa-money-bill-alt"></i>
-           <v-btn color="red" :loading="loading" :disabled="loading" large outline class="mx-auto">PAY {{plan.price}}</v-btn>
+           <v-btn color="red" :loading="loading" :disabled="loading" large outline class="mx-auto" @click="loading = true">PAY N{{plan.price}}</v-btn>
         </paystack>
         </v-card-actions>
     </v-card>
@@ -142,7 +142,7 @@ methods:{
 
       },
       close: function(){
-          console.log("Payment closed")
+          // console.log("Payment closed")
           //cancel the order
           //go back to list of packages
 

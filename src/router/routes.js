@@ -4,7 +4,7 @@ import Logout from '@/auth/Logout'
 import PageNotFound from '@/pages/PageNotFound'
 import PlaceView from '@/features/place_view/main.vue'
 import Places from '@/features/places_list/main.vue'
-import Agent from '@/features/agent/main.vue'
+import AgentPublicPlaces from '@/features/places_list/AgentPlacesList.vue'
 import MyPlaces from '@/features/dashboard/AgentPlacesList.vue'
 import OurPackages from '@/features/dashboard/OurPackages.vue'
 import PackageView from '@/features/dashboard/PackageView.vue'
@@ -357,9 +357,9 @@ const routes = [
           }
      },
      {
-      path: '/agentinfo/:id',
+      path: '/:agentSlug',
       name: 'Agent',
-      component: Agent,
+      component:  AgentPublicPlaces,
       meta: {
         //requiresAuth: false
       },

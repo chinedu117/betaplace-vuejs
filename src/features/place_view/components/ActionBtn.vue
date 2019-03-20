@@ -21,10 +21,11 @@
             </v-chip>
 
             <v-chip 
+                v-if="$vuetify.breakpoint.mdAndUp"
                 :outline="$vuetify.breakpoint.lgAndUp" 
                 text-color="accent" 
             :class="{ 'mr-2 pa-2': $vuetify.breakpoint.lgAndUp}"
-            @click="gotoAgentInfo(agentID)"
+            @click="showAgentInfo"
                 >
                 <v-icon color="green darken-2" >person</v-icon>
             </v-chip>
@@ -102,9 +103,9 @@ export default {
             window.open(googleMapUrl,'_blank')
         },
 
-        gotoAgentInfo(agentID)
+        showAgentInfo()
         {  
-            this.$router.push({ name: 'Agent', params:{ id: agentID}})
+            this.$store.dispatch('common/updateDialog',{show: true})
         },
 
         shareLink(link)

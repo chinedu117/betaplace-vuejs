@@ -1,8 +1,28 @@
 <template>
    <div>
-    <near-me></near-me>
-    <v-icon class="pr-2" @click="displaySearchBox">search</v-icon>
-    <v-icon class="pr-2" @click="displayFilterBox">filter_list</v-icon>
+    <div>
+    <near-me  v-bind="iconProps"></near-me>
+    </div>
+    
+    <div>
+    <v-tooltip bottom>
+      <template v-slot:activator="{ on }">
+      <v-icon v-on="on" v-bind="iconProps"  @click="displaySearchBox">search</v-icon>
+       
+     </template>
+      <span>Search by Location</span>
+    </v-tooltip>
+    </div>
+
+    <div>
+    <v-tooltip bottom>
+      <template v-slot:activator="{ on }">
+      <v-icon v-on="on"  v-bind="iconProps" @click="displayFilterBox">filter_list</v-icon>
+     
+     </template>
+      <span>Filter by your priorities </span>
+    </v-tooltip>
+     </div>
    </div>
 </template>
 
@@ -11,6 +31,25 @@ import NearMe from './NearMe.vue'
 export default {
     name: 'tool-bar-items',
     components:{NearMe},
+    computed: {
+        iconProps(){
+
+         if(this.$vuetify.breakpoint.mdAndUp){
+              return {
+                "class": "pr-2 mr-4",
+                 "size": "40"
+
+              }
+            }else{
+               return {
+                "class": "pr-2 mr-1",
+                 "size": "24"
+
+             }
+            }
+            
+        }
+    },
     methods:{
         displaySearchBox()
         {  

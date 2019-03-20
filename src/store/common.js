@@ -57,9 +57,9 @@ const defaults = {
         state.loading = value
       },
   
-    //   updateDialog (state, options) {
-    //     state.dialog = Object.assign({}, defaults.dialog, options)
-    //   },
+      updateDialog (state, options) {
+        state.dialog = Object.assign({}, defaults.dialog, options)
+      },
   
       updateSnackBar (state, options) {
         state.snackBar = Object.assign({}, defaults.snackBar, options)
@@ -99,9 +99,9 @@ const defaults = {
         commit('updateLayout', layout)
       },
   
-    //   updateDialog ({ commit }, options) {
-    //     commit('updateDialog', options)
-    //   },
+      updateDialog ({ commit }, options) {
+        commit('updateDialog', options)
+      },
   
       updateSnackBar ({ commit }, options) {
         commit('updateSnackBar', options)

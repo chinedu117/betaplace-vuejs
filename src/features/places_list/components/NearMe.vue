@@ -1,5 +1,11 @@
 <template>
-     <v-icon class="nearMeFilter ? 'text--red' : 'text--grey'" @click="toggleNearMe">my_location</v-icon>
+    <v-tooltip bottom>
+      <template v-slot:activator="{ on }">
+        <v-icon v-on="on" :size="$vuetify.breakpoint.mdAndUp ? '40' : '24'" :class="nearMeFilter ? 'text--red' : 'text--grey'" @click="toggleNearMe">my_location</v-icon>
+      </template>
+      <span>Customize content to your location</span>
+    </v-tooltip>
+     
 
      <!-- <v-switch label="Near me" v-model="nearMeFilter" ></v-switch> -->
 </template>

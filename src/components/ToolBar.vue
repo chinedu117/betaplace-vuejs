@@ -1,13 +1,14 @@
 <template>
     <v-toolbar flat fixed dark color="accent" app>
-        <v-toolbar-side-icon @click.stop="toggleNav()"></v-toolbar-side-icon> 
-        <v-toolbar-title>{{ $store.state.common.title }}</v-toolbar-title> 
+        
+        <logo/> 
+        <!-- <v-toolbar-title>{{ $store.state.common.title }}</v-toolbar-title> --> 
         <v-spacer></v-spacer>
         <v-toolbar-items>
 
             
 
-            <component :is="component" class="d-flex justify-center mt-1">
+            <component :is="component" class="d-flex justify-space-around align-center mt-1">
                 <slot></slot>
                 
             </component>
@@ -15,10 +16,12 @@
 
             
           </v-toolbar-items>
+          <v-toolbar-side-icon size="$vuetify.breakpoint.mdAndUp ? '45' : '24'" @click.stop="toggleNav()"></v-toolbar-side-icon>
     </v-toolbar>
 </template>
 
 <script>
+import Logo from './Logo.vue'
 import PlacesListToolBarItems from '@/features/places_list/components/ToolBarItems.vue'
 export default {
     name: 'tool-bar',
@@ -32,7 +35,7 @@ export default {
           
         }
     },
-    components:{ PlacesListToolBarItems },
+    components:{ PlacesListToolBarItems, Logo },
     
     computed:{
         component:{

@@ -1,27 +1,91 @@
 <template>
  <v-container grid-list-md text-xs-center class="page-wrapper">
   <v-layout row wrap>
-     <v-flex xs12 md8>
-       <v-card  v-bind="card_style" >
-            <v-img
-                :src="imageUrl ? imageUrl : profile.profile_img"
-                aspect-ratio="2.75"
-                height="200px"
-                style="position:relative"
-                >
-                
+     <v-flex xs12>
+          <v-card v-bind="card_style" class="pa-3 headline mb-2" color="grey lighten-3">  
+                <h3 class="headline mb-0">{{ profile.agency_name }}</h3>
+          </v-card>
+           
+           <v-layout> 
+                <v-flex xs6>
+                  <v-card  v-bind="card_style" >
+                <v-img
+                    :src="imageUrl ? imageUrl : profile.profile_img"
+                    
+                    style="position:relative"
+                    >
                 </v-img>
-                <v-progress-linear :indeterminate="true" v-if="loading" class="mt-0"></v-progress-linear>
-                <v-btn fab dark @click='pickFile'  style="right: 10%; top:21.2% " absolute  color="primary">
-                    <v-icon dark>camera</v-icon>
-                </v-btn>
-                    <input
-                            type="file"
-                            style="display: none"
-                            ref="image"
-                            accept="image/*"
-                            @change="onFilePicked"
-                        >
+                    <v-progress-linear :indeterminate="true" v-if="loading" class="mt-0"></v-progress-linear>
+                    <v-btn fab dark @click='pickFile'  style="right: 10%; top:21.2% " absolute  color="primary">
+                        <v-icon dark>camera</v-icon>
+                    </v-btn>
+                        <input
+                                type="file"
+                                style="display: none"
+                                ref="image"
+                                accept="image/*"
+                                @change="onFilePicked"
+                            >
+                        </v-card>
+                </v-flex>
+                <v-flex xs6>
+                   <v-card width="100%" class="pa-2"> 
+                       <v-container grid-list-xs>
+                                    <v-layout row wrap>
+                                        <v-flex xs1>
+                                           <v-avatar
+                                            
+                                             :size="90"
+                                             color="grey lighten-4"
+                                             >
+                                          <v-icon size="80" class="pa-2">phone</v-icon>
+                                         </v-avatar>
+                                                
+                                        </v-flex>
+                                        <v-flex xs10 offset-xs1>
+                                            <div class="d-block pa-2 font-weight-bold subheading ">
+                                               {{profile.phone_number_main}}
+                                            </div>
+                                        </v-flex>
+                                    </v-layout>
+                                    <v-layout row wrap v-if="profile.phone_number_other">
+                                        <v-flex xs1>
+                                                <v-icon size="24px" class="pa-2">chat</v-icon>
+                                        </v-flex>
+                                        <v-flex xs10 offset-xs1>
+                                            <div class="d-block pa-2 font-weight-bold subheading ">
+                                               {{profile.phone_number_other}}
+                                            </div>
+                                        </v-flex>
+                                    </v-layout>
+                                    <v-layout row wrap>
+                                        <v-flex xs1>
+                                                <v-icon size="24px" class="pa-2">mail</v-icon>
+                                        </v-flex>
+                                        <v-flex xs10 offset-xs1>
+                                            <div class="d-block pa-2 font-weight-bold subheading">
+                                              {{ profile.email}}
+                                            </div>
+                                        </v-flex>
+                                    </v-layout>
+                                    <v-layout row wrap>
+                                        <v-flex xs1>
+                                                <v-icon size="24px" class="pa-2">address</v-icon>
+                                        </v-flex>
+                                        <v-flex xs10 offset-xs1>
+                                            <div class="d-block pa-2 font-weight-bold subheading">
+                                              {{ profile.office_address}}
+                                            </div>
+                                        </v-flex>
+                                    </v-layout>
+                                    
+                                </v-container>
+                   </v-card>
+
+                </v-flex>
+           </v-layout>
+           <v-card  v-bind="card_style" >
+            
                <v-card-title primary-title>
                     <div>
                         <span class="grey--text">{{ profile.statistics.no_places}}</span><br>
@@ -87,49 +151,98 @@
                             </v-card>
                
         </v-card>
-      </v-flex>
-      <v-flex md4>
-         <v-navigation-drawer right app >
-            <v-divider></v-divider>
-              <v-list class="pt-4 text--capitalize">
-                  <v-list-tile avatar :to="{ name: 'Home'}">
-                      <v-list-tile-avatar>
-                          <v-icon>home</v-icon>
-                      </v-list-tile-avatar>
-                      <v-list-tile-content>
-                          <v-list-tile-title>Home</v-list-tile-title>
-                      </v-list-tile-content>
-                  </v-list-tile>
-                  <v-divider></v-divider>
-                  
-                 
+       </v-flex>
 
-                  <v-list-tile v-if="loggedIn" avatar :to="{ name: 'Logout'}">
-                      <v-list-tile-avatar>
-                          <v-icon>logout</v-icon>
-                      </v-list-tile-avatar>
-                      <v-list-tile-content>
-                          <v-list-tile-title>Logout</v-list-tile-title>
-                      </v-list-tile-content>
-                  </v-list-tile>
-                  
-                  <v-btn class="ml-4" v-if="!loggedIn" :to="{ name: 'Register'}" outline>Become An Agent</v-btn>
+       <!-- <v-card  v-bind="card_style" >
+            <v-img
+                :src="imageUrl ? imageUrl : profile.profile_img"
+                
+                style="position:relative"
+                >
+            </v-img>
+                <v-progress-linear :indeterminate="true" v-if="loading" class="mt-0"></v-progress-linear>
+                <v-btn fab dark @click='pickFile'  style="right: 10%; top:21.2% " absolute  color="primary">
+                    <v-icon dark>camera</v-icon>
+                </v-btn>
+                    <input
+                            type="file"
+                            style="display: none"
+                            ref="image"
+                            accept="image/*"
+                            @change="onFilePicked"
+                        >
 
-                 
+               <v-card-title primary-title>
+                    <div>
+                        <span class="grey--text">{{ profile.statistics.no_places}}</span><br>
+                        <h3 class="headline mb-0">{{ profile.agency_name }}</h3>
+                        <div>{{ profile.about_us }}</div>
+                    </div>
 
-        </v-list>
- 
-        
-    </v-navigation-drawer>
-         </v-navigation-drawer>
-       
-      </v-flex>
+                    <div class="mt-4">
+                        <span class="grey--text">ADDRESS</span><br>
+                        
+                        <div>{{ profile.office_address }}</div>
+                        <div>{{ profile.state }},{{ profile.country }}</div>
+
+                    </div>
+                </v-card-title>
+                <v-subheader class="font-weight-bold">CONTACT</v-subheader>
+                <v-card height="auto" class=" justify-start pa-1">
+                                <v-container grid-list-xs>
+                                    <v-layout row wrap>
+                                        <v-flex xs1>
+                                                <v-icon size="24px" class="pa-2">chat</v-icon>
+                                        </v-flex>
+                                        <v-flex xs10 offset-xs1>
+                                            <div class="d-block pa-2 font-weight-bold subheading ">
+                                               {{profile.phone_number_main}}
+                                            </div>
+                                        </v-flex>
+                                    </v-layout>
+                                    <v-layout row wrap v-if="profile.phone_number_other">
+                                        <v-flex xs1>
+                                                <v-icon size="24px" class="pa-2">chat</v-icon>
+                                        </v-flex>
+                                        <v-flex xs10 offset-xs1>
+                                            <div class="d-block pa-2 font-weight-bold subheading ">
+                                               {{profile.phone_number_other}}
+                                            </div>
+                                        </v-flex>
+                                    </v-layout>
+                                    <v-layout row wrap>
+                                        <v-flex xs1>
+                                                <v-icon size="24px" class="pa-2">mail</v-icon>
+                                        </v-flex>
+                                        <v-flex xs10 offset-xs1>
+                                            <div class="d-block pa-2 font-weight-bold subheading">
+                                              {{ profile.email}}
+                                            </div>
+                                        </v-flex>
+                                    </v-layout>
+                                    <v-layout row wrap>
+                                        <v-flex xs1>
+                                                <v-icon size="24px" class="pa-2">address</v-icon>
+                                        </v-flex>
+                                        <v-flex xs10 offset-xs1>
+                                            <div class="d-block pa-2 font-weight-bold subheading">
+                                              {{ profile.office_address}}
+                                            </div>
+                                        </v-flex>
+                                    </v-layout>
+                                    
+                                </v-container>
+                                
+                                
+                            </v-card>
+               
+        </v-card> -->
     </v-layout>
   </v-container>
 </template>
 
 <script>
-
+import NaijaStates from 'naija-state-local-government'
 import UploadsImage from '@/mixins/UploadsImage'
 import HandleRequest from '@/mixins/RequestHandler'
 export default {
@@ -159,7 +272,7 @@ export default {
 
            if(!this.$vuetify.breakpoint.smAndDown){
              return {
-              "width": "500",
+              "width": "100%",
               "class": "mx-auto pa-2",
              }
            }else{
@@ -167,6 +280,13 @@ export default {
               "class": "mx-auto px-2",
                }
            }
+         },
+
+         nigeria(){
+
+           // return NaijaStates.all()
+           return NaijaStates.states()
+
          }
       },
   watch:{

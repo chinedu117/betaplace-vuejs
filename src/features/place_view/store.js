@@ -10,6 +10,7 @@ store.registerModule('place_view_store', {
   // State loaded when this component is first loaded.
   state: {
     place:{},
+    agent_info:null
   },
 
   getters: {
@@ -18,7 +19,9 @@ store.registerModule('place_view_store', {
 
         return state.place
     },
-
+    agentInfo(state){
+      return state.agent_info
+    }
   },
 
   mutations:{
@@ -26,6 +29,9 @@ store.registerModule('place_view_store', {
         state.place = place
          
     }, 
+    addAgentInfo(state,agent){
+        state.agent_info = agent
+    }
   },
 
   actions:{
@@ -55,6 +61,26 @@ store.registerModule('place_view_store', {
       })
 
     },
+
+    retrieveAgentInfo({commit},agentSlug){
+
+        return new Promise( (resolve,reject) =>{
+          // console.log(API.PLACE_URL(placeSlug))
+          axios.get(API.AGENT_PUBLIC_INFO_URL(agentSlug))
+          .then(function (response) {
+                      
+                  commit("addAgentInfo",response.data)
+                  
+                  resolve(response)
+              })
+          .catch(function (error) {
+              //  console.log(error)
+                   reject(error)
+          });
+
+
+      })
+    }
 
   },
 

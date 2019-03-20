@@ -19,7 +19,7 @@
                   >
                
 
-                 <v-card  :style="subscription.expired == 1 ? 'border-left: red solid thick' : 'border-left: green solid thick' " class="pa-2 mb-1">
+                 <v-card  :style="subscription.expired == 1 ? 'border-left: red solid thick' : 'border-left: green solid thick' " class="pa-2 ma-2">
                      <div class="subheading font-weight-bold py-2"> 
                                     {{subscription.package.package_name}}
                       </div>
@@ -28,10 +28,10 @@
                           <v-flex xs6>
                               <div>
                                   <span>Duration: {{subscription.package.duration_days}} days</span><br>
-                                  <span>Slots given: {{subscription.package.quatity_slot}}</span><br>
+                                  <span>Slots given: {{subscription.package.quantity_slot}}</span><br>
                                   <span class="red--text">Amount Paid: N{{subscription.amount}}</span><br>
                                   <span class="red--text">Subscribed on: {{subscription.created_at}}</span><br>
-                                  <span class="red--text">Expired on: {{subscription.expiry_date}}</span>
+                                  <span class="red--text">Expire(s) on: {{subscription.expiry_date}}</span>
                               </div>
                           </v-flex>
                           <v-flex xs6 align-end>
