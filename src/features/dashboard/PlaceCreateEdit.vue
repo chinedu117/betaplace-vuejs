@@ -42,10 +42,25 @@
                                 :error-messages="errors.collect('price')"
                                 v-validate="'required|integer'"
                                 data-vv-name="price"
+                                @blur="showPriceDescripition"
                                 outline
                             ></v-text-field>
-                            <v-card-actions class="justify-end">
-
+                            <v-textarea
+                               name="price_description"
+                               v-validate="'required|max:150'"
+                               :error-messages="errors.collect('price_description')"
+                               data-vv-name="price_description"
+                               label="Price Description"
+                               id="price_description"
+                               v-model="newPlace.price_description"
+                                
+                                outline
+                                
+                           ></v-textarea>
+                             
+                            
+                            <v-card-actions :class="creating ? 'justify-end' : 'justify-space-between'">
+                                <v-btn v-if="!creating" color="success" @click="prevPage">OK</v-btn>
                                <!-- <v-btn color="success" @click.prevent="prevPage">PREVIOUS</v-btn> -->
                                <v-btn color="success" @click.prevent="nextPage">NEXT</v-btn>
 
@@ -69,20 +84,30 @@
                                name="country"
                                label="Country"
                                id="country"
-                                v-model="newPlace.country"
+                               disabled
+                               v-model="newPlace.country"
                            ></v-text-field>
 
-                           <v-text-field
-                               name="state"
-                               label="State"
-                               id="state"
-                               outline
+                            <v-select
+                                name="state"
+                                :items="states"
+                                outline
+                                v-validate="'required'"
+                               :error-messages="errors.collect('state')"
+                               data-vv-name="state"
+                                label="State"
                                 v-model="newPlace.state"
-                           ></v-text-field>
+                               id="state"
 
+                            ></v-select>
+
+            
                            <v-text-field
                                name="city"
                                label="City"
+                               :error-messages="errors.collect('city')"
+                               data-vv-name="city"
+                               v-validate="'required|max:200'"
                                id="city"
                                 v-model="newPlace.location"
                                 outline
@@ -91,6 +116,9 @@
                            <v-textarea
                                name="address"
                                label="Address"
+                               v-validate="'required|max:200'"
+                               :error-messages="errors.collect('address')"
+                               data-vv-name="address"
                                id="address"
                                 v-model="newPlace.address"
                                 @blur="showAddress = true"
@@ -135,7 +163,7 @@
 
                                <!-- <v-btn color="success" @click.prevent="submitPlace">SUBMIT</v-btn> -->
 
-                               <v-btn color="success" @click.prevent="submitPlace">NEXT</v-btn>
+                               <v-btn color="success" @click.prevent="nextPage">NEXT</v-btn>
 
                            </v-card-actions>
                          </v-card>
@@ -335,16 +363,18 @@
 </template>
 
 <script>
+import accounting from 'accounting'
 import Service from './Service.js'
 import insertBreaksFilter from  '@/mixins/InsertBreaksFilter'
 import UploadsImage from '@/mixins/UploadsImage'
 import HandlesRequest from '@/mixins/RequestHandler'
+import NaijaStates from 'naija-state-local-government'
+
 export default {
     service: new Service(),
     data(){
         return {
             pageNum:1,
-            creating: true,//checks if wwe are editing or creating
             geoLocation: false,
             // imageName: '',
 		    // imageUrl: '',
@@ -360,10 +390,10 @@ export default {
                 longitude:'',
                 address:'',
                 state:'',
-                country: '',
+                country: 'Nigeria',
                 agent_id: this.$route.params.agentSlug,
                 price:'',
-                price_description: 'erer',
+                price_description: '',
                 location: 'ere',
                 timezone: 'rer',
                 
@@ -395,10 +425,10 @@ export default {
          
          if(!this.$route.params.placeSlug){
             //creating mode
-            this.creating = true
+            // this.creating = true
          }else{
              //editing mode
-             this.creating = false
+             // this.creating = false
              this.mixin_handleRequest(this.$store.dispatch('place_view_store/retrievePlace',this.$route.params.placeSlug)
             .then((response)=>{
                 //console.log(response.data)
@@ -426,12 +456,30 @@ export default {
          } 
             
     },
+    computed:{
+         states(){
+             return NaijaStates.states()
+         },
+         creating(){
+            return  this.newPlace.slug === undefined ?   true : false 
+         }
+    },
     methods:{
+      showPriceDescripition(){
+         if(this.newPlace.price_description.length > 0)return
+            
+          this.newPlace.price_description = accounting.formatMoney(this.newPlace.price,this.$CurrencyFilter.getConfig()).concat('  Per Year')
+      },
        prevPage(){
-           
- 
-           if(this.pageNum == 3)
-           {
+           if(this.pageNum == 1 && (!this.creating)){
+               //go back to the list
+                this.submitPlace()
+                this.$router.go(-1)
+             }else if(this.pageNum == 2 && (!this.creating)){
+               //go to page one
+                this.submitPlace()
+                this.pageNum--
+            }else if(this.pageNum == 3){
 
                    //features
                    if(this.featuresEdited)
@@ -464,6 +512,10 @@ export default {
 							     if(this.submitFeatures()){
                        this.pageNum++
                    }
+
+                }else if(this.pageNum == 2){
+                    this.submitPlace()
+                    this.pageNum++
                 }else{
                   this.pageNum++
                 }
@@ -633,13 +685,17 @@ export default {
                             .then(response => {
                                 //set the new data
                                 this.newPlace = Object.assign(this.newPlace,response.data)
-                                this.nextPage()
+                                // this.nextPage()
                                 //console.log(response.data.id)
                             }))
        				 }
                   })
     
        },
+
+       // savePlace(){
+       //      //saves place during editing
+       // },
 
        publish(){
               //expilicity publish a place

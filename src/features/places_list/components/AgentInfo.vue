@@ -35,10 +35,10 @@
                     
                        <v-img
 
-                         :src="agentInfo.profile_img"
+                         :src="imageSource"
                          aspect-ratio="1"
                        ></v-img> 
-                    
+                       <slot name="uploader"></slot>
                  </v-flex>
                   <v-flex md8>
                     <v-card-text class="headline font-weight-bold text-md-center" >
@@ -98,10 +98,10 @@
         		</v-toolbar>
                        <v-img
 						 :max-width="500"
-                         :src="agentInfo.profile_img"
+                         :src="imageSource"
                          :aspect-ratio="500/300"
                        ></v-img> 
-                    
+                       <slot name="uploader"></slot>
                  
                     <v-card-text class="subheading font-weight-bold text-md-center" >
                       {{ agentInfo.about_us }}
@@ -153,7 +153,10 @@
   	 	"agent_slug":{
   	 		required: true,
 
-  	 	}
+  	 	},
+      "image_src": {
+         required: false,
+      }
   	 },
      mixins:[ insertBreaksFilter ],
      created(){
@@ -170,6 +173,11 @@
          agentInfo(){
 
          	return this.$store.getters["place_view_store/agentInfo"]
+         },
+         imageSource(){
+
+                return this.image_src ?  this.image_src : this.agentInfo.profile_img
+
          }
      },
 

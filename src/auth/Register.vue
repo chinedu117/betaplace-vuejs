@@ -140,7 +140,11 @@
 						}))
 
 						
-	  	} //register
+	  	}, //register
+
+	  	socialRegister(){
+
+	  	}
 	  },//methods
 	}
 	

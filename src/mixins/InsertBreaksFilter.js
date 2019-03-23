@@ -7,27 +7,30 @@ var InsertBreaks = {
 
                  for (var i = 0; i <= arguments.length - 1; i++) {
                  	let temp = '' //clear temp
-                 	  if(i === 0){
+                 	 //  if(i === 0){
                  	 	
-                 	 	if(!arguments[i].match(/(,)$/)){
-                 	 		temp = arguments[i].concat(",")
-                 		}else{
-                 			temp = arguments[i]
-                 		}
+                 	 // 	if(!arguments[i].match(/(,)$/)){
+                 	 // 		temp = arguments[i].trim().concat(",")
+                 		// }else{
+                 		// 	temp = arguments[i].trim()
+                 		// }
                          
                          
-                       }else{
+                   //     }else{
 
-                        	if(i !== arguments.length - 1){
-                        	
-                        	temp = temp.concat(arguments[i]).concat(",")
-                            }
-                        } 
+                          if(i !== arguments.length - 1){
+                        	    if(!arguments[i].match(/(,)$/)){
+                        	        temp = temp.concat(arguments[i]).trim().concat(",")
+                                 }else{
+                                    temp = arguments[i].trim()
+                                 }
+                             } 
+                        //} 
 
 
                         if(i === arguments.length - 1){
                         	
-                        	temp = temp.concat(arguments[i])
+                        	temp = temp.concat(arguments[i]).trim()
                         }
 
                  	  address = address.concat(temp)

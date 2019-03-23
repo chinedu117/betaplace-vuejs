@@ -83,7 +83,9 @@ export const RESEND_VERIFICATION_MAIL_URL = baseUrl + '/resend-verification'
 export const FORGOT_PASSWORD_URL = baseUrl + '/forgot-password'
 export const RESET_PASSWORD_URL = baseUrl + '/reset-password'
 export const USER_INFO_URL = baseUrl + "/user"
-
+export const SOCIAL_LOGIN_URL = (provider) => {
+         return baseUrl + '/login/' + provider
+}
 
 // export const PLACE_LIKE = baseUrl + '/p'
 

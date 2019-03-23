@@ -1,9 +1,11 @@
 <template>
     <v-tooltip bottom>
       <template v-slot:activator="{ on }">
-        <v-icon v-on="on" :size="$vuetify.breakpoint.mdAndUp ? '40' : '24'" :class="nearMeFilter ? 'text--red' : 'text--grey'" @click="toggleNearMe">my_location</v-icon>
+        <v-icon v-on="on" :size="$vuetify.breakpoint.mdAndUp ? '40' : '24'" :color="nearMeFilter ? 'red' : 'white'"  @click="toggleNearMe">my_location</v-icon>
       </template>
-      <span>Customize content to your location</span>
+      <span v-if="!nearMeFilter">Customize content to your location</span>
+      <span v-else>Click to switch off your location</span>
+
     </v-tooltip>
      
 
@@ -14,7 +16,7 @@ export default {
     name: 'near-me',
     data() {
         return {
-            nearMeFilter: false,
+            nearMeFilter: this.$store.getters['places_list_store/hasUserCoords'] || false,
         }
 
     },
@@ -52,7 +54,7 @@ export default {
                                 longitude: coordinates.lng
                             }
 
-                        this.$store.commit('places_list_store/updateUserCoords',myLocation)
+                        this.$store.dispatch('places_list_store/updateUserCoords',myLocation)
                         
                     })  
             
@@ -72,7 +74,7 @@ export default {
 
             resetFilter()
             {
-                 this.$store.dispatch('places_list_store/updateFilter',{filterType: 'none', filterValue: ''})
+                 this.$store.dispatch('places_list_store/clearUserCoords')
             },
 
 

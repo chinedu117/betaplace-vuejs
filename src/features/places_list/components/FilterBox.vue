@@ -75,45 +75,6 @@ export default {
                 },
 
                 {
-                    name: 'distance',
-                    label: 'Filter by Distance',
-                    values: [  
-                                {
-                                 'label': 'Less than 100km',
-                                 'value':'100',
-                                 'name': 'distance',
-                                 },
-                                 {
-                                 'label': 'Less than 50km',
-                                 'name': 'distance',
-                                 'value':'50'
-                                 },
-                                 
-                                 {
-                                 'label': 'Less than 25km',
-                                 'name': 'distance',
-                                 'value':'25'
-                                 },
-                                 
-                                 {
-                                 'label': 'Less than 10km',
-                                 'name': 'distance',
-                                 'value':'10'
-                                 },
-                                 {
-                                 'label': 'Less than 5km',
-                                 'name': 'distance',
-                                 'value':'5'
-                                 },
-                                 {
-                                 'label': 'Less than 1km',
-                                 'name': 'distance',
-                                 'value':'1'
-                                 },
-
-                            ]
-                },
-                {
                     name: 'category',
                     label: 'Filter by Apartment',
                     values: [  

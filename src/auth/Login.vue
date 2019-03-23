@@ -41,7 +41,17 @@
 
 							 
 				       </v-flex>
- 
+				       <v-flex xs12 px-4>
+
+							<v-btn dark :disabled="loading" @click="AuthProvider('github')">Login With Github</v-btn>
+							<v-btn dark color="blue" :disabled="loading" @click="AuthProvider('facebook')"> Facebook Login</v-btn>
+							<v-btn dark  color="red darken-3" :disabled="loading" @click="AuthProvider('google')">Login With Google</v-btn>
+							
+					       	 
+
+							 
+				       </v-flex>
+  
 
 				  
 		    </v-card>
@@ -53,6 +63,9 @@
 			  :to="{name : 'ForgotPassword'}">
 			   Forgot Password
 			</v-btn>
+
+
+
 		</v-flex>
    </v-layout>
 </v-container>
@@ -61,7 +74,7 @@
 
 
 <script>
-	
+
 	import HandleRequest from '@/mixins/RequestHandler.js'
 	export default {
 	
@@ -70,15 +83,45 @@
 	  data () {
 	    return {
 	    	credentials: { 
-							username: '',
+						  username: '',
 	    	               password: ''
 						},
 	    }
 		},
+		
         mixins: [ HandleRequest],
 		
 	    methods: {
+  
+        AuthProvider(provider) {
+                var bb = this
+              this.$auth.authenticate(provider).then(response =>{
+              	// console.log(response)
+                this.SocialLogin(provider,response)
 
+                }).catch(err => {
+                    console.log({err:err})
+                })
+
+            },
+          SocialLogin(provider,payload){
+             
+             payload.provider = provider
+            this.mixin_handleRequest(this.$store.dispatch('auth/socialLogin',payload)
+			   .then(response => {
+					console.log('login Successfull')
+					this.mixin_handleRequest(this.$store.dispatch('auth/retrieveUser')
+					.then(response => {
+						this.redirectAfterLogin(true)
+
+					})
+					)
+			})
+			)
+
+
+            },
+       
 	  	login() {
 			this.mixin_handleRequest(this.$store.dispatch('auth/login',this.credentials)
 			.then(response => {
@@ -94,17 +137,29 @@
 				
 				
 		  },
-		redirectAfterLogin(){
-			if(this.$store.getters['auth/userEmailVerified']){ 
-				   if(this.$store.getters['auth/userHasProfile']){ 
-						const slug = this.$store.getters['auth/getUser'].slug
-						this.$router.push({ name: 'MyPlaces', params: {agentSlug: slug}})
+
+		redirectAfterLogin(social = false){
+
+			if(!social){
+				if(this.$store.getters['auth/userEmailVerified']){ 
+					   if(this.$store.getters['auth/userHasProfile']){ 
+							const slug = this.$store.getters['auth/getUser'].slug
+							this.$router.push({ name: 'MyPlaces', params: {agentSlug: slug}})
+						}else{
+	                        this.$router.push({ name: 'AgentProfile'})
+						}
 					}else{
-                        this.$router.push({ name: 'AgentProfile'})
+						alert('You did not verify your email address')
 					}
-				}else{
-					alert('You did not verify your email address')
-				}
+			}else{
+
+				 if(this.$store.getters['auth/userHasProfile']){ 
+							const slug = this.$store.getters['auth/getUser'].slug
+							this.$router.push({ name: 'MyPlaces', params: {agentSlug: slug}})
+						}else{
+	                        this.$router.push({ name: 'AgentProfile'})
+					}
+			}
 		}
 	  }
 	}

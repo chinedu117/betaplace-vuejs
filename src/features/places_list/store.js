@@ -31,26 +31,37 @@ store.registerModule('places_list_store', {
     filterType:'none',
     places: [], //hold places in the all mode
     loaded:false,
-    userCoordinates:null,
+    userCoordinates:localStorage.getItem('user_coords') || null,
     agent_places:[],
     agent_places_loaded:false,
   },
 
  getters: {
      
+     
      nextPageUrl(state){
-        return state.nextPageUrl
+        const userCoords = state.userCoordinates !== null ? true : false
+         let Query = ""
+
+        if(userCoords){
+          Query = "&pref_cords=" + state.userCoordinates
+        }
+
+        return state.nextPageUrl.concat(Query)
      },
      userPreferences(state)
-     {
+     { 
+        const userCoords = state.userCoordinates !== null ? true : false
+       
+        if(userCoords){
+
+            state.userPreferences.pref_cords = state.userCoordinates
+        }
+              
         return  state.userPreferences
      },
      hasUserCoords(state){
-       if(state.userCoordinates !== null){
-            return true
-       }else{
-            return false
-       }
+       return state.userCoordinates !== null ? true : false
      },
      hasLoadedPLaces(state)
      {
@@ -129,6 +140,10 @@ store.registerModule('places_list_store', {
   },
 
   mutations: {
+    clearUserCoords(state){
+         localStorage.removeItem('user_coords')
+         state.userCoordinates = null
+    },
     updateNextPage(state,Url){
         state.nextPageUrl = Url
     },
@@ -154,11 +169,7 @@ store.registerModule('places_list_store', {
     updateUserCoords(state,Coords){
         localStorage.setItem('user_coords',JSON.stringify([Coords.latitude,Coords.longitude]))
 
-         state.userCoordinates = Object.assign({},state.userCoordinates,{ 
-          
-            user_coords: localStorage.getItem('user_coords') || null,
-           
-        })
+         state.userCoordinates = localStorage.getItem('user_coords') || null
 
     },
 
@@ -222,6 +233,25 @@ store.registerModule('places_list_store', {
   },
 
   actions: {
+    updateUserCoords({commit,dispatch},userCoords){
+         
+         commit("updateUserCoords",userCoords)
+         dispatch("refreshPage")
+    },
+    refreshPage({commit,dispatch,state}){
+           //reload the page
+         commit("hasLoadedPlaces",false)
+
+         state.places = []
+         dispatch('common/updateLoader',true,{root:true})
+         dispatch('retrievePlaces').then((response) => {
+            dispatch('common/updateLoader',false,{root: true})
+         })
+    },
+    clearUserCoords({commit,dispatch}){
+         commit("clearUserCoords")
+         dispatch("refreshPage")
+    },
     clearFilters({state}){
          state.preferredFilters = {}
     },
@@ -253,14 +283,20 @@ store.registerModule('places_list_store', {
         })
     },
     
-    retrievePlaces({commit,getters})
+    retrievePlaces({state,commit,getters})
     {
+        
+        const userCoords = state.userCoordinates !== null ? true : false
+         let Query = ""
 
-        Vue.http.defaults.withCredentials = true //allow it to also send and r eceive cookies
+        if(userCoords){
+          Query = "?pref_cords=" + getters.userPreferences.pref_cords
+        }
+
         if(!getters.hasLoadedPLaces)
         {
             return new Promise( (resolve,reject) =>{
-               Vue.http.get(API.PLACES_URL)
+               Vue.http.get(API.PLACES_URL.concat(Query))
                 .then(function (response) {
                  commit('updateNextPage',response.data.next_page_url)
                    response.data.data.forEach((place) => {
@@ -285,7 +321,7 @@ store.registerModule('places_list_store', {
        
         if(!getters.hasAgentPlacesLoaded)
         {  
-           alert("Ia mammsdvc")
+          
             commit('changeMode','agent_places')
             return new Promise( (resolve,reject) =>{
                Vue.http.get(API.AGENT_PUBLIC_PLACES_URL(agentSlug))
@@ -318,11 +354,11 @@ store.registerModule('places_list_store', {
             // commit('updateUserPreferences')
             const preferred = getters.userPreferences
              Query = "?pref_price=" + preferred.pref_price 
-                   + "&pref_cords=" + preferred.pref_cords
+                    +"&pref_cords=" + preferred.pref_cords
                     + "&pref_state=" + preferred.pref_state
                     + "&pref_category=" + preferred.pref_category
                     + "&pref_location=" + preferred.pref_location
-                    + "&exclude="+ preferred.visited
+                    + "&exclude="+ preferred.visited 
                     
                     // console.log(API.PLACES_URL.concat(Query))
                     return new Promise( (resolve,reject) =>{
@@ -350,6 +386,7 @@ store.registerModule('places_list_store', {
         //load it
         //save next page url in the storage
         //use preferences to fetch others
+        
          if(getters.nextPageUrl !== null){
             return new Promise( (resolve,reject) =>{
                 Vue.http.get(getters.nextPageUrl)

@@ -12,7 +12,7 @@
                             label="Company Name"
                             id="agency_name"
 						    :error-messages="serverErrors.agency_name ? serverErrors.agency_name : errors.collect('agency_name')"
-                            v-validate="'required|alpha_spaces'"
+                            v-validate.disable="'required|alpha_spaces'"
                             data-vv-name="agency_name"
                             v-model="profile.agency_name"
                             required
@@ -25,7 +25,7 @@
                             label="Your Handle"
                             id="agent_handle"
                            :error-messages="serverErrors.agent_handle ? serverErrors.agent_handle : errors.collect('agent_handle')"
-                            v-validate="'required'"
+                            v-validate.disable="'required'"
                             disabled
                             data-vv-name="agent_handle"
                             v-model="profile.agent_handle"
@@ -38,7 +38,7 @@
                             label="Main Phone Number"
                             id="phone_number_main"
 						    :error-messages="serverErrors.phone_number_main ? serverErrors.phone_number_main : errors.collect('phone_number_main')"
-                            v-validate="'required'"
+                            v-validate.disable="'required'"
                             data-vv-name="phone_number_main"
                             v-model="profile.phone_number_main"
                             required
@@ -50,7 +50,7 @@
                             label="Other Phone Number"
                             id="phone_number_other"
 						    :error-messages="serverErrors.phone_number_other ? serverErrors.phone_number_other : errors.collect('phone_number_other')"
-                            v-validate="'required'"
+                            v-validate.disable="'required'"
                             data-vv-name="phone_number_other"
                             v-model="profile.phone_number_other"
                             ></v-text-field>
@@ -61,7 +61,7 @@
                                 name="country"
                                 label="Your country"
                                 id="country"
-                                v-validate="'required'"
+                                v-validate.disable="'required'"
                                 data-vv-name="country"
 						         :error-messages="serverErrors.country ? serverErrors.country : errors.collect('country')"
  
@@ -69,17 +69,21 @@
                                 required
                             ></v-text-field>
 
-                            <v-text-field
+                            <v-textarea
+                                :counter="100"
                                 outline
+                                 data-vv-name="office_address"
                                 name="office_address"
                                 label="Address"
                                 v-model="profile.office_address"
-						        :error-messages="serverErrors.office_address ? serverErrors.office_address : errors.collect('office_address')"
+                                v-validate.disable="{ required: true, max:200, regex: /^([0-9a-zA-Z\s',-]+)$/}"
+                               
+						                    :error-messages="serverErrors.office_address ? serverErrors.office_address : errors.collect('office_address')"
                                 @blur="showAddress = true"
                                 id="address"
-                            ></v-text-field>
+                            ></v-textarea>
 
-                              <v-card v-if="showAddress"> 
+                              <v-card v-if="showAddress" class="mb-2"> 
                              <v-subheader class="subheading font-weight-medium">It Will Be Shown Like this:</v-subheader> 
 
                              <v-card-text>  
@@ -99,7 +103,7 @@
                                 v-model="profile.about_us"
                                 :counter="200"
 						        :error-messages="serverErrors.about_us ? serverErrors.about_us : errors.collect('about_us')"
-                                v-validate="'required|max:200|alpha_spaces'"
+                                v-validate.disable="'required|max:200|alpha_spaces'"
                                 data-vv-name="about_us"
                                 outline
                             ></v-textarea>
@@ -122,15 +126,7 @@ export default {
   data(){
       return {
           profile:{
-              phone_number_main:'07059939990',
-              phone_number_other:'07059939923',
-              company_email:'company@gmail.com',
-              office_address:'James Watt Street Benin',
-              state:'Edo',
-              country:'Nigeria',
-              agency_name:'Our Hope Accomodation',
-              about_us:'We provide accomodation to young families',
-              agent_handle: ''
+              
           },
           showAddress: false,
           
@@ -196,6 +192,7 @@ export default {
     getMyProfile(){
          this.mixin_handleRequest(this.$store.dispatch('auth/getMyProfile')
                     .then(response => {
+                      this.profile = response.data
                 
          })) 
     },

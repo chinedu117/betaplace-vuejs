@@ -17,7 +17,7 @@ import AgentProfileView from '@/auth/AgentProfile'
 import store from '@/store'
 import ForgotPassword from '@/auth/ForgotPassword'
 import ResetPassword from '@/auth/ResetPassword'
-
+import SocialCallBack from '@/auth/SocialCallBack'
 
 
 const routes = [
@@ -255,6 +255,31 @@ const routes = [
       name: 'Login',
       component: Login,
       props: true,
+      meta:{
+        layout: 'DefaultLayout',
+        title: 'Login',
+        requiresAuth: false,
+        public: true
+      },
+      beforeEnter:(to, from, next) => {
+            const title = 'Login'
+            const layout = 'DefaultLayout'
+            //const authed = to.matched.some( (route) => route.meta.requires)
+             // Setup some per-page stuff.
+             document.title = title
+             store.dispatch('common/updateTitle',title)
+             store.dispatch('common/updateLayout', layout)
+             next()
+      
+          }
+      
+    },
+    ,
+    {
+      path: '/login/:provider/callback',
+      
+      component: SocialCallBack,
+      
       meta:{
         layout: 'DefaultLayout',
         title: 'Login',

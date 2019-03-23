@@ -17,11 +17,30 @@ import VueCurrencyFilter from 'vue-currency-filter'
 import ReadMore from 'vue-read-more';
 import VueGeolocation from 'vue-browser-geolocation' 
 import { http } from '@/api/http'
-
+import 'vuetify/dist/vuetify.min.css' 
+import VueCookie from 'vue-cookie'
+import VueSocialauth from 'vue-social-auth'
 Vue.use(VueGeolocation)
 Vue.use(ReadMore)
 Vue.use(http)
+Vue.use(VueSocialauth, {
 
+  providers: {
+    github: {
+      clientId: '704d54e26e34cec4131a',
+      redirectUri: 'http://localhost:8080/login/github/callback' // Your client app URL
+    },
+    facebook: {
+      clientId: '838567409811629',
+      redirectUri: 'http://localhost:8080/login/facebook/callback'
+    },
+    google: {
+      clientId: '41873985302-a6bgttc1vqo4me4vn4ji5r19ourjkda6.apps.googleusercontent.com',
+      redirectUri: 'http://localhost:8080/login/google/callback'
+    },
+
+  }
+})
 Vue.use(VueCurrencyFilter,
   {
     symbol : 'N',
@@ -34,7 +53,7 @@ Vue.use(VueCurrencyFilter,
 
 
 Vue.use(veeValidate)
-
+Vue.use(VueCookie)
 
 Vue.use(Vuetify, {
   iconfont: 'mdi',

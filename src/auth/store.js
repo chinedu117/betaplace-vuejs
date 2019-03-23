@@ -209,6 +209,23 @@ export default {
           
   
       },
+      socialLogin({state, commit},payload){
+            return new Promise((resolve,reject) => {
+  
+            axios.post(API.SOCIAL_LOGIN_URL(payload.provider),payload)
+                .then(function (response) {
+                 commit('saveToken',response.data.access_token)
+                 resolve(response)
+                  })
+                .catch(function (error) {
+  
+                     // console.log(error)
+                     reject(error)
+                 })
+  
+          })
+      },
+
       
       submitProfile({getters,dispatch},profile){
 
