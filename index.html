@@ -5,19 +5,31 @@
     <meta name="theme-color" content="#3f51b5">
     <meta name="viewport" content="width=device-width,initial-scale=1.0">
     <link rel="shortcut icon" type="image/ico" href="/static/favicon.ico"/>
-    <link rel="manifest" href="/static/manifest.json"/>
+    <!-- <link rel="manifest" href="/static/manifest.json"/> -->
+    <link rel="manifest" href="<%= htmlWebpackPlugin.files.publicPath %>static/manifest.json">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="default">
+     <link rel="apple-touch-icon" href="<%= htmlWebpackPlugin.files.publicPath %>static/images/icons/icon-152x152.png">
     <meta name="apple-mobile-web-app-title" content="BetaPlace">
-    <meta name="msapplication-TileImage" content="link to the image in static folder">
+   <!-- Add to home screen for Windows -->
+    <meta name="msapplication-TileImage" content="<%= htmlWebpackPlugin.files.publicPath %>static/images/icons/icon-144x144.png">
     <meta name="msapplication-TileColor" content="#000">
-    <link rel="apple-touch-icon" href="link to the smaller icon">
     <title>BetaPlace</title>
     <link href='https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Material+Icons' rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" rel="stylesheet">
+    <!-- <% for (var chunk of webpack.chunks) {
+        for (var file of chunk.files) {
+          if (file.match(/\.(js|css)$/)) { %>
+    <link rel="<%= chunk.initial?'preload':'prefetch' %>" href="<%= htmlWebpackPlugin.files.publicPath + file %>" as="<%= file.match(/\.css$/)?'style':'script' %>"><% }}} %> -->
   </head>
   <body>
+    <noscript>
+      Pleae use a javascript enabled browser
+    </noscript>
     <div id="app"></div>
+    <!-- built files will be auto injected -->
+    <!-- Todo: only include in production -->
+    <%= htmlWebpackPlugin.options.serviceWorkerLoader %>
     <!-- built files will be auto injected -->
   </body>
 </html>
