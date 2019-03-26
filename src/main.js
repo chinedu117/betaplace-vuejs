@@ -72,14 +72,6 @@ window.mobileAndTabletcheck = function() {
 }
 
 Vue.config.productionTip = process.env.NODE_ENV === 'production'
- 
-const prod = process.env.NODE_ENV === 'production'
-const shouldSW = 'serviceWorker' in navigator && prod
-if (shouldSW) {
-  navigator.serviceWorker.register('./../service-worker.js').then(() => {
-    console.log("Service Worker Registered!")
-  })
-}
 
 require('vuetify/dist/vuetify.min.css')
 /* eslint-disable no-new */

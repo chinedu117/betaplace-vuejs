@@ -1,9 +1,10 @@
 <template>
- 
+  
   <component :is="component">
     <slot></slot>
+   
   </component>
- 
+  
 </template>
 
 <script>
@@ -15,7 +16,6 @@ export default {
   name: 'App',
 
   components: {
-    // PublicLayout,
     DefaultLayout,
     DashboardLayout
   },

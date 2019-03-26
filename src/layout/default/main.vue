@@ -55,6 +55,7 @@
         </v-btn>
 	 </v-snackbar>
      <loader/>
+     <install-prompt></install-prompt>
      <!-- the footer section -->
      <v-footer class="my-appfooter" dark :class="{ 'my-appfooter--sidebar-open': sidebarVisibility }">
        <div class="grey--text">© 2019 Providing Shelter for you</div>
@@ -73,6 +74,7 @@
     </v-app>
 </template>
 <script>
+import InstallPrompt from '@/components/InstallPrompt'
 import Footer from '@/components/Footer.vue'
 import Loader from '@/components/Loader'
 import ToolBar from '@/components/ToolBar.vue'
@@ -90,7 +92,7 @@ export default {
         }
     },
 
-    components:{ Footer, FilterBox, Loader, sidebar, search, ToolBar},
+    components:{ InstallPrompt, Footer, FilterBox, Loader, sidebar, search, ToolBar},
   
     computed: {
     //   loggedIn() {
