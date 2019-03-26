@@ -1,23 +1,27 @@
 import Login from '@/auth/Login'
 import Register from '@/auth/Register'
 import Logout from '@/auth/Logout'
-import PageNotFound from '@/pages/PageNotFound'
-import PlaceView from '@/features/place_view/main.vue'
-import Places from '@/features/places_list/main.vue'
-import AgentPublicPlaces from '@/features/places_list/AgentPlacesList.vue'
-import MyPlaces from '@/features/dashboard/AgentPlacesList.vue'
-import OurPackages from '@/features/dashboard/OurPackages.vue'
-import PackageView from '@/features/dashboard/PackageView.vue'
-import CreateEditPlace from '@/features/dashboard/PlaceCreateEdit.vue'
-import MySubscriptions from '@/features/dashboard/AgentSubscriptions.vue'
-import VerifyEmail from '@/auth/VerifyEmail.vue'
-import CreateEditProfile from '@/auth/CreateEditProfile.vue'
-import AgentProfileView from '@/auth/AgentProfile'
-import store from '@/store'
-import ForgotPassword from '@/auth/ForgotPassword'
-import ResetPassword from '@/auth/ResetPassword'
-import SocialCallBack from '@/auth/SocialCallBack'
+// import PageNotFound from '@/pages/PageNotFound'
+const PageNotFound = () => import(/* webpackChunkName: "pages-not-found" */ '@/pages/PageNotFound')
 
+import PlaceView from '@/features/place_view/main.vue'
+
+import Places from '@/features/places_list/main.vue'
+
+import AgentPublicPlaces from '@/features/places_list/AgentPlacesList.vue'
+const MyPlaces = () => import(/* webpackChunkName: "my-places" */ '@/features/dashboard/AgentPlacesList.vue')
+const OurPackages = () => import(/* webpackChunkName: "our-packages" */ '@/features/dashboard/OurPackages.vue')
+const PackageView = () => import(/* webpackChunkName: "package-view" */ '@/features/dashboard/PackageView.vue')
+const CreateEditPlace = () => import(/* webpackChunkName: "create-edit-place" */ '@/features/dashboard/PlaceCreateEdit.vue')
+const MySubscriptions = () => import(/* webpackChunkName: "my-subscriptions" */ '@/features/dashboard/AgentSubscriptions.vue')
+const VerifyEmail = () => import(/* webpackChunkName: "verify-email" */ '@/auth/VerifyEmail.vue')
+const CreateEditProfile = () => import(/* webpackChunkName: "create-edit-profile" */ '@/auth/VerifyEmail.vue')
+const AgentProfileView = () => import(/* webpackChunkName: "agent-profile-view" */ '@/auth/AgentProfile')
+const ForgotPassword = () => import(/* webpackChunkName: "forgot-password" */ '@/auth/ForgotPassword')
+const ResetPassword = () => import(/* webpackChunkName: "reset-password" */ '@/auth/ResetPassword')
+const SocialCallBack = () => import(/* webpackChunkName: "social-callback" */ '@/auth/SocialCallBack')
+
+import store from '@/store'
 
 const routes = [
   {
