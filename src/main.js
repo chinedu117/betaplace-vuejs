@@ -5,9 +5,9 @@ import App from './App'
 import router from '@/router'
 import Vuetify from 'vuetify'
 import store from './store'
-import '@mdi/font/css/materialdesignicons.css'
-import 'material-design-icons-iconfont/dist/material-design-icons.css'
-import '@mdi/font/css/materialdesignicons.css'
+// import '@mdi/font/css/materialdesignicons.css'
+// import 'material-design-icons-iconfont/dist/material-design-icons.css'
+// import '@mdi/font/css/materialdesignicons.css'
 //import EntryTemplate from '@/layout/default/EntryTemplate'
 //import EntryTemplate from '@/layout/default/EntryVuetify'
 // import EntryTemplate from '@/layout/default/VisitorTemplate'
@@ -20,23 +20,22 @@ import { http } from '@/api/http'
 import 'vuetify/dist/vuetify.min.css' 
 import VueCookie from 'vue-cookie'
 import VueSocialauth from 'vue-social-auth'
+import  SocialSharing from 'vue-social-sharing'
+
+Vue.use(SocialSharing)
 Vue.use(VueGeolocation)
 Vue.use(ReadMore)
 Vue.use(http)
 Vue.use(VueSocialauth, {
 
   providers: {
-    github: {
-      clientId: '704d54e26e34cec4131a',
-      redirectUri: 'http://localhost:8080/login/github/callback' // Your client app URL
-    },
     facebook: {
-      clientId: '838567409811629',
-      redirectUri: 'http://localhost:8080/login/facebook/callback'
+      clientId: process.env.FACEBOOK_CLIENT_ID,
+      redirectUri: process.env.FACEBOOK_CALLBACK_URL,
     },
     google: {
-      clientId: '41873985302-a6bgttc1vqo4me4vn4ji5r19ourjkda6.apps.googleusercontent.com',
-      redirectUri: 'http://localhost:8080/login/google/callback'
+      clientId: process.env.GOOGLE_CLIENT_ID,
+      redirectUri: process.env.GOOGLE_CALLBACK_URL,
     },
 
   }
@@ -56,7 +55,7 @@ Vue.use(veeValidate)
 Vue.use(VueCookie)
 
 Vue.use(Vuetify, {
-  iconfont: 'mdi',
+  iconfont: 'mdi || fa4',
   theme: {
     primary: colors.red.darken1,
     secondary: colors.red.lighten4,
@@ -72,7 +71,7 @@ window.mobileAndTabletcheck = function() {
   return check
 }
 
-Vue.config.productionTip = false
+Vue.config.productionTip = process.env.NODE_ENV === 'production'
 
 // router.beforeEach((to,from,next) => {
  

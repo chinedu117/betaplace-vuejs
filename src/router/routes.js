@@ -10,7 +10,6 @@ import OurPackages from '@/features/dashboard/OurPackages.vue'
 import PackageView from '@/features/dashboard/PackageView.vue'
 import CreateEditPlace from '@/features/dashboard/PlaceCreateEdit.vue'
 import MySubscriptions from '@/features/dashboard/AgentSubscriptions.vue'
-import Dashboard from '@/features/dashboard/main.vue'
 import VerifyEmail from '@/auth/VerifyEmail.vue'
 import CreateEditProfile from '@/auth/CreateEditProfile.vue'
 import AgentProfileView from '@/auth/AgentProfile'
@@ -25,6 +24,9 @@ const routes = [
     path:'/profile-view/:agentSlug',
     component: AgentProfileView,
     name: 'AgentProfileView',
+    meta: {
+           requiresAuth: true
+    },
     beforeEnter:(to, from, next) => {
       const title = 'My  Profile'
       const layout = 'DashboardLayout'
@@ -42,6 +44,9 @@ const routes = [
     path:'/profile/:agentSlug?',
     component: CreateEditProfile,
     name: 'AgentProfile',
+    meta: {
+           requiresAuth: true
+    },
     beforeEnter:(to, from, next) => {
       const title = 'My  Profile'
       const layout = 'DashboardLayout'
@@ -115,32 +120,12 @@ const routes = [
   },
   
 },
-
-  {
-
-   
-      path:'/agent/:agentSlug',
-      component: Dashboard,
-      name: 'agentHome',
-      beforeEnter:(to, from, next) => {
-        const title = 'Dashboard'
-        const layout = 'DashboardLayout'
-        //const authed = to.matched.some( (route) => route.meta.requires)
-         // Setup some per-page stuff.
-         document.title = title
-         store.dispatch('common/updateTitle',title)
-         store.dispatch('common/updateLayout', layout)
-        //  store.dispatch('common/updateToolBar',{show: true, component: 'PlacesListToolBarItems'})
-         next()
-      },
-      
-  },
   { // Create or edit a place
     path: '/:agentSlug/manage-place/:placeSlug?', //TODO the agents slug will come fiirst
     name: 'createEdit',
     component: CreateEditPlace,
     meta: {
-      //requiresAuth: false
+      requiresAuth: true
     },
     beforeEnter: (to, from, next) => {
       const title = 'Manage Accomodation'
@@ -158,8 +143,9 @@ const routes = [
   path: '/packages', //TODO the agents slug will come fiirst
   name: 'ourPackages',
   component: OurPackages,
+
   meta: {
-    //requiresAuth: false
+           requiresAuth: true
   },
   beforeEnter: (to, from, next) => {
     const title = 'Packages'
@@ -179,7 +165,7 @@ const routes = [
   name: 'PackageView',
   component: PackageView,
   meta: {
-    //requiresAuth: false
+      requiresAuth: true
   },
   beforeEnter: (to, from, next) => {
     const title = 'Package Details'
@@ -198,7 +184,7 @@ const routes = [
   name: 'mySubscriptions',
   component: MySubscriptions,
   meta: {
-    //requiresAuth: false
+           requiresAuth: true
   },
   beforeEnter: (to, from, next) => {
     const title = 'My Subscriptions'
@@ -329,7 +315,8 @@ const routes = [
       meta: {
         title: 'Log Out',
         layout: 'DefaultLayout',
-        requiresAuth: true
+        requiresAuth: true,
+        public: false,
       },
       beforeEnter:(to, from, next) => {
             const title = 'Log Out'
@@ -347,9 +334,6 @@ const routes = [
       path: '/place-detail/:id',
       name: 'PlaceView',
       component: PlaceView,
-      meta: {
-        //requiresAuth: false
-      },
       beforeEnter:(to, from, next) => {
             const title = 'Place view'
             const layout = 'DefaultLayout'
@@ -366,9 +350,6 @@ const routes = [
       path: '/places',
       name: 'Places',
       component: Places,
-      meta: {
-        //requiresAuth: false
-      },
       beforeEnter:(to, from, next) => {
             const title = 'Available Places'
             const layout = 'DefaultLayout'
@@ -385,9 +366,6 @@ const routes = [
       path: '/:agentSlug',
       name: 'Agent',
       component:  AgentPublicPlaces,
-      meta: {
-        //requiresAuth: false
-      },
       beforeEnter:(to, from, next) => {
             const title = 'Agent'
             const layout = 'DefaultLayout'

@@ -139,10 +139,10 @@ export default {
           }
     },
     renew(){
-        //here we try to renew the place
-          //check if the agent has added a new sub
-            //redirect if false
-            //renew the place if there is a sub
+        this.mixin_handleRequest(this.$options.service.renewPlace({'place_slug':this.slug}).then((response) => { 
+                    this.place_expired = true
+                    this.$emit('place-renewed',this.index)
+               }))
     }
 
 }

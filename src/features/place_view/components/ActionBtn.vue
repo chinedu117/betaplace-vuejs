@@ -39,6 +39,73 @@
             >
                 <v-icon color="red darken-2" >place</v-icon>
             </v-chip> 
+
+            <social-sharing url="http://mbarireview.com/"
+                      title="The Progressive JavaScript Framework"
+                      description="Intuitive, Fast and Composable MVVM for building interactive interfaces."
+                      quote="Vue is a progressive framework for building user interfaces."
+                      hashtags="vuejs,javascript,framework"
+                      twitter-user="vuejs"
+                      inline-template>
+                  <div>
+                      
+                      <network network="facebook">
+                        <v-chip 
+                          :outline="$vuetify.breakpoint.lgAndUp"                   text-color="blue" 
+                          :class="{ 'mr-2 pa-2': $vuetify.breakpoint.lgAndUp}"
+                        >
+                            <v-icon color="blue darken-2">fa fa-facebook</v-icon>
+                        </v-chip>
+                      </network>
+
+                      <network network="googleplus">
+                        <v-chip 
+                          :outline="$vuetify.breakpoint.lgAndUp"                   text-color="accent" 
+                          :class="{ 'mr-2 pa-2': $vuetify.breakpoint.lgAndUp}"
+                        >
+                            <v-icon color="red darken-2">fa fa-google-plus</v-icon>
+                        </v-chip>
+                      </network>
+
+                      <network network="sms">
+                        <v-chip 
+                          :outline="$vuetify.breakpoint.lgAndUp"                   text-color="accent" 
+                          :class="{ 'mr-2 pa-2': $vuetify.breakpoint.lgAndUp}"
+                        >
+                            <v-icon color="red darken-2">fa fa-commenting-o</v-icon>
+                        </v-chip>
+                      </network>
+
+                      <network network="telegram">
+                        <v-chip 
+                          :outline="$vuetify.breakpoint.lgAndUp"                   text-color="blue" 
+                          :class="{ 'mr-2 pa-2': $vuetify.breakpoint.lgAndUp}"
+                        >
+                            <v-icon color="blue darken-2">fa fa-telegram</v-icon>
+                        </v-chip>
+                      </network>
+
+                      <network network="twitter">
+                         <v-chip 
+                          :outline="$vuetify.breakpoint.lgAndUp"                   text-color="blue" 
+                          :class="{ 'mr-2 pa-2': $vuetify.breakpoint.lgAndUp}"
+                        >
+                            <v-icon color="blue darken-2">fa fa-twitter</v-icon>
+                        </v-chip>
+                       
+                      </network>
+                      
+                      <network network="whatsapp">
+                        <v-chip 
+                          :outline="$vuetify.breakpoint.lgAndUp"                   text-color="green" 
+                          :class="{ 'mr-2 pa-2': $vuetify.breakpoint.lgAndUp}"
+                        >
+                            <v-icon color="green darken-2">fa fa-whatsapp</v-icon>
+                        </v-chip>
+                        
+                      </network>
+                  </div>
+                </social-sharing>
                 
  </div>
 </template>
@@ -116,28 +183,7 @@ export default {
                 if(window.mobileAndTabletCheck){
                     location.href = 'whatsapp://send?text='+url
                 }
-                
-                
-            // if(navigator.share){
 
-            //     navigator.share({
-            //         title: 'Free Accomodation',
-            //         text: 'Check this out',
-            //         url: location.pathname
-            //     })
-            //     .then(() => console.log('share success'))
-            //     .catch((error) => console.log('Not successful'))
-            // }else{
-                
-            //     const url = encodeURI(location.href)
-
-            //     // ifa mobile device is in use
-            //     if(window.mobileAndTabletCheck){
-            //         location.href = 'whatsapp://send?text='+url
-            //     }
-                
-            //     // console.log('Not successful')
-            // }
         },
 
         like(){

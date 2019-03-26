@@ -113,7 +113,16 @@ publishPlaceToggle(payload){
 }
 
 
-  
+renewPlace(payload){
+  return Vue.http.post(API.DASHBOARD_PLACE_RENEW_URL(payload.place_slug))
+  .then(response => {
+      return new Promise((resolve) => { resolve(response) })
+  })
+  .catch((error) => {
+
+      return new Promise((resolve, reject) => { reject(error) })
+  })
+}
   
 
 

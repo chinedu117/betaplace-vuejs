@@ -7,7 +7,7 @@
 </template>
 
 <script>
-import PublicLayout from '@/layout/public/main.vue'
+// import PublicLayout from '@/layout/public/main.vue'
 import DefaultLayout from '@/layout/default/main.vue'
 import DashboardLayout from '@/layout/dashboard/main.vue'
 
@@ -15,7 +15,7 @@ export default {
   name: 'App',
 
   components: {
-    PublicLayout,
+    // PublicLayout,
     DefaultLayout,
     DashboardLayout
   },

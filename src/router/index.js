@@ -24,7 +24,7 @@ const router =  new VueRouter({
     if(requiresAuth)
     {
         
-        if(! authed)
+        if(!authed)
         {
           next({name: 'Login' })
     

@@ -46,20 +46,14 @@
 	 </v-snackbar>
      <loader/>
      <!-- the footer section -->
-    <v-footer height="auto" dark app v-if="!$vuetify.breakpoint.smAndDown">
-
-        <v-layout row wrap justify-space-between>
-            <v-flex xs4>AboutUs</v-flex>
-            <v-flex xs4>ContactUs</v-flex>
-            <v-flex xs4>FAQS</v-flex>
-        </v-layout>
-    </v-footer>
+     <app-footer/>
       
     
     </v-app>
 </template>
 <script>
 import Loader from '@/components/Loader'
+import Footer from '@/components/Footer'
 import ToolBar from '@/components/ToolBar.vue'
 import sidebar from '@/features/dashboard/components/Sidebar.vue'
 
@@ -73,7 +67,7 @@ export default {
         }
     },
 
-    components:{ Loader, sidebar, ToolBar },
+    components:{ Loader, sidebar, ToolBar, Footer},
   
     computed: {
     //   loggedIn() {

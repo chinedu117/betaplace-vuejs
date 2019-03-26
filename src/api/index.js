@@ -1,5 +1,5 @@
 
-export const baseUrl = 'http://betaplace.test/api'
+export const baseUrl = process.env.ROOT_API
 
 export const PLACES_URL = baseUrl + '/p'
 
@@ -45,6 +45,11 @@ export const DASHBOARD_PLACE_PUBLISH_URL = (placeSlug) => {
 export  const DASHBORD_PLACE_EXPLICIT_PUBLISH_URL = (placeSlug) => {
     return baseUrl + '/d/p/' + placeSlug + '/expl/pb'   
 }
+
+export  const DASHBOARD_PLACE_RENEW_URL = (placeSlug) => {
+    return baseUrl + '/ag/p/renew/'+ placeSlug   
+}
+
 
 export  const DASHBORD_PLACE_EXPLICIT_UNPUBLISH_URL = (placeSlug) => {
     return baseUrl + '/d/p/' + placeSlug + '/expl/upb'   

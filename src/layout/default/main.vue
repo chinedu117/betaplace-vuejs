@@ -56,19 +56,24 @@
 	 </v-snackbar>
      <loader/>
      <!-- the footer section -->
-    <v-footer height="auto" dark app v-if="!$vuetify.breakpoint.smAndDown">
-
+     <v-footer class="my-appfooter" dark :class="{ 'my-appfooter--sidebar-open': sidebarVisibility }">
+       <div class="grey--text">© 2019 Providing Shelter for you</div>
+       <!-- <div class="grey--text">with love stranded NYSC corper</div> -->
+     </v-footer>
+    <!-- <v-footer height="auto" dark app v-if="!$vuetify.breakpoint.smAndDown">
+        
         <v-layout row wrap justify-space-between>
             <v-flex xs4>AboutUs</v-flex>
             <v-flex xs4>ContactUs</v-flex>
             <v-flex xs4>FAQS</v-flex>
         </v-layout>
-    </v-footer>
+    </v-footer> -->
       
     
     </v-app>
 </template>
 <script>
+import Footer from '@/components/Footer.vue'
 import Loader from '@/components/Loader'
 import ToolBar from '@/components/ToolBar.vue'
 import sidebar from '@/components/SideBar.vue'
@@ -85,14 +90,16 @@ export default {
         }
     },
 
-    components:{FilterBox, Loader, sidebar, search, ToolBar },
+    components:{ Footer, FilterBox, Loader, sidebar, search, ToolBar},
   
     computed: {
     //   loggedIn() {
 	// 	return	this.$store.getters["auth/loggedIn"]
 			
     //     },
-        
+        sidebarVisibility () {
+          return this.$store.state.common.sidebar.visible && this.$vuetify.breakpoint.mdAndUp
+       },
         showToolBar()
         {   
             return this.$store.state.common.toolBar.show
@@ -112,14 +119,22 @@ export default {
            
         }
     },
-    methods: {
-        
-    }
+
     
 }
 </script>
 
 <style>
+.my-appfooter {
+  justify-content: center;
+}
+  
+
+.my-appfooter--sidebar-open {
+  justify-content: center;
+  padding-left: 300px;
+}
+
  .footer-item {
      list-style: none;
      display: inline-block;

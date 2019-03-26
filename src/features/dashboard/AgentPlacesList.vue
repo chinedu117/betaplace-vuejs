@@ -53,6 +53,7 @@
                         v-on:delete-place="deletePlace"
                         v-on:place-published="publishPlace"
                         v-on:place-unpublished="unPublishPlace"
+                        v-on:place-renewd="unexpirePlace"
                         >
                           
                         </place-actions>
@@ -127,6 +128,11 @@ export default {
              this.placeList.splice(index,1,place)
          
             
+        },
+        unexpirePlace(index){
+             let place = this.placeList[index]
+             place.expired = 0
+             this.placeList.splice(index,1,place)
         },
         createPlace(){
             //check if the agenet still has enough subscription
