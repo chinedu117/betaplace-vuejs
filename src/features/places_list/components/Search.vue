@@ -8,9 +8,9 @@
         box
         id="search-box"
         class="pa-2 elevation-2"
-        
-        append-icon="mdi-close"
-        prepend-icon="mdi-arrow-left"
+        @blur="clearSearch"
+        append-icon="close"
+        prepend-icon="fa-arrow-left"
         @click:prepend="clearSearch"
         @click:append="clearSearch"
         >
