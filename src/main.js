@@ -72,12 +72,15 @@ window.mobileAndTabletcheck = function() {
 }
 
 Vue.config.productionTip = process.env.NODE_ENV === 'production'
-
-// router.beforeEach((to,from,next) => {
  
-// })
-// console.log(process.env.FACEBOOK_CALLBACK_URL)
-// require('https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Material+Icons')
+const prod = process.env.NODE_ENV === 'production'
+const shouldSW = 'serviceWorker' in navigator && prod
+if (shouldSW) {
+  navigator.serviceWorker.register('/service-worker.js').then(() => {
+    console.log("Service Worker Registered!")
+  })
+}
+
 require('vuetify/dist/vuetify.min.css')
 /* eslint-disable no-new */
 new Vue({

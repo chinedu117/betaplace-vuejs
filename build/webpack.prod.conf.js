@@ -10,6 +10,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin')
 const ExtractTextPlugin = require('extract-text-webpack-plugin')
 const OptimizeCSSPlugin = require('optimize-css-assets-webpack-plugin')
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin')
+const SWPrecache = require('sw-precache-webpack-plugin')
 
 const env = require('../config/prod.env')
 
@@ -115,8 +116,15 @@ const webpackConfig = merge(baseWebpackConfig, {
         to: config.build.assetsSubDirectory,
         ignore: ['.*']
       }
-    ])
-  ]
+    ]),
+    new SWPrecache({
+        cacheId: 'betaplace',
+        filepath: 'service-worker.js',
+        staticFileGlobs: ['dist/**/*.{js,html,css}'],
+        minify: true,
+        stripPrefix: 'dist/'
+      })
+        ]
 })
 
 if (config.build.productionGzip) {
