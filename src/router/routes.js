@@ -238,7 +238,8 @@ const routes = [
              store.dispatch('common/updateToolBar',{show: true, component: 'PlacesListToolBarItems'})
              next()
       
-          }
+          },
+      
     },
     {
       path: '/login',
@@ -346,7 +347,7 @@ const routes = [
              document.title = title
              store.dispatch('common/updateTitle',title)
              store.dispatch('common/updateLayout', layout)
-         
+             
              next()
           }
      },

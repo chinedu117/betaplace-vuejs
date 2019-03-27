@@ -162,7 +162,14 @@ export default {
        
     }
   },
- 
+  beforeRouteLeave (to, from, next) {
+    // called when the route that renders this component is about to
+    // be navigated away from.
+    // has access to `this` component instance.
+      //remove the searach box and the filters
+      this.$store.dispatch('common/updateToolBar',{show: true, component: ''})
+      next()
+  },
   components: { Subscribe, LoadMore},
  
   created(){

@@ -247,7 +247,7 @@ store.registerModule('places_list_store', {
          dispatch('retrievePlaces').then((response) => {
             dispatch('common/updateLoader',false,{root: true})
          })
-    },
+    },  
     clearUserCoords({commit,dispatch}){
          commit("clearUserCoords")
          dispatch("refreshPage")
@@ -261,16 +261,17 @@ store.registerModule('places_list_store', {
        if(!Object.keys(state.preferredFilters).length) return //empty
 
         //add check user cords add
+      const userCoords = state.userCoordinates !== null ? true : false
       let FILTER_URL = API.PLACES_FILTER_URL
-         if(state.userCoordinates.user_coords !== null){
-             let Query = '?user_coords='+ state.userCoordinates.user_coords
+         if(userCoords){
+             let Query = '?user_coords='+ state.userCoordinates
             FILTER_URL = FILTER_URL.concat(Query)
          }
-
+        
         return new Promise( (resolve,reject) =>{
             Vue.http.get(FILTER_URL,{params:state.preferredFilters})
             .then(function (response) {
-
+                    commit('updateNextPage',null)
                     commit("updateFilterBox",{show:true,filtered:response.data})
                     resolve(response)
                 })
@@ -417,8 +418,8 @@ store.registerModule('places_list_store', {
         Vue.http.defaults.withCredentials = true
 
          let SEARCH_URL = API.PLACES_SEARCH_URL
-         if(state.userCoordinates.user_coords !== null){
-             let Query = '?user_coords='+ state.userCoordinates.user_coords
+         if(state.userCoordinates !== null){
+             let Query = '?user_coords='+ state.userCoordinates
             SEARCH_URL = SEARCH_URL.concat(Query)
          }
 
@@ -426,7 +427,7 @@ store.registerModule('places_list_store', {
             Vue.http.get(SEARCH_URL,{params:{search:searchText}})
             .then(function (response) {
 
-            
+                    commit('updateNextPage',null)
                     commit('updateSearchBox',{found:response.data,show:true})
                     commit('changeMode','search')
                     
