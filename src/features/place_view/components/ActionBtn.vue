@@ -1,5 +1,11 @@
 <template>
-    <div>
+    <div>  
+           <social-share 
+             :title='shareable_title'
+             :description="social_description"
+             >
+            </social-share>
+                
             <v-chip 
                 :outline="$vuetify.breakpoint.lgAndUp" 
                 text-color="accent"
@@ -15,7 +21,7 @@
             :outline="$vuetify.breakpoint.lgAndUp"
                 text-color="accent" 
             :class="{ 'mr-2 pa-2': $vuetify.breakpoint.lgAndUp}"
-            @click="shareLink(1)"
+            @click.prevent="share"
                 >
                 <v-icon color="accent">share</v-icon>
             </v-chip>
@@ -40,79 +46,13 @@
                 <v-icon color="red darken-2" >place</v-icon>
             </v-chip> 
 
-            <social-sharing url="http://mbarireview.com/"
-                      title="The Progressive JavaScript Framework"
-                      description="Intuitive, Fast and Composable MVVM for building interactive interfaces."
-                      quote="Vue is a progressive framework for building user interfaces."
-                      hashtags="vuejs,javascript,framework"
-                      twitter-user="vuejs"
-                      inline-template>
-                  <div>
-                      
-                      <network network="facebook">
-                        <v-chip 
-                          :outline="$vuetify.breakpoint.lgAndUp"                   text-color="blue" 
-                          :class="{ 'mr-2 pa-2': $vuetify.breakpoint.lgAndUp}"
-                        >
-                            <v-icon color="blue darken-2">fa fa-facebook</v-icon>
-                        </v-chip>
-                      </network>
-
-                      <network network="googleplus">
-                        <v-chip 
-                          :outline="$vuetify.breakpoint.lgAndUp"                   text-color="accent" 
-                          :class="{ 'mr-2 pa-2': $vuetify.breakpoint.lgAndUp}"
-                        >
-                            <v-icon color="red darken-2">fa fa-google-plus</v-icon>
-                        </v-chip>
-                      </network>
-
-                      <network network="sms">
-                        <v-chip 
-                          :outline="$vuetify.breakpoint.lgAndUp"                   text-color="accent" 
-                          :class="{ 'mr-2 pa-2': $vuetify.breakpoint.lgAndUp}"
-                        >
-                            <v-icon color="red darken-2">fa fa-commenting-o</v-icon>
-                        </v-chip>
-                      </network>
-
-                      <network network="telegram">
-                        <v-chip 
-                          :outline="$vuetify.breakpoint.lgAndUp"                   text-color="blue" 
-                          :class="{ 'mr-2 pa-2': $vuetify.breakpoint.lgAndUp}"
-                        >
-                            <v-icon color="blue darken-2">fa fa-telegram</v-icon>
-                        </v-chip>
-                      </network>
-
-                      <network network="twitter">
-                         <v-chip 
-                          :outline="$vuetify.breakpoint.lgAndUp"                   text-color="blue" 
-                          :class="{ 'mr-2 pa-2': $vuetify.breakpoint.lgAndUp}"
-                        >
-                            <v-icon color="blue darken-2">fa fa-twitter</v-icon>
-                        </v-chip>
-                       
-                      </network>
-                      
-                      <network network="whatsapp">
-                        <v-chip 
-                          :outline="$vuetify.breakpoint.lgAndUp"                   text-color="green" 
-                          :class="{ 'mr-2 pa-2': $vuetify.breakpoint.lgAndUp}"
-                        >
-                            <v-icon color="green darken-2">fa fa-whatsapp</v-icon>
-                        </v-chip>
-                        
-                      </network>
-                  </div>
-                </social-sharing>
-                
+           
  </div>
 </template>
 <script>
 
 import Service from './../Service.js'
-
+import SocialShare from '@/components/SocialShare'
 export default {
     service: new Service(),
     name: 'action-btn',
@@ -124,7 +64,7 @@ export default {
             userHasShared: false,
         }
     },
-
+    components: {SocialShare },
     mounted(){
         this.seen() 
     },
@@ -154,11 +94,28 @@ export default {
         agentID:{
             required: true,
             
+        },
+
+        social_description: {
+          required: true,
+          type: String
+        },
+
+        social_category: {
+          required: true,
+          type: String
+        },
+
+        social_location: {
+          required: true,
+          type: String
         }
     },
 
     computed:{
-
+        shareable_title(){
+            return "See this"+ this.social_category + '@' + this.social_location
+        }
     },
 
     methods:{
@@ -175,16 +132,16 @@ export default {
             this.$store.dispatch('common/updateDialog',{show: true})
         },
 
-        shareLink(link)
-        {
-                const url = encodeURI(location.href)
-                this.share()
-                // if mobile device is in use defined in main.js
-                if(window.mobileAndTabletCheck){
-                    location.href = 'whatsapp://send?text='+url
-                }
+        // shareLink(link)
+        // {
+        //         const url = encodeURI(location.href)
+        //         // this.share()
+        //         // if mobile device is in use defined in main.js
+        //         if(window.mobileAndTabletCheck){
+        //             location.href = 'whatsapp://send?text='+url
+        //         }
 
-        },
+        // },
 
         like(){
             
@@ -200,7 +157,8 @@ export default {
             this.tempLikes++
         },
         share(){  
-               // this.$store.dispatch('place-view/like')
+             
+                window.eventBus.$emit("SHARER_LAUNCHED",true)
                 if(!this.userHasShared){
                  this.$options.service.statRequest(this.stat_id,'share')
 

@@ -154,8 +154,12 @@
                                :latitude="place.latitude"
                                :likes="place.statistics.like_no"
                                :agentID="place.agent.id"
+                               :social_description="place.description"
+                               :social_category="place.category.name"
+                               :social_location="place.location"
                                   />
                         </v-card-actions>
+
                        
                    </v-card>
                </v-tab-item>
@@ -274,14 +278,13 @@
                               
                           </v-container>
                           <v-divider></v-divider>       
-
+                                  
                         </v-card-text> 
 
                         <v-card-title class="font-weight-bold" id="price">
                             <h2 class="hash" @click="$vuetify.goTo('#price',scrollOptions)">
                                Price: {{ place.price | currency }}
                             </h2>
-
                         </v-card-title>
                              <v-card-text class="">
                                <p>{{ place.price_description }}</p>
@@ -304,6 +307,9 @@
                                :latitude="place.latitude"
                                :likes="place.statistics.like_no"
                                :agentID="place.agent.id"
+                               :social_description="place.description"
+                               :social_category="place.category.name"
+                               :social_location="place.location"
                                 />
                         </v-card-actions>
                        

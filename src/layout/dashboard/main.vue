@@ -53,7 +53,7 @@
 </template>
 <script>
 import Loader from '@/components/Loader'
-import Footer from '@/components/Footer'
+import AppFooter from '@/components/AppFooter'
 import ToolBar from '@/components/ToolBar.vue'
 import sidebar from '@/features/dashboard/components/Sidebar.vue'
 
@@ -67,7 +67,7 @@ export default {
         }
     },
 
-    components:{ Loader, sidebar, ToolBar, Footer},
+    components:{ AppFooter,Loader, sidebar, ToolBar},
   
     computed: {
     //   loggedIn() {

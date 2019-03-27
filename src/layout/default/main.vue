@@ -57,25 +57,13 @@
      <loader/>
      <install-prompt></install-prompt>
      <!-- the footer section -->
-     <v-footer class="my-appfooter" dark :class="{ 'my-appfooter--sidebar-open': sidebarVisibility }">
-       <div class="grey--text">© 2019 Providing Shelter for you</div>
-       <!-- <div class="grey--text">with love stranded NYSC corper</div> -->
-     </v-footer>
-    <!-- <v-footer height="auto" dark app v-if="!$vuetify.breakpoint.smAndDown">
-        
-        <v-layout row wrap justify-space-between>
-            <v-flex xs4>AboutUs</v-flex>
-            <v-flex xs4>ContactUs</v-flex>
-            <v-flex xs4>FAQS</v-flex>
-        </v-layout>
-    </v-footer> -->
-      
-    
+     <app-footer >
+     </app-footer>
     </v-app>
 </template>
 <script>
 import InstallPrompt from '@/components/InstallPrompt'
-import Footer from '@/components/Footer.vue'
+import AppFooter from '@/components/AppFooter.vue'
 import Loader from '@/components/Loader'
 import ToolBar from '@/components/ToolBar.vue'
 import sidebar from '@/components/SideBar.vue'
@@ -92,7 +80,7 @@ export default {
         }
     },
 
-    components:{ InstallPrompt, Footer, FilterBox, Loader, sidebar, search, ToolBar},
+    components:{ InstallPrompt, AppFooter, FilterBox, Loader, sidebar, search, ToolBar},
   
     computed: {
     //   loggedIn() {

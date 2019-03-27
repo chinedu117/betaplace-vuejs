@@ -1,13 +1,12 @@
 <template>
   <v-footer class="my-appfooter" dark app :class="{ 'my-appfooter--sidebar-open': sidebarVisibility }">
        <div class="grey--text">© 2019 Providing Shelter for you</div>
-       <div class="grey--text">with love stranded NYSC corper</div>
-     </v-footer>   
+  </v-footer>   
 </template>
 
 <script>
 export default {
-  name:'footer',
+  name:'AppFooter',
   data(){
      return {
 
