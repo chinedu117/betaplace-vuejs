@@ -115,7 +115,7 @@
                       <v-btn flat color="accent" @click="visitPlace(place.slug)">Let's See</v-btn>
                    </v-flex>
                    <v-flex md6>
-                     <span class="grey--text font-weight-medium" v-show="hasUserCoords" v-if="place.distance">{{place.distance}} Km from your location</span>
+                     <span class="grey--text font-weight-medium" v-show="hasUserCoords" v-if="place.distance"> approx <b>{{place.distance | distance }}</b> from your location</span>
                    </v-flex>
                  </v-layout>
               
@@ -226,6 +226,12 @@ export default {
    {
       this.$router.push({name: 'PlaceView', params:{id: placeSlug}})
    },
+ },
+
+ filters:{
+     distance(num) {
+        return num.toFixed(2).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,') + " KM"
+    }
  }
 }
 </script>

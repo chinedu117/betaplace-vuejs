@@ -53,7 +53,7 @@ components: {
  data(){
      return {
          plan:{},
-         paystackkey: "pk_test_22bdd340817a7abd23c1ade4fb5f131c60be3e7f", //paystack public key
+         paystackkey: process.env.PAYSTACK_PUBLIC_KEY, //paystack public key
          loading: false
 
      }
@@ -61,12 +61,14 @@ components: {
   computed: {
       reference(){
         let text = "";
+        let t = new Date()
+            t = "_"+t.getTime()
         let possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
 
         for( let i=0; i < 10; i++ )
           text += possible.charAt(Math.floor(Math.random() * possible.length));
-
-        return text;
+      
+        return text.concat(t)
       },
 
       paystackMetaData(){

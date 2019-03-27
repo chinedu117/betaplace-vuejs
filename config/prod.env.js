@@ -1,5 +1,4 @@
 'use strict'
-const ROOT = "https://www.betaplace.com.ng"
 module.exports = {
   NODE_ENV: '"production"',
   ROOT_API: '"http://api.betaplace.com.ng/api"',
@@ -8,4 +7,7 @@ module.exports = {
   GOOGLE_CALLBACK_URL: '"https://www.betaplace.com.ng/login/google/callback"',
   FACEBOOK_CLIENT_ID: '"838567409811629"',
   FACEBOOK_CALLBACK_URL: '"https://www.betaplace.com.ng/login/facebook/callback"',
+  PAYSTACK_PUBLIC_KEY: '""',
+
+
 }
