@@ -18,6 +18,9 @@ export default {
            this.visible = payload   
      })
   },
+  beforeDestroy(){
+      window.eventBus.$off("SHOW_PROMPT")
+  },
   props:{
      show:{
         required: true,

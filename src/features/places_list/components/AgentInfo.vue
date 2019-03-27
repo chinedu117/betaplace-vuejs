@@ -41,7 +41,7 @@
                        <slot name="uploader"></slot>
                  </v-flex>
                   <v-flex md8>
-                    <v-card-text class="headline font-weight-bold text-md-center" >
+                    <v-card-text class="subheading font-weight-bold text-md-center" >
                       {{ agentInfo.about_us }}
                    </v-card-text>
                   </v-flex>
@@ -59,11 +59,14 @@
                        <v-avatar :size="60" color="red lighten-4"> 
                           <v-icon size="40">business</v-icon>
                        </v-avatar>
-                        <div class="pa-2  title font-weight-medium" :inner-html.prop="buildAddress(agentInfo.office_address,agentInfo.country) | insertBreaks">
+                        <div class="pa-2 title font-weight-medium" :inner-html.prop="buildAddress(agentInfo.office_address,agentInfo.country) | insertBreaks">
                        
                         </div>
                         </div>
                 </v-card-actions>
+                   <slot name="link"></slot>
+                  
+                   
                  
               </v-card>
 
@@ -108,16 +111,17 @@
                    </v-card-text>
 
                    <v-card-actions class="elevate-1 "> 
-					  <v-container>
-					  	<v-layout row>	
-					  <v-flex xs6>
+      					  <v-container>
+      					  	<v-layout row>	
+      					  <v-flex xs6>
 
                       <v-layout class="d-flex column" align-center justify-start>
 
                        <v-avatar :size="60" color="blue lighten-4"> 
                           <v-icon size="40">phone</v-icon>
                        </v-avatar>
-                        <div class="d-inline pa-2  subheading font-weight-medium">{{ agentInfo.phone_number_main }}
+                        <div class="d-inline pa-2 text-xs-center subheading font-weight-medium">{{ agentInfo.phone_number_main }}<br>
+                          {{ agentInfo.phone_number_other }}
                         </div>
                       </v-layout>
                       </v-flex>
@@ -126,15 +130,20 @@
                        <v-avatar :size="60" color="red lighten-4"> 
                           <v-icon size="40">business</v-icon>
                        </v-avatar>
-                        <div class="pa-2  subheading font-weight-medium" :inner-html.prop="buildAddress(agentInfo.office_address,agentInfo.country) | insertBreaks">
+                        <div class="pa-2  text-xs-center subheading font-weight-medium" :inner-html.prop="buildAddress(agentInfo.office_address,agentInfo.country) | insertBreaks">
                        
                         </div>
                         </v-layout>
                     </v-flex>
                     </v-layout>
                 </v-container>
+                
+                 
+              
                 </v-card-actions>
-
+          
+                <slot name="link"></slot>
+                 
 		  </v-card>
 
     </div>

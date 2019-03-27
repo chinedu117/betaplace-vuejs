@@ -27,7 +27,7 @@
             </v-chip>
 
             <v-chip 
-                v-if="$vuetify.breakpoint.mdAndUp"
+                
                 :outline="$vuetify.breakpoint.lgAndUp" 
                 text-color="accent" 
             :class="{ 'mr-2 pa-2': $vuetify.breakpoint.lgAndUp}"

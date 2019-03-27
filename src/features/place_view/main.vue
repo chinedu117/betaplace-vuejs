@@ -168,7 +168,13 @@
                     <v-subheader class="pb-0 font-weight-bold">AGENT INFO</v-subheader>
                       <agent-info
                          :agent_slug="place.agent.slug"
-                        />
+                        >
+                        <v-card-actions slot="link">
+                                <v-btn large class="mx-auto" outline :to="{name : 'Agent', params:{ 'agentSlug': place.agent.slug}}">
+                                 See Other Places by this agent
+                                 </v-btn>
+                        </v-card-actions>
+                      </agent-info>
                          
                            <!-- <rate-agent
                                 :agent_rating="place.agent.rating"
@@ -296,7 +302,14 @@
                              <custom-dialog :width="500">
                                <agent-info
                                 :agent_slug="place.agent.slug"
-                               ></agent-info>
+                               >
+                                 
+                                 <v-card-actions slot="link">
+                                  <v-btn large class="mx-auto" outline :to="{name : 'Agent', params:{ 'agentSlug': place.agent.slug}}">
+                                 See Other Places by this agent
+                                 </v-btn>
+                                </v-card-actions>
+                               </agent-info>
                              </custom-dialog>
 
                               <action-btn

@@ -51,6 +51,9 @@ import ClosablePrompt from '@/components/ClosablePrompt.vue'
             window.eventBus.$emit("SHOW_PROMPT",payload)
         })
     },
+    beforeDestroy(){
+      window.eventBus.$off('SHARER_LAUNCHED')
+    },
 		props: {
 			'title':{
  				required: true,
