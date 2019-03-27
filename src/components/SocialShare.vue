@@ -1,12 +1,12 @@
 <template>
-  <closable-prompt :show="show_prompt">
+  <closable-prompt :show="show_prompt" @close-prompt="show_prompt = false">
 	<social-sharing 
           :url="url"
           :title="title"
           :description="description"
           :quote="quote"
           :hashtags="hashtags"
-          :twitter-user="twitter-user"
+          :twitter-user="twitter_user"
           inline-template>
                   <div>
                       
@@ -48,7 +48,8 @@ import ClosablePrompt from '@/components/ClosablePrompt.vue'
     },
     mounted(){
           window.eventBus.$on('SHARER_LAUNCHED', (payload) => {
-            window.eventBus.$emit("SHOW_PROMPT",payload)
+              this.show_prompt = true
+            // window.eventBus.$emit("SHOW_PROMPT",payload)
         })
     },
     beforeDestroy(){
@@ -72,7 +73,7 @@ import ClosablePrompt from '@/components/ClosablePrompt.vue'
  				required: false,
         type: String,
 			},
-			'twitter-user': {
+			'twitter_user': {
  				required: false,
         type: String,
 			},

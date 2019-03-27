@@ -46,11 +46,20 @@
                 <v-icon color="red darken-2" >place</v-icon>
             </v-chip> 
 
-           
+           <!-- <closable-prompt :show="showAssessment" @close-prompt="showAssessment = false">
+            <v-btn small dark color="red darken-2" @click.prevent="assessment(0)">NO</v-btn>
+    
+            <div class="px-2">
+               Was this  useful ? 
+            </div>
+            
+
+              <v-btn small dark color="green darken-2" @click.prevent="assessment(1)">YES</v-btn>
+           </closable-prompt> -->
  </div>
 </template>
 <script>
-
+import ClosablePrompt from '@/components/ClosablePrompt'
 import Service from './../Service.js'
 import SocialShare from '@/components/SocialShare'
 export default {
@@ -62,11 +71,18 @@ export default {
             tempLikes: Number(this.likes),
             userHasSeen: false,
             userHasShared: false,
+            showAssessment: false,
+            timer: null
         }
     },
-    components: {SocialShare },
+    components: {SocialShare, ClosablePrompt },
     mounted(){
-        this.seen() 
+        this.seen()
+       
+        this.timer = setTimeout(()=>{
+           this.showAssessment = true
+            clearTimeout(this.timer)
+        },15000)    
     },
 
     props:{
@@ -119,6 +135,10 @@ export default {
     },
 
     methods:{
+        // accessment(val){
+        //        //todo
+            
+        // },
 
         seeMap(lat,long){
            const googleMapUrl = 'https://www.google.com/maps/search/?api=1&query='+lat+','+long 
@@ -159,6 +179,7 @@ export default {
         share(){  
              
                 window.eventBus.$emit("SHARER_LAUNCHED",true)
+
                 if(!this.userHasShared){
                  this.$options.service.statRequest(this.stat_id,'share')
 

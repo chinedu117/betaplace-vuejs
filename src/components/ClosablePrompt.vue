@@ -1,5 +1,5 @@
 <template>
-  <div v-bind="style_bind" v-if="showPrompt">
+  <div v-bind="style_bind" v-if="show">
     
     <slot></slot>
     <v-icon color="red darken-4" size="18px" @click.prevent="close">close</v-icon>
@@ -13,14 +13,14 @@ export default {
       visible: this.show
     }
   },
-  mounted(){
-     window.eventBus.$on("SHOW_PROMPT",(payload) => {
-           this.visible = payload   
-     })
-  },
-  beforeDestroy(){
-      window.eventBus.$off("SHOW_PROMPT")
-  },
+  // mounted(){
+  //    window.eventBus.$on("SHOW_PROMPT",(payload) => {
+  //          this.visible = payload   
+  //    })
+  // },
+  // beforeDestroy(){
+  //     window.eventBus.$off("SHOW_PROMPT")
+  // },
   props:{
      show:{
         required: true,
@@ -52,7 +52,7 @@ export default {
   },
   methods: {
     close(){
-    	this.visible = false
+    	this.$emit('close-prompt')
     }
   }
 };

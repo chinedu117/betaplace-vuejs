@@ -31,7 +31,7 @@
                 </v-list-tile-content>
             </v-list-tile>
             
-            <v-btn class="ml-4" v-if="!loggedIn" :to="{ name: 'Register'}" outline>Become An Agent</v-btn>
+            <v-btn class="ml-4" v-if="!loggedIn" :to="{ name: 'Login'}" outline>LET OUT YOUR SPACE</v-btn>
 
            
 

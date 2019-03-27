@@ -285,10 +285,9 @@ store.registerModule('places_list_store', {
     
     retrievePlaces({state,commit,getters})
     {
-        
+        commit('changeMode','all')
         const userCoords = state.userCoordinates !== null ? true : false
          let Query = ""
-
         if(userCoords){
           Query = "?pref_cords=" + getters.userPreferences.pref_cords
         }
@@ -318,11 +317,11 @@ store.registerModule('places_list_store', {
         
     },
     retrieveAgentPlaces({commit,getters},agentSlug){
-       
+        commit('changeMode','agent_places')
         if(!getters.hasAgentPlacesLoaded)
         {  
           
-            commit('changeMode','agent_places')
+           
             return new Promise( (resolve,reject) =>{
                Vue.http.get(API.AGENT_PUBLIC_PLACES_URL(agentSlug))
                 .then(function (response) {

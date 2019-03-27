@@ -1,5 +1,5 @@
 <template>
-  <v-footer class="my-appfooter" dark app :class="{ 'my-appfooter--sidebar-open': sidebarVisibility }">
+  <v-footer class="my-appfooter" dark  :class="{ 'my-appfooter--sidebar-open': sidebarVisibility }">
        <div class="grey--text">© 2019 Providing Shelter for you</div>
   </v-footer>   
 </template>

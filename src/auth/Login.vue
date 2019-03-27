@@ -2,6 +2,7 @@
  <v-container grid-list-md text-xs-center class="page-wrapper">
  	<v-layout row wrap>
  	   <v-flex xs12>
+ 	   	    
 	 		<v-card>
 			 		<v-toolbar flat>
 			 			<v-toolbar-side-icon/>
@@ -9,6 +10,19 @@
 			 				Login
 			 		    </v-toolbar-title>
 			        </v-toolbar>
+			        <v-flex xs12 px-4>
+			          <v-btn dark color="blue" :disabled="loading" @click="AuthProvider('facebook')"> Continue With Facebook</v-btn>
+				       </v-flex>
+				      <v-flex xs12 px-4>
+				      <v-btn dark  color="red darken-3" :disabled="loading" @click="AuthProvider('google')">Continue With Google</v-btn>
+						 
+			       </v-flex>
+                 
+                    <v-flex xs12 px-4>
+                    	<div align="center" class="mx-auto pa-3 grey--text subheading font-weight-thick">
+                    		or
+                    	</div>
+                    </v-flex>
 		            <v-flex xs12 px-4>
 						<v-text-field 
 						  label="Email"
@@ -31,7 +45,7 @@
                           data-vv-name="password"
 						/>
 				       </v-flex>
-
+                       
 				       <v-flex xs12 px-4>
 						   
 				       	   <v-btn 
@@ -39,30 +53,34 @@
 							  :disabled="loading"
 							  @click="login"> Login</v-btn>
 
-							 
-				       </v-flex>
-				       <v-flex xs12 px-4>
+							 <v-btn 
+					   </v-flex>
+					   <v-divider></v-divider>
+					   <v-flex xs12 px-4>
+					   	     <v-btn
+							  :disabled="loading"
+							  flat
 
-							<v-btn dark :disabled="loading" @click="AuthProvider('github')">Login With Github</v-btn>
-							<v-btn dark color="blue" :disabled="loading" @click="AuthProvider('facebook')"> Facebook Login</v-btn>
-							<v-btn dark  color="red darken-3" :disabled="loading" @click="AuthProvider('google')">Login With Google</v-btn>
+							  :to="{name : 'ForgotPassword'}"
+							  >
+							   Forgot Password
+			      			 </v-btn>
+			      			 <v-btn 
 							
-					       	 
+							  :disabled="loading"
+							  flat
 
-							 
+							  :to="{name : 'Register'}">
+							   Register
+			      			 </v-btn>
 				       </v-flex>
+				       
   
 
 				  
 		    </v-card>
 
-		     <v-btn 
-			  :loading="loading"
-			  :disabled="loading"
-			  flat
-			  :to="{name : 'ForgotPassword'}">
-			   Forgot Password
-			</v-btn>
+		     
 
 
 
