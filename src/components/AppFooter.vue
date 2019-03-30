@@ -1,5 +1,10 @@
 <template>
   <v-footer class="my-appfooter" dark  :class="{ 'my-appfooter--sidebar-open': sidebarVisibility }">
+       <div class="grey--text mx-auto">
+          <span>privacy policy</span>
+          <span>terms and conditions</span>
+       </div>
+
        <div class="grey--text">© 2019 Providing Shelter for you</div>
   </v-footer>   
 </template>

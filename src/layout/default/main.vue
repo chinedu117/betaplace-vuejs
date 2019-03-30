@@ -55,14 +55,14 @@
         </v-btn>
 	 </v-snackbar>
      <loader/>
-     <install-prompt></install-prompt>
+     
      <!-- the footer section -->
      <app-footer >
      </app-footer>
     </v-app>
 </template>
 <script>
-import InstallPrompt from '@/components/InstallPrompt'
+// import InstallPrompt from '@/components/InstallPrompt'
 import AppFooter from '@/components/AppFooter.vue'
 import Loader from '@/components/Loader'
 import ToolBar from '@/components/ToolBar.vue'
@@ -80,7 +80,7 @@ export default {
         }
     },
 
-    components:{ InstallPrompt, AppFooter, FilterBox, Loader, sidebar, search, ToolBar},
+    components:{  AppFooter, FilterBox, Loader, sidebar, search, ToolBar},
   
     computed: {
     //   loggedIn() {
