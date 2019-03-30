@@ -181,25 +181,6 @@ export default {
         // console.log(this.$http)
         this.$store.dispatch('common/updateLoader',true)
         this.$store.dispatch('places_list_store/retrieveAgentPlaces',this.$route.params.agentSlug)
-        .catch(error => {
-            if(error.response){
-              this.$store.dispatch('common/updateSnackBar',{
-              show: true,
-              msg: error.response.data,
-              color: 'red'
-              })
-
-              }else if(error.request){
-                this.$store.dispatch('common/updateSnackBar',{
-                show: true,
-                msg: 'Network error: Check your connection',
-                
-                })
-                
-            }else{
-              // console.log(error)
-            }
-        })
         .finally(() => {
 
           this.$store.dispatch('common/updateLoader',false)
