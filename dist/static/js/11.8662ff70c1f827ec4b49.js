@@ -1,0 +1,2 @@
+webpackJsonp([11],{fe4i:function(e,t,n){"use strict";Object.defineProperty(t,"__esModule",{value:!0});var r={render:function(){var e=this.$createElement;return(this._self._c||e)("div",[this._v("\n\tPrivaacy page\n")])},staticRenderFns:[]},i=n("VU/8")({},r,!1,null,null,null);t.default=i.exports}});
+//# sourceMappingURL=11.8662ff70c1f827ec4b49.js.map

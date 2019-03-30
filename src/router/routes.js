@@ -3,6 +3,8 @@ import Register from '@/auth/Register'
 import Logout from '@/auth/Logout'
 // import PageNotFound from '@/pages/PageNotFound'
 const PageNotFound = () => import(/* webpackChunkName: "pages-not-found" */ '@/pages/PageNotFound')
+const Privacy = () => import(/* webpackChunkName: "privacy" */ '@/pages/Privacy')
+const TandC = () => import(/* webpackChunkName: "terms-and-conditions" */ '@/pages/TandC')
 
 import PlaceView from '@/features/place_view/main.vue'
 
@@ -382,6 +384,38 @@ const routes = [
          
              next()
           }
+     },
+     {
+       path: '/company/privacy',
+       name: 'Privacy',
+       component: Privacy,
+       beforeEnter: (to, from , next) => {
+        const title = 'Privacy'
+        const layout = 'DefaultLayout'
+        //const authed = to.matched.some( (route) => route.meta.requires)
+         // Setup some per-page stuff.
+         document.title = title
+         store.dispatch('common/updateTitle',title)
+         store.dispatch('common/updateLayout', layout)
+     
+         next()
+       }
+     },
+     {
+       path: '/company/terms-and-conditions',
+       name: 'TC',
+       component: TandC,
+       beforeEnter: (to, from , next) => {
+        const title = 'Terms And Conditions'
+        const layout = 'DefaultLayout'
+        //const authed = to.matched.some( (route) => route.meta.requires)
+         // Setup some per-page stuff.
+         document.title = title
+         store.dispatch('common/updateTitle',title)
+         store.dispatch('common/updateLayout', layout)
+     
+         next()
+       }
      },
      {
        path: '*',

@@ -122,7 +122,7 @@ const webpackConfig = merge(baseWebpackConfig, {
     ]),
     new SWPrecache({
         cacheId: 'betaplace',
-        filepath: 'service-worker.js',
+        filepath: 'dist/service-worker.js',
         staticFileGlobs: ['dist/**/*.{js,html,css}'],
         minify: true,
         stripPrefix: 'dist/'
