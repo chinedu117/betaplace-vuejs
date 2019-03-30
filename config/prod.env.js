@@ -1,7 +1,7 @@
 'use strict'
 module.exports = {
   NODE_ENV: '"production"',
-  ROOT_API: '"http://api.betaplace.com.ng/api"',
+  ROOT_API: '"https://betaplace-api.com.ng/api"',
   ROOT_URL: '"https://www.betaplace.com.ng"',
   GOOGLE_CLIENT_ID: '"41873985302-a6bgttc1vqo4me4vn4ji5r19ourjkda6.apps.googleusercontent.com"',
   GOOGLE_CALLBACK_URL: '"https://www.betaplace.com.ng/login/google/callback"',

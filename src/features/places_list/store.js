@@ -235,8 +235,14 @@ store.registerModule('places_list_store', {
   actions: {
     updateUserCoords({commit,dispatch},userCoords){
          
-         commit("updateUserCoords",userCoords)
-         dispatch("refreshPage")
+         if(userCoords.latitude.length > 0 && userCoords.latitude.length > 0)
+         {
+             commit("updateUserCoords",userCoords)
+             dispatch("refreshPage")
+         }
+         
+         return false
+         
     },
     refreshPage({commit,dispatch,state}){
            //reload the page

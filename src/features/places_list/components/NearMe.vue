@@ -43,7 +43,7 @@ export default {
                     
 
                     this.$getLocation({
-                        enableHighAccuracy: false,
+                        enableHighAccuracy: true,
                         timeout: Infinity,
                         maximumAge: 0
                     })
