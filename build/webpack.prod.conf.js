@@ -75,7 +75,7 @@ const webpackConfig = merge(baseWebpackConfig, {
       },
       // necessary to consistently work with multiple chunks via CommonsChunkPlugin
       chunksSortMode: 'dependency',
-      serviceWorkerLoader: `<script>${loadMinified(path.join(__dirname,
+      serviceWorkerLoader: `<script type=text/javascript>${loadMinified(path.join(__dirname,
         './service-worker-prod.js'))}</script>`
     }),
     // keep module.id stable when vendor modules does not change
