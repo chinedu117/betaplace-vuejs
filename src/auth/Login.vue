@@ -118,7 +118,7 @@
                 this.SocialLogin(provider,response)
 
                 }).catch(err => {
-                    console.log({err:err})
+                    // console.log({err:err})
                 })
 
             },
@@ -146,7 +146,7 @@
 					console.log('Login Successfull')
 					this.mixin_handleRequest(this.$store.dispatch('auth/retrieveUser')
 					.then(response => {
-						this.redirectAfterLogin()
+						this.redirectAfterLogin(false)
 
 					})
 					)
@@ -159,7 +159,8 @@
 		redirectAfterLogin(social = false){
 
 			if(!social){
-				if(this.$store.getters['auth/userEmailVerified']){ 
+				if(this.$store.getters['auth/userEmailVerified']){
+				 
 					   if(this.$store.getters['auth/userHasProfile']){ 
 							const slug = this.$store.getters['auth/getUser'].slug
 							this.$router.push({ name: 'MyPlaces', params: {agentSlug: slug}})

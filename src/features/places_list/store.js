@@ -25,6 +25,7 @@ store.registerModule('places_list_store', {
         searchText: '',
         found:[] //stores items found in the search mode
     },
+    place_categories:null,
     nextPageUrl: null,
     preferredFilters: {},
     filterValue:'',
@@ -38,7 +39,9 @@ store.registerModule('places_list_store', {
 
  getters: {
      
-     
+     placeCategories(state){
+        return state.place_categories
+     },
      nextPageUrl(state){
         const userCoords = state.userCoordinates !== null ? true : false
          let Query = ""
@@ -233,14 +236,31 @@ store.registerModule('places_list_store', {
   },
 
   actions: {
+    getCategoryList({commit,dispatch,state}) {
+        if(state.place_categories == null)
+        {
+          return Vue.http.get(API.PLACE_CATEGORY_LIST_URL)
+                .then(response => {
+                    state.place_categories = response.data
+                    return new Promise((resolve) => { resolve(response) })
+                })
+                .catch((error) => {
+
+                    return new Promise((resolve, reject) => { reject(error) })
+                })
+        }
+        
+     
+   },
     updateUserCoords({commit,dispatch},userCoords){
          
-         if(userCoords.latitude.length > 0 && userCoords.latitude.length > 0)
+         if(userCoords.latitude && userCoords.latitude)
          {
              commit("updateUserCoords",userCoords)
              dispatch("refreshPage")
+             return
          }
-         
+        
          return false
          
     },
@@ -424,10 +444,10 @@ store.registerModule('places_list_store', {
         Vue.http.defaults.withCredentials = true
 
          let SEARCH_URL = API.PLACES_SEARCH_URL
-         if(state.userCoordinates !== null){
-             let Query = '?user_coords='+ state.userCoordinates
-            SEARCH_URL = SEARCH_URL.concat(Query)
-         }
+         // if(state.userCoordinates !== null){
+         //     let Query = '?user_coords='+ state.userCoordinates
+         //    SEARCH_URL = SEARCH_URL.concat(Query)
+         // }
 
         return new Promise( (resolve,reject) =>{
             Vue.http.get(SEARCH_URL,{params:{search:searchText}})

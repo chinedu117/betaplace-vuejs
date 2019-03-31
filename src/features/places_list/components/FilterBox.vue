@@ -21,7 +21,8 @@
             <v-btn flat  color="accent" @click="filterItems">OK</v-btn>
             <v-btn flat  color="accent" @click="resetFilter">RESET</v-btn>
             <v-btn flat  color="accent" @click="closeFilterBox">CLOSE</v-btn>
-
+             
+             {{selected}}
             
         </div>
 </template>
@@ -31,7 +32,7 @@ export default {
 
     data(){
         return{
-            showFilters: this.$store.state.places_list_store.filter_box.show,
+           showFilters: this.$store.state.places_list_store.filter_box.show,
            selected:[],
             filters:[
                     {
@@ -72,48 +73,49 @@ export default {
                                  },
 
                             ]
-                },
-
-                {
-                    name: 'category',
-                    label: 'Filter by Apartment',
-                    values: [  
-                                {
-                                 'label': 'Self Contain',
-                                 'name': 'category',
-                                 'value':'1'
-                                 },
-                                 {
-                                 'label': 'Single room',
-                                 'name': 'category',
-                                 'value':'2'
-                                 },
-                                 
-                                 {
-                                 'label': '3 Bedroom flat',
-                                 'name': 'category',
-                                 'value':'3'
-                                 },
-                                 
-                                 {
-                                 'label': '2 Bedroom flat',
-                                 'name': 'category',
-                                 'value':'4'
-                                 },
-                                 {
-                                 'label': '4 Bedroom flat',
-                                 'name': 'category',
-                                 'value':'5'
-                                 },
-                                 {
-                                 'label': '3 bedroom',
-                                 'name': 'category',
-                                 'value':'6'
-                                 },
-
-                            ]
-                },
+                }
             ],
+        }
+    },
+    created(){
+        if(this.$store.getters['places_list_store/placeCategories'] == null){
+
+           this.$store.dispatch('places_list_store/getCategoryList')
+               .then((response) => {
+
+                  let categoryFilter = { name: 'category',
+                                         label: 'Filter by Apartment',
+                                         values: []
+                                       }
+
+                  response.data.forEach((category) => {
+                      categoryFilter.values.push({
+                                            'label': category.name,
+                                            'name': "category",
+                                            'value': category.id
+                                             })
+                  })
+                  
+                  this.filters.push(categoryFilter)
+
+
+               })
+        }else{
+             
+            let categoryFilter = {      name: 'category',
+                                         label: 'Filter by Apartment',
+                                         values: []
+                                       }
+
+             this.$store.getters['places_list_store/placeCategories'].forEach((category) => {
+                        categoryFilter.values.push({
+                                            'label': category.name,
+                                            'name': "category",
+                                            'value': category.id
+                                             })
+                  })
+            this.filters.push(categoryFilter)
+
         }
     },
     methods:{

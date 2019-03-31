@@ -4,7 +4,7 @@
         v-model="searchText"
         autofocus
         placeholder='Search Place eg. Wuse, Abuja'
-        
+            
         box
         id="search-box"
         class="pa-2 elevation-2"
@@ -38,8 +38,8 @@ export default {
     methods: {
 
         search(val){
-           
-            this.$store.dispatch('places_list_store/search',val.toLowerCase())
+            let search = val.trim().toLowerCase();
+            this.$store.dispatch('places_list_store/search',search)
         },
         clearSearch()
         {   

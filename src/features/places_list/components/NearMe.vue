@@ -47,13 +47,13 @@ export default {
                         timeout: Infinity,
                         maximumAge: 0
                     })
-                    .then(coordinates => {
+                    .then((coordinates) => {
                        
                         myLocation  =  {
                                 latitude: coordinates.lat,
                                 longitude: coordinates.lng
                             }
-
+                        console.log(myLocation.length > 0)
                         this.$store.dispatch('places_list_store/updateUserCoords',myLocation)
                         
                     })  
