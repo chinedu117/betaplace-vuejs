@@ -17,7 +17,7 @@ const PackageView = () => import(/* webpackChunkName: "package-view" */ '@/featu
 const CreateEditPlace = () => import(/* webpackChunkName: "create-edit-place" */ '@/features/dashboard/PlaceCreateEdit.vue')
 const MySubscriptions = () => import(/* webpackChunkName: "my-subscriptions" */ '@/features/dashboard/AgentSubscriptions.vue')
 const VerifyEmail = () => import(/* webpackChunkName: "verify-email" */ '@/auth/VerifyEmail.vue')
-const CreateEditProfile = () => import(/* webpackChunkName: "create-edit-profile" */ '@/auth/VerifyEmail.vue')
+const CreateEditProfile = () => import(/* webpackChunkName: "create-edit-profile" */ '@/auth/CreateEditProfile.vue')
 const AgentProfileView = () => import(/* webpackChunkName: "agent-profile-view" */ '@/auth/AgentProfile')
 const ForgotPassword = () => import(/* webpackChunkName: "forgot-password" */ '@/auth/ForgotPassword')
 const ResetPassword = () => import(/* webpackChunkName: "reset-password" */ '@/auth/ResetPassword')
