@@ -13,8 +13,10 @@
                 
             </component>
             <v-btn class="ma-2" style="height:50%" v-show="!$vuetify.breakpoint.smAndDown" v-if="!loggedIn" :to="{ name: 'Register'}" outline>Become An Agent</v-btn>
-
+           
             
+            <v-btn class="ma-2" style="height:50%" v-show="!$vuetify.breakpoint.smAndDown" v-if="loggedIn" :to="{ name: 'Logout'}" outline><v-icon>logout</v-icon></v-btn>
+
           </v-toolbar-items>
           <v-toolbar-side-icon size="$vuetify.breakpoint.mdAndUp ? '45' : '24'" @click.stop="toggleNav()"></v-toolbar-side-icon>
     </v-toolbar>

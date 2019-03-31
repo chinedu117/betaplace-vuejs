@@ -21,6 +21,14 @@
             <v-divider></v-divider>
             
            
+            <v-list-tile v-if="loggedIn" avatar :to="{ name: 'MyPlaces', params:{agentslug:store.getters[auth/getUser].slug}}">
+                <v-list-tile-avatar>
+                    <v-icon>dashboard</v-icon>
+                </v-list-tile-avatar>
+                <v-list-tile-content>
+                    <v-list-tile-title>Dashboard</v-list-tile-title>
+                </v-list-tile-content>
+            </v-list-tile>
 
             <v-list-tile v-if="loggedIn" avatar :to="{ name: 'Logout'}">
                 <v-list-tile-avatar>
@@ -30,6 +38,8 @@
                     <v-list-tile-title>Logout</v-list-tile-title>
                 </v-list-tile-content>
             </v-list-tile>
+
+
             
             <v-btn class="ml-4" v-if="!loggedIn" :to="{ name: 'Login'}" outline>LET OUT YOUR SPACE</v-btn>
 
