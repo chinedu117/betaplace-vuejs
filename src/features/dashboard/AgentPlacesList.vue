@@ -103,7 +103,7 @@ export default {
    created(){
         //load places
         this.mixin_handleRequest(this.$options.service.getAgentPlacesList({agent_slug:this.$route.params.agentSlug})
-                              .then(response =>{
+                              .then((response) =>{
                                  response.data.forEach((place) => {
                                  this.placeList.push(place)
                     })
@@ -140,6 +140,7 @@ export default {
             {
               this.$router.push({name: 'createEdit',params:{agentSlug:this.$route.params.agentSlug}})
             }else{
+
               this.$store.dispatch('common/updateSnackBar',{
                     show: true,
                     msg: 'You do not have enough subscription to continue',
