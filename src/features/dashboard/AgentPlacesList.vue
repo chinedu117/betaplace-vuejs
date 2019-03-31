@@ -138,7 +138,7 @@ export default {
             //check if the agenet still has enough subscription
             if(this.$store.getters['auth/getUser'].agent_statistics.max_no_places > 0)
             {
-              this.$router.push({name: 'createEdit'})
+              this.$router.push({name: 'createEdit',params:{agentSlug:this.$route.params.agentSlug}})
             }else{
               this.$store.dispatch('common/updateSnackBar',{
                     show: true,
@@ -153,7 +153,7 @@ export default {
 
         editPlace(slug){
             
-            this.$router.push({name: 'createEdit',params:{placeSlug:slug}})
+            this.$router.push({name: 'createEdit',params:{agentSlug:this.$route.params.agentSlug ,placeSlug:slug}})
         },
         deletePlace(index){
             this.placeList.splice(index,1)
