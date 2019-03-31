@@ -4,7 +4,7 @@
      <v-flex xs12>
        <v-card  v-bind="card_style" >
                         <v-card-title primary-title>
-                           <v-subheader>Your Profile</v-subheader>
+                           <v-subheader class="title">Your Profile</v-subheader>
                         </v-card-title>
                             <v-text-field
                             outline
@@ -64,10 +64,23 @@
                                 v-validate.disable="'required'"
                                 data-vv-name="country"
 						         :error-messages="serverErrors.country ? serverErrors.country : errors.collect('country')"
- 
+                                disabled
                                 v-model="profile.country"
                                 required
                             ></v-text-field>
+
+                             <v-select
+                                name="state"
+                                :items="states"
+                                outline
+                                v-validate="'required'"
+                               :error-messages="errors.collect('state')"
+                               data-vv-name="state"
+                                label="State"
+                                v-model="profile.state"
+                               id="state"
+
+                            ></v-select>
 
                             <v-textarea
                                 :counter="100"
@@ -76,7 +89,7 @@
                                 name="office_address"
                                 label="Address"
                                 v-model="profile.office_address"
-                                v-validate.disable="{ required: true, max:200, regex: /^([0-9a-zA-Z\s',-]+)$/}"
+                                v-validate.disable="{ required: true, max:150, regex: /^([0-9a-zA-Z\s',-]+)$/}"
                                
 						                    :error-messages="serverErrors.office_address ? serverErrors.office_address : errors.collect('office_address')"
                                 @blur="showAddress = true"
@@ -121,12 +134,12 @@
 <script>
 import HandleRequest from '@/mixins/RequestHandler.js'
 import insertBreaksFilter from  '@/mixins/InsertBreaksFilter'
-
+import NaijaStates from 'naija-state-local-government'
 export default {
   data(){
       return {
           profile:{
-              
+              country:"Nigeria"
           },
           showAddress: false,
           
@@ -142,6 +155,10 @@ export default {
       }
   },
   computed: {
+  
+         states(){
+             return NaijaStates.states()
+             },
          card_style(){
 
            if(!this.$vuetify.breakpoint.smAndDown){
