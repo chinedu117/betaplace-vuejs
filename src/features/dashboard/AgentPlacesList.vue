@@ -82,6 +82,104 @@
               <v-icon dark>add</v-icon>
           </v-btn>
       </v-layout>
+      <v-layout v-else>  
+            <v-container grid-list-xs>
+               <v-layout row wrap>
+                  <v-flex md8 lg8 >
+                    <template 
+                         v-for="(place,index) in places"
+                  
+                      >
+                        <div 
+                        :index="index"
+                        :key="Math.random() + '_' + place.slug"
+                        >
+                          <v-card height="auto" class="mb-3" width="100%">
+
+                            <div class="pa-3" color="grey darken-3" width="100%" style="background-color:#dddd">
+                                  <v-layout row wrap>
+                                      <v-flex md7>
+                                       <span class="headline">{{ place.category.name }}</span>
+                                     </v-flex>
+                                     <v-flex md3>
+                                       <span  class="text-md-right red--text font-weight-medium" >{{ place.price | currency }}</span>
+                                     </v-flex>
+                                     <v-flex md2>
+                                      
+                                      </v-flex>
+                                  </v-layout>
+                            </div>
+
+                           <v-card-text class="text-xs-left">
+                                <div class=" text--grey lighten-4 subheading text-capitalize">
+
+                                    <v-icon class="pr-2 lighten-4" >place</v-icon>
+                                    <span class="text-capitalize">{{ place.location }}, {{ place.state }}</span><br>
+
+                                </div>
+                                 
+                                 {{ place.description }}
+                                
+                            </v-card-text>
+                            
+                             
+                             <v-card-actions>
+                              
+                                   <div class=" d-inline text--grey lighten-4 subheading text-capitalize">
+                                    
+                                        <div class="d-inline px-2 mx-2">
+                                          <v-icon class="lighten-4" >thumb_up</v-icon>
+                                          <span class="text-capitalize">{{place.statistics.like_no}}</span>
+                                        </div>
+
+                                        <div class="d-inline px-2 mx-2">
+                                          <v-icon class="lighten-4" >place</v-icon>
+                                          <span class="text-capitalize">{{place.statistics.map_no}}</span>
+                                        </div>
+
+                                        <div class="d-inline px-2 mx-2">
+                                          <v-icon class="lighten-4" >share</v-icon>
+                                          <span class="text-capitalize">{{place.statistics.share_no}}</span>
+                                        </div>
+
+                                        <div class="d-inline px-2 mx-2">
+                                          <v-icon class="lighten-4" >visibility</v-icon>
+                                          <span class="text-capitalize">{{place.statistics.seen_no}}</span>
+                                        </div>
+
+                                        <flags :expired="place.expired" :published="place.agent_published" />
+
+                                        <place-actions 
+                                          :published="place.agent_published" 
+                                          :expired="place.expired" 
+                                          :slug="place.slug"
+                                          :index="index" 
+                                          v-on:delete-place="deletePlace"
+                                          v-on:place-published="publishPlace"
+                                          v-on:place-unpublished="unPublishPlace"
+                                          v-on:place-renewd="unexpirePlace"
+                                          >
+                                            
+                                          </place-actions>
+              
+                                  </div>
+
+                             </v-card-actions>
+
+
+                          </v-card>
+                        </div>
+                      </template>
+                  </v-flex>
+                  <v-flex md4 lg4>
+                    <v-card class="pa-4">
+                      fsd
+                    </v-card>
+                  </v-flex>
+                </v-layout>
+            </v-container>
+            <!-- end v-else -->
+      </v-layout> 
       
 </div>
 </template>
@@ -108,6 +206,7 @@ export default {
                                  this.placeList.push(place)
                     })
         }))//end handler
+
    },
    computed:{
        places(){

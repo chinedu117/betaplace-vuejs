@@ -9,7 +9,7 @@
         </v-list>
     </v-menu> -->
 
-  <div class="text-xs-center">
+ 
     <v-menu offset-y>
       <template v-slot:activator="{ on }">
          <v-btn dark color="grey lighten-2" :loading="loading" icon v-on="on">
@@ -39,7 +39,7 @@
             </v-list-tile>
         </v-list>
     </v-menu>
-  </div>
+  
 
     <!-- <v-menu open-on-hover left>
         

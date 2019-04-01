@@ -59,7 +59,7 @@
                        <v-avatar :size="60" color="red lighten-4"> 
                           <v-icon size="40">business</v-icon>
                        </v-avatar>
-                        <div class="pa-2 title font-weight-medium" :inner-html.prop="buildAddress(agentInfo.office_address,agentInfo.country) | insertBreaks">
+                        <div class="pa-2 title font-weight-medium" :inner-html.prop="buildAddress(agentInfo.office_address,agentInfo.state,agentInfo.country) | insertBreaks">
                        
                         </div>
                         </div>
@@ -130,7 +130,7 @@
                        <v-avatar :size="60" color="red lighten-4"> 
                           <v-icon size="40">business</v-icon>
                        </v-avatar>
-                        <div class="pa-2  text-xs-center subheading font-weight-medium" :inner-html.prop="buildAddress(agentInfo.office_address,agentInfo.country) | insertBreaks">
+                        <div class="pa-2  text-xs-center subheading font-weight-medium" :inner-html.prop="buildAddress(agentInfo.office_address,agentInfo.state,agentInfo.country) | insertBreaks">
                        
                         </div>
                         </v-layout>

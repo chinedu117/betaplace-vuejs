@@ -71,7 +71,8 @@
               <div class="d-flex justify-space-between">
                     <v-subheader>Available Places <v-chip align-end>{{ places.length}}</v-chip></v-subheader>
                     
-                </div>
+            </div>
+            
           <div
            v-if="places.length > 0"
           > 

@@ -3,9 +3,11 @@
   <v-layout row wrap>
      <v-flex xs12>
        <v-card  v-bind="card_style" >
+        
                         <v-card-title primary-title>
                            <v-subheader class="title">Your Profile</v-subheader>
                         </v-card-title>
+
                             <v-text-field
                             outline
                             name="agency_name"
@@ -16,7 +18,7 @@
                             data-vv-name="agency_name"
                             v-model="profile.agency_name"
                             required
-                            @blur="setAgentHandle"
+                            @change="setAgentHandle"
                             ></v-text-field>
 
                             <v-text-field
@@ -89,7 +91,7 @@
                                 name="office_address"
                                 label="Address"
                                 v-model="profile.office_address"
-                                v-validate.disable="{ required: true, max:150, regex: /^([0-9a-zA-Z\s',-]+)$/}"
+                                v-validate.disable="{ required: true, max:150, regex: /^([0-9a-zA-Z\s',-.]+)$/}"
                                
 						                    :error-messages="serverErrors.office_address ? serverErrors.office_address : errors.collect('office_address')"
                                 @blur="showAddress = true"
@@ -101,7 +103,7 @@
 
                              <v-card-text>  
                               <span class="caption red--text">Use comma(,) to punctuate your address</span>
-                                <p  class="title font-weight-medium" :innerHtml.prop="buildAddress(profile.office_address,profile.country) | insertBreaks">
+                                <p  class="title font-weight-medium" :innerHtml.prop="buildAddress(profile.office_address,profile.state,profile.country) | insertBreaks">
                             </p>
                              </v-card-text>
                             
@@ -116,7 +118,7 @@
                                 v-model="profile.about_us"
                                 :counter="200"
 						        :error-messages="serverErrors.about_us ? serverErrors.about_us : errors.collect('about_us')"
-                                v-validate.disable="'required|max:200|alpha_spaces'"
+                                v-validate.disable="{ required: true, max:150, regex: /^([0-9a-zA-Z\s',-.]+)$/}"
                                 data-vv-name="about_us"
                                 outline
                             ></v-textarea>
@@ -210,7 +212,7 @@ export default {
          this.mixin_handleRequest(this.$store.dispatch('auth/getMyProfile')
                     .then(response => {
                       this.profile = response.data
-                
+                      this.setAgentHandle() 
          })) 
     },
   }//end methods
