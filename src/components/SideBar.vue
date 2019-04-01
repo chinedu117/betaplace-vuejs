@@ -21,7 +21,7 @@
             <v-divider></v-divider>
             
            
-            <v-list-tile v-if="loggedIn" avatar :to="{ name: 'MyPlaces', params:{agentslug:$store.getters['auth/getUser'].slug}}">
+            <v-list-tile v-if="loggedIn" avatar :to="{ name: 'MyPlaces', params:{agentSlug: agent_slug}}">
                 <v-list-tile-avatar>
                     <v-icon>dashboard</v-icon>
                 </v-list-tile-avatar>
@@ -52,6 +52,7 @@
     </template>
 
     <script>
+    import store from '@/store'
     export default {
       
       name: 'sidebar',
@@ -78,6 +79,10 @@
         loggedIn() {
 		      return	this.$store.getters["auth/loggedIn"]
 			
+        },
+
+        agent_slug(){
+             return this.$store.getters["auth/getUser"].slug
         },
         active:{
             get()

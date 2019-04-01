@@ -75,9 +75,6 @@
 			      			 </v-btn>
 				       </v-flex>
 				       
-  
-
-				  
 		    </v-card>
 
 		     
@@ -92,7 +89,7 @@
 
 
 <script>
-
+    import store from "./store.js"
 	import HandleRequest from '@/mixins/RequestHandler.js'
 	export default {
 	
@@ -127,7 +124,7 @@
              payload.provider = provider
             this.mixin_handleRequest(this.$store.dispatch('auth/socialLogin',payload)
 			   .then(response => {
-					console.log('login Successfull')
+					// console.log('login Successfull')
 					this.mixin_handleRequest(this.$store.dispatch('auth/retrieveUser')
 					.then(response => {
 						this.redirectAfterLogin(true)
@@ -141,29 +138,45 @@
             },
        
 	  	login() {
-			this.mixin_handleRequest(this.$store.dispatch('auth/login',this.credentials)
-			.then(response => {
-					console.log('Login Successfull')
-					this.mixin_handleRequest(this.$store.dispatch('auth/retrieveUser')
-					.then(response => {
-						this.redirectAfterLogin(false)
 
+			const sm = this
+				
+			this.mixin_handleRequest(this.$store.dispatch('auth/login',this.credentials)
+			.then((response) => {
+					
+					return sm.mixin_handleRequest(sm.$store.dispatch('auth/retrieveUser')
+					  .then((response) => {
+						
+						 sm.redirectAfterLogin(false)
+                        
 					})
-					)
+				)
 			})
 			)
+				 
+		
+
 				
 				
 		  },
 
 		redirectAfterLogin(social = false){
+           
+           const slug = this.$store.getters['auth/getUser'].slug
+           const hasProfile = this.$store.getters['auth/userHasProfile']
+           const hasVerifiedEmail = this.$store.getters['auth/userEmailVerified']
 
+           console.log(slug,hasProfile,hasVerifiedEmail)
 			if(!social){
-				if(this.$store.getters['auth/userEmailVerified']){
-				 
-					   if(this.$store.getters['auth/userHasProfile']){ 
-							const slug = this.$store.getters['auth/getUser'].slug
-							this.$router.push({ name: 'MyPlaces', params: {agentSlug: slug}})
+				console.log('Not using social login')
+				if(hasVerifiedEmail){
+				     console.log('has verified email')
+				        
+					   if(hasProfile){ 
+				             console.log('has profile ')
+							 
+							var res = this.$router.push({ name: 'MyPlaces', params: {"agentSlug": slug}})
+							console.log('Going to my places ')
 						}else{
 	                        this.$router.push({ name: 'AgentProfile'})
 						}
@@ -172,9 +185,8 @@
 					}
 			}else{
 
-				 if(this.$store.getters['auth/userHasProfile']){ 
-							const slug = this.$store.getters['auth/getUser'].slug
-							this.$router.push({ name: 'MyPlaces', params: {agentSlug: slug}})
+				 if(hasProfile){ 
+							this.$router.push({ name: 'MyPlaces', params: {"agentSlug": slug}})
 						}else{
 	                        this.$router.push({ name: 'AgentProfile'})
 					}

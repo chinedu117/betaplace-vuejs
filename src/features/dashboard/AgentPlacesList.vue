@@ -163,9 +163,9 @@
                                           </place-actions>
               
                                   </div>
-
+                                   
                              </v-card-actions>
-
+                                    
 
                           </v-card>
                         </div>
@@ -198,6 +198,10 @@ export default {
    },
    components: { PlaceActions, Flags},
    mixins: [HandlesRequest],
+   beforeRouteEnter(to,from,next){
+      //if have no profile or statistic go back profile page
+      next()
+   },
    created(){
         //load places
         this.mixin_handleRequest(this.$options.service.getAgentPlacesList({agent_slug:this.$route.params.agentSlug})
@@ -235,6 +239,7 @@ export default {
         },
         createPlace(){
             //check if the agenet still has enough subscription
+
             if(this.$store.getters['auth/getUser'].agent_statistics.max_no_places > 0)
             {
               this.$router.push({name: 'createEdit',params:{agentSlug:this.$route.params.agentSlug}})
