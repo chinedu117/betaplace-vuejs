@@ -9,68 +9,50 @@
         </v-list>
     </v-menu> -->
 
- 
-    <v-menu offset-y>
-      <template v-slot:activator="{ on }">
-         <v-btn dark color="grey lighten-2" :loading="loading" icon v-on="on">
-              <v-icon>more_vert</v-icon>
-         </v-btn>
-      </template>
-      <v-list>
-          
-            <v-list-tile  @click="deletePlace">
-                <v-list-tile-action>
-                    <v-icon>delete</v-icon>
-                </v-list-tile-action>
-                <v-list-tile-title>Delete</v-list-tile-title>
-            </v-list-tile>
-            <v-list-tile  @click="publish">
-                <v-list-tile-action>
-                    <v-icon>delete</v-icon>
-                </v-list-tile-action>
-                <v-list-tile-title v-if="agent_published"> UnPublish</v-list-tile-title>
-                <v-list-tile-title v-else> Publish</v-list-tile-title>
-            </v-list-tile>
-            <v-list-tile  v-if="place_expired" @click="renew">
-                <v-list-tile-action>
-                    <v-icon>delete</v-icon>
-                </v-list-tile-action>
-                <v-list-tile-title > Renew </v-list-tile-title>
-            </v-list-tile>
-        </v-list>
-    </v-menu>
-  
-
-    <!-- <v-menu open-on-hover left>
-        
-           <v-btn dark color="grey lighten-2" :loading="loading" icon slot="activator">
-              <v-icon>more_vert</v-icon>
-            </v-btn>
-       
-
+  <div>
+      <v-menu offset-y v-if="!$vuetify.breakpoint.mdAndUp">
+        <template v-slot:activator="{ on }">
+           <v-btn dark color="grey lighten-2" :loading="loading" icon v-on="on">
+                <v-icon>more_vert</v-icon>
+           </v-btn>
+        </template>
         <v-list>
-          
-            <v-list-tile  @click="deletePlace">
-                <v-list-tile-action>
-                    <v-icon>delete</v-icon>
-                </v-list-tile-action>
-                <v-list-tile-title>Delete</v-list-tile-title>
-            </v-list-tile>
-            <v-list-tile  @click="publish">
-                <v-list-tile-action>
-                    <v-icon>delete</v-icon>
-                </v-list-tile-action>
-                <v-list-tile-title v-if="agent_published"> UnPublish</v-list-tile-title>
-                <v-list-tile-title v-else> Publish</v-list-tile-title>
-            </v-list-tile>
-            <v-list-tile  v-if="place_expired" @click="renew">
-                <v-list-tile-action>
-                    <v-icon>delete</v-icon>
-                </v-list-tile-action>
-                <v-list-tile-title > Renew </v-list-tile-title>
-            </v-list-tile>
-        </v-list>
-    </v-menu> -->
+            
+              <v-list-tile  @click="deletePlace">
+                  <v-list-tile-action>
+                      <v-icon>delete</v-icon>
+                  </v-list-tile-action>
+                  <v-list-tile-title>Delete</v-list-tile-title>
+              </v-list-tile>
+              <v-list-tile  @click="publish">
+                  <v-list-tile-action>
+                      <v-icon>delete</v-icon>
+                  </v-list-tile-action>
+                  <v-list-tile-title v-if="agent_published"> UnPublish</v-list-tile-title>
+                  <v-list-tile-title v-else> Publish</v-list-tile-title>
+              </v-list-tile>
+              <v-list-tile  v-if="place_expired" @click="renew">
+                  <v-list-tile-action>
+                      <v-icon>delete</v-icon>
+                  </v-list-tile-action>
+                  <v-list-tile-title > Renew </v-list-tile-title>
+              </v-list-tile>
+          </v-list>
+      </v-menu>
+
+      <div  v-else class="d-flex space-between justify-left">
+         
+            <v-btn small  @click="deletePlace"  ><v-icon color="red">delete</v-icon>Delete</v-btn>
+
+            <v-btn small   v-if="agent_published" @click="publish"><v-icon color="red">highlight_off</v-icon>Unpublish</v-btn>
+
+            <v-btn small v-else @click="publish" ><v-icon  color="green">check_circle_outline</v-icon> Publish</v-btn>
+
+            <v-btn small dark v-if="!place_expired" @click="renew" color="green darken-2"><v-icon>access_time</v-icon>Renew</v-btn>
+
+      </div>
+  </div>
+  
 </template>
 
 <script>

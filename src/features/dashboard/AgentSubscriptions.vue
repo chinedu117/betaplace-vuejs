@@ -56,7 +56,38 @@
 
 <script>
 import HandlesRequest from "@/mixins/RequestHandler"
+import store from '@/store'
 export default {
+
+  beforeRouteEnter(to,from,next){
+      //if have no profile or statistic go back profile page
+     
+       
+        const hasProfile = store.getters['auth/userHasProfile']
+        const hasVerifiedEmail = store.getters['auth/userEmailVerified']
+
+        if(!hasVerifiedEmail){
+               store.dispatch("common/updateSnackBar",{
+                  
+                    show: true,
+                    msg: 'Verify your email to proceed',
+                    color: ''
+               })
+               next({name: 'VerifyEmail'})
+             }
+
+        if(!hasProfile){ 
+                 store.dispatch("common/updateSnackBar",{
+                  
+                    show: true,
+                    msg: 'Set up your profile to proceed',
+                    color: ''
+               })
+                 next({ name: 'AgentProfile'})
+            }
+
+      next()
+   },
 data(){
     return {
         subscriptionList: []

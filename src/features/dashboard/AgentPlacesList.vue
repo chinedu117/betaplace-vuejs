@@ -158,6 +158,7 @@
                                           v-on:place-published="publishPlace"
                                           v-on:place-unpublished="unPublishPlace"
                                           v-on:place-renewd="unexpirePlace"
+                                          class="d-inline"
                                           >
                                             
                                           </place-actions>
@@ -189,6 +190,8 @@ import HandlesRequest from '@/mixins/RequestHandler'
 import Service from './Service.js'
 import PlaceActions from "./components/PlaceActions"
 import Flags from "./components/Flags"
+import store from '@/store'
+
 export default {
     service: new Service(),
    data(){
@@ -200,6 +203,31 @@ export default {
    mixins: [HandlesRequest],
    beforeRouteEnter(to,from,next){
       //if have no profile or statistic go back profile page
+     
+       
+        const hasProfile = store.getters['auth/userHasProfile']
+        const hasVerifiedEmail = store.getters['auth/userEmailVerified']
+
+        if(!hasVerifiedEmail){
+               store.dispatch("common/updateSnackBar",{
+                  
+                    show: true,
+                    msg: 'Verify your email to proceed',
+                    color: ''
+               })
+               next({name: 'VerifyEmail'})
+             }
+
+        if(!hasProfile){ 
+                 store.dispatch("common/updateSnackBar",{
+                  
+                    show: true,
+                    msg: 'Set up your profile to upload your places',
+                    color: ''
+               })
+                 next({ name: 'AgentProfile'})
+            }
+
       next()
    },
    created(){
