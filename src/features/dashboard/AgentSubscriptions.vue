@@ -1,6 +1,6 @@
 <template>
     <div> 
-      <v-layout row v-if="$vuetify.breakpoint.smAndDown">
+      <v-layout row>
          <v-flex  xs12>
          
                  <div class="d-flex justify-space-between">
@@ -90,7 +90,7 @@ export default {
    },
 data(){
     return {
-        subscriptionList: []
+        
     }
 },
 created(){
@@ -99,18 +99,15 @@ created(){
 computed: {
 
     subscriptions(){
-        return this.subscriptionList
+        return this.$store.getters['dashboard_store/subscriptions']
     }
 },
 mixins: [ HandlesRequest ],
 methods:{
 
     getSubscriptions(){
+        return this.$store.dispatch("dashboard_store/retrieveMySubscriptions")
 
-        this.mixin_handleRequest(this.$store.dispatch("dashboard_store/retrieveMySubscriptions")
-        .then((response) =>{
-            this.subscriptionList = response.data
-        }))
     }
 }
 }

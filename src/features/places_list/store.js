@@ -1,7 +1,7 @@
 // import axios from 'axios'
 import store from '@/store'
 import * as API from '@/api'
-import haversine from 'haversine'
+// import haversine from 'haversine'
 import Vue from 'vue'
 
 store.registerModule('places_list_store', {
@@ -221,17 +221,17 @@ store.registerModule('places_list_store', {
         state.filter_box = Object.assign({}, state.filter_box, payload)
       },
 
-      updateDistance(state, myLocation) {
+      // updateDistance(state, myLocation) {
 
-          state.places.forEach(place => {
+      //     state.places.forEach(place => {
 
-              place.distance = haversine(myLocation, {
-                  latitude: place.latitude,
-                  longitude: place.longitude
-              }, { 'unit': 'kilometer' })
+      //         place.distance = haversine(myLocation, {
+      //             latitude: place.latitude,
+      //             longitude: place.longitude
+      //         }, { 'unit': 'kilometer' })
 
-          })
-      },
+      //     })
+      // },
   
   },
 

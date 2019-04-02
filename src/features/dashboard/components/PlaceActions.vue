@@ -17,13 +17,20 @@
            </v-btn>
         </template>
         <v-list>
-            
+              <v-list-tile  @click="visitPlace(slug)">
+                  <v-list-tile-action>
+                      <v-icon>visibility</v-icon>
+                  </v-list-tile-action>
+                  <v-list-tile-title>View</v-list-tile-title>
+              </v-list-tile>
+
               <v-list-tile  @click="deletePlace">
                   <v-list-tile-action>
                       <v-icon>delete</v-icon>
                   </v-list-tile-action>
                   <v-list-tile-title>Delete</v-list-tile-title>
               </v-list-tile>
+
               <v-list-tile  @click="publish">
                   <v-list-tile-action>
                       <v-icon>delete</v-icon>
@@ -48,8 +55,11 @@
 
             <v-btn small v-else @click="publish" ><v-icon  color="green">check_circle_outline</v-icon> Publish</v-btn>
 
-            <v-btn small dark v-if="!place_expired" @click="renew" color="green darken-2"><v-icon>access_time</v-icon>Renew</v-btn>
+            <v-btn small dark v-if="place_expired" @click="renew" color="green darken-2"><v-icon>access_time</v-icon>Renew</v-btn>
 
+            <v-btn small dark @click="edit" color="green darken-2"><v-icon>edit</v-icon>EDIT</v-btn>
+            
+            <v-btn small  @click="visitPlace(slug)"><v-icon color="blue darken-2">visibility</v-icon>VIEW</v-btn>
       </div>
   </div>
   
@@ -125,7 +135,18 @@ export default {
                     this.place_expired = true
                     this.$emit('place-renewed',this.index)
                }))
-    }
+    },
+
+    edit(){
+
+         this.$emit('place-edit',this.slug)
+    },
+   
+   visitPlace(placeSlug){
+
+        this.$router.push({name: 'PlaceView', params:{id: placeSlug}})
+
+   }
 
 }
 }

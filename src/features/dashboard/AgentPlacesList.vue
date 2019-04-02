@@ -82,9 +82,9 @@
               <v-icon dark>add</v-icon>
           </v-btn>
       </v-layout>
-      <v-layout v-else>  
-            <v-container grid-list-xs>
-               <v-layout row wrap>
+       
+            <v-container v-else >
+               <v-layout row wrap grid-list-xs >
                   <v-flex md8 lg8 >
                     <template 
                          v-for="(place,index) in places"
@@ -98,15 +98,13 @@
 
                             <div class="pa-3" color="grey darken-3" width="100%" style="background-color:#dddd">
                                   <v-layout row wrap>
-                                      <v-flex md7>
+                                      <v-flex md8>
                                        <span class="headline">{{ place.category.name }}</span>
                                      </v-flex>
-                                     <v-flex md3>
+                                     <v-flex md4>
                                        <span  class="text-md-right red--text font-weight-medium" >{{ place.price | currency }}</span>
                                      </v-flex>
-                                     <v-flex md2>
-                                      
-                                      </v-flex>
+                      
                                   </v-layout>
                             </div>
 
@@ -157,7 +155,8 @@
                                           v-on:delete-place="deletePlace"
                                           v-on:place-published="publishPlace"
                                           v-on:place-unpublished="unPublishPlace"
-                                          v-on:place-renewd="unexpirePlace"
+                                          v-on:place-renewed="unexpirePlace"
+                                          v-on:place-edit="editPlace"
                                           class="d-inline"
                                           >
                                             
@@ -169,39 +168,97 @@
                                     
 
                           </v-card>
+
                         </div>
+
                       </template>
+
+                        <v-btn color="success" class="mr-3 " outline @click="seePlanList()">Click to increase your limits</v-btn>
+
+
+                      <v-btn fab dark  color="primary" fixed bottom v-bind="floating_button_style"  @click="createPlace()">
+                        <v-icon dark>add</v-icon>
+                    </v-btn>
+
                   </v-flex>
+
+
                   <v-flex md4 lg4>
-                    <v-card class="pa-4">
-                      fsd
+
+                    <v-card style="position:fixed" class="ml-2">
+                           <div class="pa-3" color="grey darken-3"  width="100%" style="background-color:#ddd">
+                                 <span class="headline">
+                                     Account Summary                                  
+                                  </span>
+                                  
+                              </div>
+                              <v-card-text>
+                                <div class="account-summary-row">
+                                  <div class="account-summary-row--cell">
+                                     Total Places
+                                  </div>
+                                  <div class="account-summary-row--cell">
+                                     {{ account_summary.places_no }}
+                                  </div>
+                                </div>
+                                <div class="account-summary-row">
+                                  <div class="account-summary-row--cell">
+                                   Subscriptions
+                                   
+                                  </div>
+
+                                  <div class="account-summary-row--cell">
+                                     {{ account_summary.subscriptions_no }}
+                                    
+                                   </div>
+                                   
+                                </div>
+                                <div class="account-summary-row">
+                                  <div class="account-summary-row--cell">
+                                   Slots Remaining
+                                  </div>
+                                  <div class="account-summary-row--cell">
+                                     {{ account_summary.slots_remaining }}
+                                   </div>
+                                </div>
+                                <div class="account-summary-row">
+                                  <div class="account-summary-row--cell">
+                                     Expiry Date
+                                  </div>
+                                  <div class="account-summary-row--cell">
+                                      {{ account_summary.slots_remaining }}
+                                  </div>
+                                </div>
+                              </v-card-text>
+
+
                     </v-card>
+                    
                   </v-flex>
                 </v-layout>
             </v-container>
             <!-- end v-else -->
-      </v-layout> 
+       
       
 </div>
 </template>
 
 <script>
+import store from '@/store'
 import HandlesRequest from '@/mixins/RequestHandler'
-import Service from './Service.js'
+// import Service from './Service.js'
 import PlaceActions from "./components/PlaceActions"
 import Flags from "./components/Flags"
-import store from '@/store'
+
 
 export default {
-    service: new Service(),
-   data(){
+    // service: new Service(),
+    data(){
        return {
-           placeList:[],
+          
        }
    },
-   components: { PlaceActions, Flags},
-   mixins: [HandlesRequest],
-   beforeRouteEnter(to,from,next){
+    beforeRouteEnter(to,from,next){
       //if have no profile or statistic go back profile page
      
        
@@ -230,19 +287,42 @@ export default {
 
       next()
    },
+
+   
+
+   components: { PlaceActions, Flags},
+
+   mixins: [HandlesRequest],
+
+   
    created(){
         //load places
-        this.mixin_handleRequest(this.$options.service.getAgentPlacesList({agent_slug:this.$route.params.agentSlug})
-                              .then((response) =>{
-                                 response.data.forEach((place) => {
-                                 this.placeList.push(place)
-                    })
-        }))//end handler
+       const sm = this
+      this.$store.dispatch("dashboard_store/retrieveAgentPlacesList",{agent_slug:this.$route.params.agentSlug})
+      .then(response =>{
+                 return sm.$store.dispatch("dashboard_store/retrieveMySubscriptions")
+                        
+           })
 
    },
    computed:{
+       account_summary(){
+           return this.$store.getters['dashboard_store/summary']
+       },
+       floating_button_style(){
+         if(this.$store.state.common.sidebar.visible){
+
+            return {
+                      "style":"left: 20%; top: 18%"
+              }
+         }else{
+             return {
+                      "style":"left: 8%; top: 18%"
+              }
+         }
+       },
        places(){
-           return this.placeList
+           return this.$store.getters['dashboard_store/places']
        }
    },
     methods:{
@@ -301,6 +381,32 @@ export default {
 }
 </script>
 
-<style>
+<style lang="stylus">
+  .account-summary-row
+    width: 80%
+    padding: 0 2px
+    height: auto
+    margin: 0 auto
+    display: inline-block
+    border: 5px solid #dddd
+
+    &--cell
+      border-color: #dddd
+      border-width: 2px
+      display: inline
+      float: left
+      padding: 5px
+      height: auto
+
+    &--cell:first-child
+      width: 40%
+
+    &--cell:last-child
+        width: 60%
+        padding-left: 10px
+        border-left: 5px solid #dddd
+
+
+
 
 </style>

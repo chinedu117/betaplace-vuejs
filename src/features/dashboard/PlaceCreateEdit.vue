@@ -1,5 +1,5 @@
 <template>
-   <v-layout row v-if="$vuetify.breakpoint.smAndDown">
+   <v-layout row>
         
          <v-flex  xs12>
           
@@ -8,8 +8,27 @@
               <v-layout row wrap>
                   <v-flex xs12>
                       <!-- first page -->
-                      <v-card class="pa-2" v-if="pageNum === 1">
+                      <v-card width="700px" class="mx-auto" style="border-radius: 5px" v-if="pageNum === 1">
+                        <!-- header -->
+                        <div class="pa-3 mb-3" height="250px" color="grey darken-3" width="100%" style="border-bottom:3px solid #dddd">
+                                  <v-layout row wrap>
+                                      <v-flex md8>
+                                       <span class="headline">
+                                          Basic Information
+                                       </span>
+                                     </v-flex>
+                                     <v-flex md4>
+                                       <span  class="text-md-right red--text font-weight-medium" >
+                                         
+                                           Step {{ pageNum }} of 4
+                                       </span>
+                                     </v-flex>
+                                 </v-layout>
+                            </div>
+                         <!-- header -end -->
                         <!-- <v-form> -->
+                          <v-card-text>
+                            
                             <v-select
                                 item-value="id"
                                 item-text="name"
@@ -57,7 +76,7 @@
                                 outline
                                 
                            ></v-textarea>
-                             
+                      </v-card-text>
                             
                             <v-card-actions :class="creating ? 'justify-end' : 'justify-space-between'">
                                 <v-btn v-if="!creating" color="success" @click="prevPage">OK</v-btn>
@@ -70,14 +89,27 @@
                         <!--First page end  -->
 
                         <!-- second page -->
-                         <v-card v-if="pageNum === 2" class="pa-2">
-                             <v-card-title primary-title>
-                                 <div class="title">Location Information</div>  
-                             </v-card-title>
-                             <v-card-text>
-                                 This step requires that you enter this information at the position.
-
-                             </v-card-text>
+                         <v-card width="700px" class="mx-auto" style="border-radius: 5px" v-if="pageNum === 2">
+                        <!-- header -->
+                        <div class="pa-3 mb-3" height="250px" color="grey darken-3" width="100%" style="border-bottom:3px solid #dddd">
+                                  <v-layout row wrap>
+                                      <v-flex md8>
+                                       <span class="headline">
+                                          Location Information
+                                       </span>
+                                     </v-flex>
+                                     <v-flex md4>
+                                       <span  class="text-md-right red--text font-weight-medium" >
+                                         
+                                           Step {{ pageNum }} of 4
+                                       </span>
+                                     </v-flex>
+                                 </v-layout>
+                            </div>
+                         <!-- header -end -->
+                        <!-- <v-form> -->
+                          <v-card-text>
+                                
 
                               <v-text-field
                                outline
@@ -156,7 +188,7 @@
                                     disabled
                                 ></v-text-field>
                            </div>
-
+                          </v-card-text>
                            <v-card-actions class="justify-space-between">
 
                                <v-btn color="success" @click.prevent="prevPage">PREVIOUS</v-btn>
@@ -170,17 +202,26 @@
 
                          <!-- second page end -->
                           
-                     <v-card v-if="pageNum == 3">
-
-                         
-                             <v-card-title primary-title>
-                                 <div class="title">Location Information</div>  
-                             </v-card-title>
-                             <v-card-text>
-                                 This step requires that you enter this information at the position.
-
-                             </v-card-text>
-                            
+                     <v-card width="700px" class="mx-auto" style="border-radius: 5px" v-if="pageNum === 3">
+                        <!-- header -->
+                        <div class="pa-3 mb-3" height="250px" color="grey darken-3" width="100%" style="border-bottom:3px solid #dddd">
+                                  <v-layout row wrap>
+                                      <v-flex md8>
+                                       <span class="headline">
+                                          Features 
+                                       </span>
+                                     </v-flex>
+                                     <v-flex md4>
+                                       <span  class="text-md-right red--text font-weight-medium" >
+                                         
+                                           Step {{ pageNum }} of 4
+                                       </span>
+                                     </v-flex>
+                                 </v-layout>
+                            </div>
+                         <!-- header -end -->
+                        <!-- <v-form> -->
+                          <v-card-text>
                                 
                                
                               <v-container grid-list-xs class="pb-5" >
@@ -234,7 +275,7 @@
                                 </v-layout>
                               
                           </v-container>
-                           
+                           </v-card-text>
                          <v-card-actions class="justify-space-between">
                                
 
@@ -245,8 +286,28 @@
                            </v-card-actions>
                      </v-card>
 
-                     <v-card v-if="pageNum == 4">
-                        
+                    <v-card width="700px" class="mx-auto" style="border-radius: 5px" v-if="pageNum === 4">
+                        <!-- header -->
+                        <div class="pa-3 mb-3" height="250px" color="grey darken-3" width="100%" style="border-bottom:3px solid #dddd">
+                                  <v-layout row wrap>
+                                      <v-flex md8>
+                                       <span class="headline">
+                                         Cover image
+                                       </span>
+                                     </v-flex>
+                                     <v-flex md4>
+                                       <span  class="text-md-right red--text font-weight-medium" >
+                                         
+                                           Step {{ pageNum }} of 4
+                                       </span>
+                                     </v-flex>
+                                 </v-layout>
+                            </div>
+                         <!-- header -end -->
+                        <!-- <v-form> -->
+                          <v-card-text>
+
+
                         <v-card 
                         flat 
                         
@@ -339,7 +400,7 @@
                             accept="image/*"
                             @change="onFilePicked"
                         >
-
+                     </v-card-text>
                         <v-card-actions class="justify-space-between">
                                
 
