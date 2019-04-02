@@ -120,14 +120,14 @@
 
             },
           SocialLogin(provider,payload){
-             
+              const sm = this
              payload.provider = provider
             this.mixin_handleRequest(this.$store.dispatch('auth/socialLogin',payload)
-			   .then(response => {
+			   .then((response) => {
 					// console.log('login Successfull')
-					this.mixin_handleRequest(this.$store.dispatch('auth/retrieveUser')
-					.then(response => {
-						this.redirectAfterLogin(true)
+					return sm.mixin_handleRequest(sm.$store.dispatch('auth/retrieveUser')
+					   .then(response => {
+						     sm.redirectAfterLogin(true)
 
 					})
 					)
