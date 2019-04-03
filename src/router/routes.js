@@ -11,6 +11,7 @@ import PlaceView from '@/features/place_view/main.vue'
 import Places from '@/features/places_list/main.vue'
 
 import AgentPublicPlaces from '@/features/places_list/AgentPlacesList.vue'
+const GetStarted = () => import(/* webpackChunkName: "get-started" */ '@/pages/GetStarted')
 const MyPlaces = () => import(/* webpackChunkName: "my-places" */ '@/features/dashboard/AgentPlacesList.vue')
 const OurPackages = () => import(/* webpackChunkName: "our-packages" */ '@/features/dashboard/OurPackages.vue')
 const PackageView = () => import(/* webpackChunkName: "package-view" */ '@/features/dashboard/PackageView.vue')
@@ -209,7 +210,7 @@ const routes = [
       name: 'MyPlaces',
       component: MyPlaces,
       meta: {
-        //requiresAuth: false
+        requiresAuth: true
       },
       beforeEnter: (to, from, next) => {
         //agent must have filed the profile
@@ -407,6 +408,22 @@ const routes = [
        component: TandC,
        beforeEnter: (to, from , next) => {
         const title = 'Terms And Conditions'
+        const layout = 'DefaultLayout'
+        //const authed = to.matched.some( (route) => route.meta.requires)
+         // Setup some per-page stuff.
+         document.title = title
+         store.dispatch('common/updateTitle',title)
+         store.dispatch('common/updateLayout', layout)
+     
+         next()
+       }
+     },
+     {
+       path: '/company/getting-started',
+       name: 'getStarted',
+       component: GetStarted,
+       beforeEnter: (to, from , next) => {
+        const title = 'Getting Started'
         const layout = 'DefaultLayout'
         //const authed = to.matched.some( (route) => route.meta.requires)
          // Setup some per-page stuff.

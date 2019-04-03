@@ -67,9 +67,8 @@
 
 <script>
 import HandlesRequest from '@/mixins/RequestHandler'
-import Service from './../Service.js'
+import store from "@/store"
 export default {
-    service: new Service(),
     name: 'place-actions',
     data(){
         return {
@@ -99,26 +98,31 @@ export default {
     methods: {
         publish(){
            if(this.published){
-               this.mixin_handleRequest(this.$options.service.publishPlaceToggle({'place_slug':this.slug}).then((response) => { 
+            this.mixin_handleRequest(
+                this.$store.dispatch("dashboard_store/unpublishPlace",{'place_slug':this.slug})
+                  .then((response) => { 
                     this.agent_published = false
-                    this.$emit('place-unpublished',this.index)
+                    
                }))
                
            }else{
-              this.mixin_handleRequest(this.$options.service.publishPlaceToggle({'place_slug':this.slug}).then((response) => { 
-                    this.agent_published = true
-                    this.$emit('place-published',this.index)
+              this.mixin_handleRequest(
+                  this.$store.dispatch("dashboard_store/publishPlace",
+                       {'place_slug':this.slug})
+                     .then((response) => { 
+                        this.agent_published = true
+                       
                }))
            }
         },
         deletePlace(){
 
             if(confirm("Do you want to delete this and all its content?")){
-               this.mixin_handleRequest(this.$options.service.deletePlace({'place_slug':this.slug})
-                .then(response => {
+               this.mixin_handleRequest(
+                    this.$store.dispatch("dashboard_store/deletePlace",{'place_slug':this.slug})
+                     .then((response) => { 
                     //emits delete event
-                    this.$emit('delete-place',this.index)
-                    // this.placeList.splice(this.index,1)
+                   
                     this.$store.dispatch('common/updateSnackBar',{
                     show: true,
                     msg: 'Deleted',
@@ -131,9 +135,11 @@ export default {
           }
     },
     renew(){
-        this.mixin_handleRequest(this.$options.service.renewPlace({'place_slug':this.slug}).then((response) => { 
+        this.mixin_handleRequest(
+            this.$store.dispatch("dashboard_store/renewPlace",{'place_slug':this.slug})
+              .then((response) => { 
                     this.place_expired = true
-                    this.$emit('place-renewed',this.index)
+                  
                }))
     },
 

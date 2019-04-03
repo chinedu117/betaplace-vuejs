@@ -50,10 +50,7 @@
                         :expired="place.expired" 
                         :slug="place.slug"
                         :index="index" 
-                        v-on:delete-place="deletePlace"
-                        v-on:place-published="publishPlace"
-                        v-on:place-unpublished="unPublishPlace"
-                        v-on:place-renewd="unexpirePlace"
+                        
                         >
                           
                         </place-actions>
@@ -152,10 +149,6 @@
                                           :expired="place.expired" 
                                           :slug="place.slug"
                                           :index="index" 
-                                          v-on:delete-place="deletePlace"
-                                          v-on:place-published="publishPlace"
-                                          v-on:place-unpublished="unPublishPlace"
-                                          v-on:place-renewed="unexpirePlace"
                                           v-on:place-edit="editPlace"
                                           class="d-inline"
                                           >
@@ -326,25 +319,7 @@ export default {
        }
    },
     methods:{
-        publishPlace(index){
-            let place = this.placeList[index]
-            
-             place.agent_published = 1
-             this.placeList.splice(index,1,place)
-          
-        },
-        unPublishPlace(index){
-             let place = this.placeList[index]
-             place.agent_published = 0
-             this.placeList.splice(index,1,place)
-         
-            
-        },
-        unexpirePlace(index){
-             let place = this.placeList[index]
-             place.expired = 0
-             this.placeList.splice(index,1,place)
-        },
+       
         createPlace(){
             //check if the agenet still has enough subscription
 
@@ -368,10 +343,7 @@ export default {
             
             this.$router.push({name: 'createEdit',params:{agentSlug:this.$route.params.agentSlug ,placeSlug:slug}})
         },
-        deletePlace(index){
-            this.placeList.splice(index,1)
-
-        },
+        
 
         seePlanList(){
             this.$router.push({name: "ourPackages"})

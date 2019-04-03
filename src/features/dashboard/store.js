@@ -4,7 +4,7 @@ import Vue from 'vue'
 
 export default {
   namespaced: true,
-  // State loaded when this component is first loaded.
+  // State loaded when state component is first loaded.
   state: {
    planList: [],
    places: [],
@@ -45,41 +45,81 @@ export default {
   },
 
   mutations:{
-    addPlan(state,plan){
-        // state.planList.push.call(plans)
-       state.planList.push(plan)
+    
+      deletePlace(state,slug){
+            let index = state.places.findIndex((place) =>{
+                  return place.slug == slug
+             })
+              let place = state.places[index]
 
-    },
-    addSubscription(state,subscription){
-        // state.subscriptions.push.call(subscriptions)
-        state.subscriptions.push(subscription)
-    },
-    addPlace(state,place){
-        // state.places.push.call(places)
-         
-       state.places.push(place)
-    },
+            state.places.splice(index,1)
 
-    reset(state,option){
-         switch(option){
+        },
+      publishPlace(state,slug){
 
-             case "SUBSCRIPTION":
-                state.hasLoadedSubscriptions = false
-                break
-             case "PLACES":
-                state.hasLoadedPlaces = false
-                break
-            case "PLANS":
-               state.hasLoadedPlans= false
-            break
+             let index = state.places.findIndex((place) =>{
+                  return place.slug == slug
+             })
+              let place = state.places[index]
             
-            default:
-               state.hasLoadedPlans= false
-               state.hasLoadedPlaces = false
-               state.hasLoadedSubscriptions = false
-               break
-         }
-    }
+             place.agent_published = 1
+             state.places.splice(index,1,place)
+          
+        },
+        unpublishPlace(state,slug){
+            let index = state.places.findIndex((place) =>{
+                  return place.slug == slug
+             })
+             
+             let place = state.places[index]
+             place.agent_published = 0
+             state.places.splice(index,1,place)
+         
+            
+        },
+        unexpirePlace(state,slug){
+             let index = state.places.findIndex((place) =>{
+                  return place.slug == slug
+             })
+             let place = state.places[index]
+             place.expired = 0
+             state.places.splice(index,1,place)
+        },
+        addPlan(state,plan){
+            // state.planList.push.call(plans)
+           state.planList.push(plan)
+
+        },
+        addSubscription(state,subscription){
+            // state.subscriptions.push.call(subscriptions)
+            state.subscriptions.push(subscription)
+        },
+        addPlace(state,place){
+            // state.places.push.call(places)
+             
+           state.places.push(place)
+        },
+
+        reset(state,option){
+             switch(option){
+
+                 case "SUBSCRIPTION":
+                    state.hasLoadedSubscriptions = false
+                    break
+                 case "PLACES":
+                    state.hasLoadedPlaces = false
+                    break
+                case "PLANS":
+                   state.hasLoadedPlans= false
+                break
+                
+                default:
+                   state.hasLoadedPlans= false
+                   state.hasLoadedPlaces = false
+                   state.hasLoadedSubscriptions = false
+                   break
+             }
+        }
     
   },
 
@@ -183,6 +223,7 @@ actions:{
             return new Promise( (resolve,reject) =>{
                 Vue.http.get(API.PACKAGE_URL(planID))
                  .then(function (response) {
+
                          resolve(response)
                      })
                  
@@ -203,6 +244,7 @@ actions:{
             return new Promise( (resolve,reject) =>{
                 Vue.http.post(API.DASHBORD_PLACE_EXPLICIT_PUBLISH_URL(payload.place_slug))
                  .then(function (response) {
+                          commit("publishPlace",payload.place_slug)
                          resolve(response)
                      })
                  
@@ -222,6 +264,7 @@ actions:{
             return new Promise( (resolve,reject) =>{
                 Vue.http.post(API.DASHBORD_PLACE_EXPLICIT_UNPUBLISH_URL(payload.place_slug))
                  .then(function (response) {
+                         commit("unpublishPlace",payload.place_slug)
                          resolve(response)
                      })
                  
@@ -240,7 +283,8 @@ actions:{
           return new Promise((resolve,reject) =>{
                Vue.http.post(API.DASHBOARD_PLACE_RENEW_URL(payload.place_slug))
                   .then(response => {
-                      
+                       // commit("reset","PLACES")
+                       commit("unexpirePlace",payload.place_slug)
                       resolve(response)
                   })
                   .catch((error) => {
@@ -248,7 +292,131 @@ actions:{
                      reject(error)
                   })
           })
+    },
+
+    removeImage({commit},payload){
+
+        return new Promise((resolve, reject) => {
+            Vue.http.post(API.DASHBORD_PLACE_IMAGE_REMOVE_URL(payload.get('place_slug')),payload)
+              .then(response => {
+                 
+                resolve(response)
+            })
+            .catch((error) => {
+
+               reject(error)
+            })
+     
+
+        }) 
+  },
+  saveImage({commit},placeSlug,payload){
+
+    return new Promise((resolve, reject) => {
+       Vue.http.post(API.DASHBORD_PLACE_IMAGE_SAVE_URL(placeSlug),payload)
+              .then(response => {
+
+                resolve(response)
+            })
+            .catch((error) => {
+
+                reject(error)
+            })
+        })
+  },
+
+   //api call to create a place
+   saveFeatures({commit},payload){
+
+    return new Promise((resolve, reject) => { 
+               Vue.http.post(API.DASHBORD_PLACE_FEATURE_SAVE_URL(payload.place_slug),payload)
+                      .then(response => {
+
+                        resolve(response)
+                    })
+                    .catch((error) => {
+
+                      reject(error)
+                    })
+                })
+  },
+
+  //api call to create a place
+  savePlace({commit,state},payload,editingMode){
+    let url = ''
+    if(editingMode)
+    {
+       url = API.DASHBORD_PLACE_EDIT_URL(payload.slug)
+    }else{
+       url = API.DASHBORD_PLACE_CREATE_URL
     }
+
+    return new Promise((resolve, reject) => {  
+              Vue.http.post(url,payload)
+                      .then(response => {
+
+                         commit("reset","PLACES")
+
+                        resolve(response)
+                    })
+                    .catch((error) => {
+
+                      reject(error)
+                    })
+                })
+  },
+  
+    getCategoryList({commit}) {
+
+        return new Promise((resolve, reject) => {
+                  Vue.http.get(API.PLACE_CATEGORY_LIST_URL)
+                    .then(response => {
+
+                        resolve(response)
+                    })
+                    .catch((error) => {
+
+                        reject(error)
+                    })
+                })
+     
+  },
+
+  deletePlace({commit},payload){
+
+          return new Promise((resolve,reject)=>{
+                Vue.http.post(API.AGENT_PLACE_DELETE_URL(payload.place_slug))
+                  .then(response => {
+                       commit("deletePlace",payload.place_slug)
+                      resolve(response)
+                  })
+                  .catch((error) => {
+
+                      reject(error)
+                  })
+
+          })
+             
+   },
+  
+    publishPlaceToggle({commit},payload){
+
+       return new Promise((resolve,reject)=>{
+
+              Vue.http.post(API.DASHBOARD_PLACE_PUBLISH_URL(payload.place_slug))
+              .then(response => {
+
+                  resolve(response)
+              })
+              .catch((error) => {
+
+                  reject(error)
+              })
+          })
+},
+
+
+  
 
     
   }

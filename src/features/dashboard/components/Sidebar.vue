@@ -34,7 +34,7 @@
                 </v-list-tile-content>
             </v-list-tile>
 
-            <v-list-tile avatar :to="{ name: 'MyPlaces', params: {'agentSlug': agent_slug}}">
+            <v-list-tile avatar :to="{ name: 'getStarted'}">
                 <v-list-tile-avatar>
                     <v-icon>android</v-icon>
                 </v-list-tile-avatar>
