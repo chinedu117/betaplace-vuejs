@@ -8,7 +8,7 @@
               <v-layout row wrap>
                   <v-flex xs12>
                       <!-- first page -->
-                      <v-card width="700px" class="mx-auto" style="border-radius: 5px" v-if="pageNum === 1">
+                      <v-card :width="$vuetify.breakpoint.mdAndUp ? '700px' : 'auto' " class="mx-auto" style="border-radius: 5px" v-if="pageNum === 1">
                         <!-- header -->
                         <div class="pa-3 mb-3" height="250px" color="grey darken-3" width="100%" style="border-bottom:3px solid #dddd">
                                   <v-layout row wrap>
@@ -89,7 +89,7 @@
                         <!--First page end  -->
 
                         <!-- second page -->
-                         <v-card width="700px" class="mx-auto" style="border-radius: 5px" v-if="pageNum === 2">
+                         <v-card :width="$vuetify.breakpoint.mdAndUp ? '700px' : 'auto' " class="mx-auto" style="border-radius: 5px" v-if="pageNum === 2">
                         <!-- header -->
                         <div class="pa-3 mb-3" height="250px" color="grey darken-3" width="100%" style="border-bottom:3px solid #dddd">
                                   <v-layout row wrap>
@@ -202,7 +202,7 @@
 
                          <!-- second page end -->
                           
-                     <v-card width="700px" class="mx-auto" style="border-radius: 5px" v-if="pageNum === 3">
+                     <v-card :width="$vuetify.breakpoint.mdAndUp ? '700px' : 'auto' " class="mx-auto" style="border-radius: 5px" v-if="pageNum === 3">
                         <!-- header -->
                         <div class="pa-3 mb-3" height="250px" color="grey darken-3" width="100%" style="border-bottom:3px solid #dddd">
                                   <v-layout row wrap>
@@ -286,7 +286,7 @@
                            </v-card-actions>
                      </v-card>
 
-                    <v-card width="700px" class="mx-auto" style="border-radius: 5px" v-if="pageNum === 4">
+                    <v-card :width="$vuetify.breakpoint.mdAndUp ? '700px' : 'auto' " class="mx-auto" style="border-radius: 5px" v-if="pageNum === 4">
                         <!-- header -->
                         <div class="pa-3 mb-3" height="250px" color="grey darken-3" width="100%" style="border-bottom:3px solid #dddd">
                                   <v-layout row wrap>
@@ -625,7 +625,7 @@ export default {
                 this.newFeature.feature = ''
                 this.newFeature.value = ''
             }
-            console.log('unable to add feature');
+            // console.log('unable to add feature');
             
        },
        removeFeature(index){
@@ -783,6 +783,3 @@ export default {
 }
 </script>
 
-<style>
-
-</style>

@@ -1,6 +1,6 @@
 <template>
 
-  <v-footer class="my-appfooter" dark  :class="{ 'my-appfooter--sidebar-open': sidebarVisibility }" >
+  <v-footer class="my-appfooter" :class="{ 'my-appfooter--sidebar-open': sidebarVisibility }" >
        <ul>
 
           <li><a href="#">privacy policy</a></li>
@@ -33,7 +33,7 @@ export default {
 .my-appfooter {
   justify-content: center;
   text-align: center;
-  background: #e7e9ef33;
+  background: #e7e9ef33 !important;
   padding: 35px 20px;
   font-size: 16px;
   display: block;

@@ -1,13 +1,22 @@
 <template>
- <v-container grid-list-md text-xs-center class="page-wrapper">
+ <v-container grid-list-md text-xs-left class="page-wrapper">
   <v-layout row wrap>
      <v-flex xs12>
-       <v-card  v-bind="card_style" >
-        
-                        <v-card-title primary-title>
-                           <v-subheader class="title">Your Profile</v-subheader>
-                        </v-card-title>
-
+       <v-card   v-bind="card_style" >
+                        <!-- header -->
+                        <div class="pa-3 mb-3" height="250px" color="grey darken-3" width="100%" style="border-bottom:3px solid #dddd">
+                                  <v-layout row wrap>
+                                      <v-flex md12>
+                                       <span class="headline">
+                                          Agency Information
+                                       </span>
+                                     </v-flex>
+                                     
+                                 </v-layout>
+                            </div>
+                         <!-- header -end -->
+                        
+                         <v-card-text>
                             <v-text-field
                             outline
                             name="agency_name"
@@ -122,9 +131,11 @@
                                 data-vv-name="about_us"
                                 outline
                             ></v-textarea>
+                            </v-card-text>
                          <v-card-actions>
                              <v-btn color="success" @click="submit" :disabled="loading" :loading="loading">Submit</v-btn>
                          </v-card-actions>
+
                          </v-card>
                        </v-flex>
                      </v-layout>
@@ -162,16 +173,16 @@ export default {
              return NaijaStates.states()
              },
          card_style(){
-
-           if(!this.$vuetify.breakpoint.smAndDown){
-             return {
-              "width": "500",
-              "class": "mx-auto pa-2",
-             }
+           
+           let cardStyle = {
+                             "style":"border-radius: 5px",
+                              "class": "mx-auto"
+                              }
+                              
+           if(this.$vuetify.breakpoint.mdAndUp){
+             return Object.assign(cardStyle,{"width": "700px"})
            }else{
-             return {
-              "class": "mx-auto px-2",
-               }
+             return Object.assign(cardStyle,{"width": "auto"})
            }
          }
       },

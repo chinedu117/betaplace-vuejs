@@ -3,26 +3,35 @@
   	<v-layout row wrap>
   		<v-flex md12 xs12>
   		 <header>
-  			<h1 class="display-3 mb-3"> Getting Started</h1>
+  			<h1 class="display-2 mb-2"> Getting Started</h1>
               <ul>
               	<li class="main_link"><a href="#introduction">Introduction</a></li>
               	    
               	<li class="main_link"><a href="#requirements">Requirements</a></li>
               	    <ul>
-              	    	<li class="sub_link"><a href="#first">Set up your profile</a></li>
-              	    	<li class="sub_link"><a href="#first">Get permission</a></li>
-              	    	<li class="sub_link">Reach an agreement</li>
-              	    	<li class="sub_link">Get the apartment information</li>
+              	    	<li class="sub_link"><a href="#get-permission">Get Permission</a></li>
+              	    	<li class="sub_link"><a href="#agreement">Agreement</a></li>
+              	    	<li class="sub_link"><a href="#set-up-your-profile">Set up your profile</a></li>
               	    </ul>
-              	<li class="main_link"><a href="#apartment-category">Apartment Category</a></li>
-              	<ul>
-              	    	<li class="sub_link">Sub link for sub headings</li>
-              	    	<li class="sub_link">Sub link for sub headings</li>
-              	    	<li class="sub_link">Sub link for sub headings</li>
+              	<li class="main_link"><a href="#data-collection">Data Collection</a></li>
+              		<ul>
+              	    	<li class="sub_link"><a href="#apartment-categories">Apartment categories</a></li>
+              	    	<li class="sub_link"><a href="#price">Price</a></li>
+              	    	<li class="sub_link"><a href="#description">Description</a></li>
+              	    	<li class="sub_link"><a href="#location-information">Location information</a></li>
+              	    	<li class="sub_link"><a href="#features">Features</a></li>
+              	    	<li class="sub_link"><a href="#cover-picture">Cover picture</a></li>
+
               	    </ul>
-              	<li class="main_link">Link one</li>
-              	<li class="main_link">Link one</li>
-              </ul>
+              	<li class="main_link"><a href="#marketing">Marketing</a></li>
+              	   <ul>
+              	    	<li class="sub_link"><a href="#online-marketing">Online Marketing</a></li>
+              	    	<li class="sub_link"><a href="#offline-marketing">Offline Marketing</a></li>
+              	    	
+              	    </ul>
+              	<li class="main_link"><a href="#conclusion">Conclusion</a></li>
+
+              	</ul>
             </header>
 
              <article>
@@ -34,7 +43,7 @@
 			  	</p>
 
 
-             <h2 class="display-1" id="Requirements"><a href="#Requirements" class="anc ">Requirements</a></h2>
+             <h2 class="display-1" id="requirements"><a href="#requirements" class="anc ">Requirements</a></h2>
   		
 				<p>To get started we assume that you are above 18 years old and have the necessary legal backing to upload an apartment to the public. We recommend that the following steps.</p>
 
@@ -46,23 +55,25 @@
 
 				<p>Except you are the landlord, you may need to reach an agreement about  your commission or accruable in cash or in kind from the potential transaction. The percentage or the benefits depends on you. We want  you to succeed as well.</p>
 
-				<h4 class="headline" id="agreement"><a href="#agreement" class="">Set up your profile</a></h4>
+				<h4 class="headline" id="set-up-your-profile"><a href="#set-up-your-profile" class="">Set up your profile</a></h4>
 
-				<p>Except you are the landlord, you may need to reach an agreement about  your commission or accruable in cash or in kind from the potential transaction. The percentage or the benefits depends on you. We want  you to succeed as well.</p>
-
+				<p>After you login, create your profile. The company name is the name you want to be identified with. If you are covering places in a particular geographical area, say an estate, you can chose a name that denotes that.</p>
+                
+              	<p>  However if you already have a business name or agency company, using it give you more credibility</p>
 				<h2 class="display-1" id="data-collection"><a href="#data-collection" class="anc">Data Collection</a></h2>
 
 				<p>The data to collect is to inform the potential tenant of the nature of the place, the type of apartment, and other relevant  environment information. For example some tenants prefer a quiet environment while some may prefer a moderate distraction, some may prefer that filled with gaiety. </p>
 
 				<p>Giving accurate information about the place is highly encouraged and beneficial.  Below are some the information that would required.  You will be require to provide the following information.</p>
                 
-                <h4 class="headline" id="apartment-type"><a href="#apartment-type" class="">Apartment Type</a></h4>
+                <h4 class="headline" id="apartment-categories"><a href="#apartment-categories" class="">Apartment Categories</a></h4>
+
  				<p>See information on our categories of apartment</p>
 				
-				<h4 class="headline" id="first"><a href="#first" class="">  Price  </a></h4>
+				<h4 class="headline" id="price"><a href="#price" class="">  Price  </a></h4>
 				<p>Give the price of the apartment per year. However if the tenant is required to pay a different  amount at first and another subsequently, you can specify that in the price description field</p>
 				
-				<h4 class="headline" id="first"><a href="#first" class="">Description</a></h4>
+				<h4 class="headline" id="description"><a href="#description" class="">Description</a></h4>
  				<p>A brief summary of the apartment and its features and other things that makes it to compete competitively. You can also mention the type of tenant it may be suitable for.</p>
 
 
@@ -71,7 +82,7 @@
 				<p> The state, city, address of the place.  The <b>“Mark this point”</b>  button is required to be taken at most 50m from the point. This is to help to make your place discoverable on the map or by our proximity estimation filter system. If for privacy purpose you do not want to declare the exact point the you can take do that at most 50m from the point. Though we try to make sure that we get the accurate location, however we also inform you that the accuracy also depends on the GPS system of  your device.</p>
                 
                 <h4 class="headline" id="features"><a href="#features" class="">Features</a></h4>
-				<p>In this part you simply give the information about the place under any heading of your choice. For  example you can specify the following :</p>
+				<p>Give the distinctive features of the place and the environment of the place.</p>
 
 				<p>            
 					            <ul>
@@ -81,6 +92,8 @@
 								 	<li>Environment:  Serene or moderate distraction or Socially active depending on the situation</li>
 								 	<li>Even as you try to give accurate information, be positive.</li>
 								 </ul>
+
+					Other things you can mention are: estimate of distance from certain focal areas of the town, accessibility, security and others.
 				</p>
 
               
@@ -89,24 +102,24 @@
 
 
 
-				 <h4 class="headline" id="features"><a href="#features" class="">Cover Picture</a></h4>
+				 <h4 class="headline" id="cover-picture"><a href="#cover-picture" class="">Cover Picture</a></h4>
                   
 
 				<p>Finally, you will need at least one photo of the place you want to rent out. For now, 2 clear pictures of the place is enough. Then add a title and a description linking the photo to the features you provided.</p>
 
-               <h2 class="display-1" id="cover-picture"><a href="#cover-picture" class="anc">Marketing</a></h2>
+               <h2 class="display-1" id="marketing"><a href="#marketing" class="anc">Marketing</a></h2>
 
-			   <h4 class="headline" id="features"><a href="#features" class="">Online Marketing</a></h4>
+			   <h4 class="headline" id="online-marketing"><a href="#online-marketing" class="">Online Marketing</a></h4>
 				<p>To get the best out of this application, we have added some social media share button attached to each place you created.  You can fasten visits to your profile by sharing your profile link or the link to the place directly to your community .</p>
 			
-				<h4 class="headline" id="features"><a href="#features" class="">Offline Marketing</a></h4>
+				<h4 class="headline" id="offline-marketing"><a href="#offline-marketing" class="">Offline Marketing</a></h4>
 
 				<p>If you are covering a collection of places in the same  geographical area, say an estate, we recommend that you make banners or posters of with the link to profile boldly written on it and placed in a place where it would be seen by most people there.</p>
 				
-				<p>For example:  “All available accommodation in this estate can be seen at www.betaplace.com.ng/@your_profile_handle”</p>
+				<p>For example: “All available accommodation in this estate can be seen at www.betaplace.com.ng/ @your_profile_handle”</p>
 
 
-                <h2 class="display-1" id="cover-picture"><a href="#cover-picture" class="anc">Conclusion</a></h2>
+                <h2 class="display-1" id="conclusion"><a href="#conclusion" class="anc">Conclusion</a></h2>
 
 				<p>Adding and marketing your places on betaplace.com.ng  is very easy.  Following this guide consistently will ensure better outcome. We solicit that you try as much as possible to avoid false information or posting any information unrelated to the purpose of this application. 
 				</p>
@@ -140,8 +153,10 @@ export default {
 	color: red
 	text-decoration: none
 	list-style: none
-.main_link::before,.sub_link::before
-	content: "#"
+
+.main_link a::before,.sub_link a::before
+	content: "# "
+	margin-left: -20px 
 
 .main_link:hover,.sub_link:hover
 	color: grey
@@ -159,7 +174,6 @@ p
 article, header
 	padding:25px 205px 50px 120px
 header
-	margin-top: 20px
 	margin-bottom: 15px
 .anc::before
 	content: "#";
