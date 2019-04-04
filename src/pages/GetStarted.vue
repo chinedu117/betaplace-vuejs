@@ -82,6 +82,9 @@
 
 
 
+
+
+
 				<h4 class="display-1" id="first"><a href="#first" class="">Cover Picture</a></h4>
 
                
@@ -115,7 +118,6 @@ export default {
 
 .main_link,.sub_link
 	color: red
-	line-spacing: 4px
 	text-decoration: none
 	list-style: "#  "
 
@@ -157,6 +159,13 @@ article h2:first-of-type
 @media screen and (max-width: 1080px)
 	article, header
 		padding: 15px 30px 30px
+	p
+		line-height: 1.9
+		font-size: 16px
+	.main_link
+		font-size: 18px
+	.sub_link
+		font-size: 16px
 </style>
 
     
