@@ -5,7 +5,7 @@
         <!-- template for mobile phones -->
               <agent-info
                  :agent_slug="$route.params.agentSlug"
-                 :show_body=false
+                 :show_body="false"
                  />
         <div class="d-flex justify-space-between">
                     <v-subheader>Available Places <v-chip align-end>{{ places.length}}</v-chip></v-subheader>
@@ -66,11 +66,13 @@
       <v-container grid-list-xs  v-if="$vuetify.breakpoint.mdAndUp">
         <v-layout row wrap>
             <v-flex md8 lg8 >
-                <agent-info
+               <agent-info
                  :agent_slug="$route.params.agentSlug"
+                 :show_body="false"
                  />
               <div class="d-flex justify-space-between">
-                    <v-subheader>Available Places <v-chip align-end>{{ places.length}}</v-chip></v-subheader>
+
+                    <v-subheader class="ml-3">Available Places <v-chip align-end>{{ places.length}}</v-chip></v-subheader>
                     
             </div>
             
@@ -79,9 +81,10 @@
           > 
            
            <v-card
-            class="mb-2"
+            class="mb-2 mx-auto"
             v-for="(place, index) in places"
-             
+             width="700px"
+             style="border-radius: 5px"
              :index = "index"
              :key="Math.random() + '_' + place.slug"
 

@@ -17,7 +17,7 @@
                      </v-flex>
                      <v-flex md2>
                         <v-avatar>
-                          <v-icon @click="toggleHideBody" v-if="details_shown">visibility</v-icon>
+                          <v-icon @click="toggleHideBody" v-if="!showBodyDetails">visibility</v-icon>
                           <v-icon @click="toggleHideBody" v-else>visibility_off</v-icon>
                         </v-avatar>
                      </v-flex>
@@ -25,7 +25,7 @@
             </div>
          <!-- header -end -->
                <!-- Hide body -->
-		            <div ref="profile_body">
+		            <div ref="profile_body" :style="showBodyDetails ? 'display:block' : 'display:none' ">
                 <v-layout row>
                   <v-flex xs12> 
                     
@@ -83,7 +83,7 @@
                 <v-card-actions class="elevate-1"> 
                    <v-layout row wrap justify-center>
                      <v-flex xs12 md6>
-                           <div class="pl-3">
+                           <div class="pl-3 mb-2">
                                 <span style="letter-spacing: 2px; font-size:18px" class="grey--text font-weight-medium text-capitalize">
                                   <v-icon>phone</v-icon> Phone </span>
 
@@ -94,7 +94,7 @@
                      </v-flex>
                      <v-flex xs12 md6>
 
-                       <div class="pl-3">
+                       <div class="pl-3 mb-2">
                                 <span style="letter-spacing: 2px; font-size:18px" class="grey--text font-weight-medium text-capitalize">
                                   <v-icon>business</v-icon> Address </span>
 
@@ -111,8 +111,9 @@
                     </v-list-tile> -->
                       
                 </v-card-actions>
+
                    <slot name="link"></slot>
-                  </div>
+                </div>
               </v-card>
     </div>
 </template>				
@@ -123,7 +124,8 @@
   	 name: "agent-info",
   	 data(){
   	 	return {
-         details_shown: true
+         
+         show_details: this.show_body
   	 	}
   	 },
   	 props:{
@@ -137,7 +139,7 @@
 
       "show_body": {
          required: false,
-         default: false,
+         default: true,
          type: Boolean
       }
   	 },
@@ -145,7 +147,7 @@
      created(){
      	//get the information
      	this.$store.dispatch("place_view_store/retrieveAgentInfo",this.agent_slug)
-
+ 
       
      },
      beforeMount(){
@@ -154,17 +156,7 @@
      mounted(){
      	this.$store.dispatch("common/updateTitle",this.agentInfo.agency_name)
           //the default appearance
-      this.$nextTick(() =>{
-           if(this.show_body){
-            console.log("showww",this.show_body)
-           this.$refs.profile_body.style.display = "block"
-          }else{
-          console.log("no showww",this.show_body)
-          this.$refs.profile_body.style.display = "none"
-        }
-
-      })
-         
+     
         // this.toggleHideBody()
      		document.title = this.agentInfo.agency_name
      },
@@ -172,6 +164,9 @@
 
 
      computed:{
+        showBodyDetails(){
+           return this.show_details
+        },
         card_style(){
            
            let cardStyle = {
@@ -202,10 +197,10 @@
                 
                 let currentDisplay = this.$refs.profile_body.style.display
                  if(currentDisplay == "none"){
-                    this.details_shown = true
+                     this.show_details = true
                      this.$refs.profile_body.style.display = "block"
                  }else{
-                       this.details_shown = false
+                       this.show_details = false
                       this.$refs.profile_body.style.display = "none"
                  }
         }

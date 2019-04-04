@@ -6,7 +6,7 @@
         <agent-info
          :agent_slug="agentSlug"
          :image_src="imageUrl ? imageUrl : profile.profile_img"
-         :show_body="false"
+         :show_body=true
          >
            <template slot="uploader">
                <v-progress-linear :indeterminate="true" v-if="loading" class="mt-0"></v-progress-linear>
@@ -64,15 +64,14 @@ export default {
          upload_button(){
            if(!this.$vuetify.breakpoint.smAndDown){
              return {
-           
-              
+
               "style":"position: absolute; "
              }
            }else{
 
              return {
             
-              "style":"position: relative; right: 40%; bottom:10% "
+              "style":"position: absolute; "
 
                }
            }
@@ -89,7 +88,7 @@ export default {
 
              return {
             
-              "style":"position: absolute; right: 40%; bottom:10% "
+              "style":"position: absolute; right: 10%; bottom:10% "
 
                }
            }
