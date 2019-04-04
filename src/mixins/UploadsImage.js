@@ -4,9 +4,9 @@ var UploadImage = {
            imageName : '', //file Name
            imageUrl: '', //base64Uri
            imageFile: '',
-           _maxWidth: 800,
-           _maxHeight: 600,
-           _compressionQuality: 0.5,
+           in_maxWidth: "700",
+           in_maxHeight: "500",
+           in_compressionQuality: "0.8",
            imageBlob: '', //to be sent to the server,  FormData().append('image',this.imageBlob)
         }
     },
@@ -24,6 +24,7 @@ var UploadImage = {
 				if(this.imageName.lastIndexOf('.') <= 0) {
 					return
 				}
+        const sm = this
 				const fr = new FileReader ()
 				fr.readAsDataURL(files[0])
 				fr.addEventListener('load', () => {
@@ -31,16 +32,17 @@ var UploadImage = {
                     this.imageFile = files[0] // this is an image file that can be sent to server...
                     let image = new Image()
                     let newSize 
+                    // console.log("image_before",image.naturalWidth,image.naturalHeight)
                     image.onload = () =>{
-                        newSize = this.calculateAspectRatioFit(image.naturalWidth,
+                        newSize = sm.calculateAspectRatioFit(image.naturalWidth,
                                                 image.naturalHeight,
-                                                 this._maxWidth,
-                                                  this._maxHeight,
-                                                  this._compressionQuality)
-                        this.imageFile = this.imageToDataUri(image,newSize.width,newSize.height,newSize.quality)
-                        this.imageUrl = this.imageToDataUri(image,newSize.width,newSize.height,newSize.quality)
-                        this.imageBlob =  this.convertImageToBlob(this.imageUrl,'image/jpeg')
-                        console.log(this.imageBlob);
+                                                 sm.in_maxWidth,
+                                                  sm.in_maxHeight,
+                                                  sm.in_compressionQuality)
+                        sm.imageFile = sm.imageToDataUri(image,newSize.width,newSize.height,newSize.quality)
+                        sm.imageUrl = sm.imageToDataUri(image,newSize.width,newSize.height,newSize.quality)
+                        sm.imageBlob =  sm.convertImageToBlob(sm.imageUrl,'image/jpeg')
+                        // console.log(sm.imageBlob);
                        
                     }
                     image.src = fr.result
@@ -54,7 +56,7 @@ var UploadImage = {
         
      
     calculateAspectRatioFit(srcWidth, srcHeight, maxWidth, maxHeight,compressionQuality = 0.5) {
-
+            // console.log("max",maxWidth,maxHeight,compressionQuality)
         var maxWidth = maxWidth // Max width for the image
         var maxHeight = maxHeight   // Max height for the image
         var ratio = 0  // Used for aspect ratio
@@ -85,6 +87,7 @@ var UploadImage = {
                     quality = 1
                 }
         }
+                 // console.log("cal",width,height,quality)
            return { 'width': width, 'height': height, 'quality': quality }
     },
 

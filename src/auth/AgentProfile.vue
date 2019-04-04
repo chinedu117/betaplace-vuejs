@@ -6,6 +6,7 @@
         <agent-info
          :agent_slug="agentSlug"
          :image_src="imageUrl ? imageUrl : profile.profile_img"
+         :show_body="false"
          >
            <template slot="uploader">
                <v-progress-linear :indeterminate="true" v-if="loading" class="mt-0"></v-progress-linear>
@@ -39,9 +40,9 @@ import AgentInfo from '@/features/places_list/components/AgentInfo'
 export default {
   data() {
       return {
-          _maxWidth: 800,
-           _maxHeight: 200,
-           _compressionQuality: 0.8,
+           in_maxWidth: "700",
+           in_maxHeight: "500",
+           in_compressionQuality: "0.8",
            profile: null,
       }
   },
@@ -65,7 +66,7 @@ export default {
              return {
            
               
-              "style":"position: relative; right: 40%; bottom:10.2% "
+              "style":"position: absolute; "
              }
            }else{
 

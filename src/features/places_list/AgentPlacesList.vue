@@ -5,6 +5,7 @@
         <!-- template for mobile phones -->
               <agent-info
                  :agent_slug="$route.params.agentSlug"
+                 :show_body=false
                  />
         <div class="d-flex justify-space-between">
                     <v-subheader>Available Places <v-chip align-end>{{ places.length}}</v-chip></v-subheader>
