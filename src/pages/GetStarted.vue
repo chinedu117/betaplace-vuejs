@@ -30,7 +30,7 @@
 
              <h2 class="display-1" id="introduction"><a href="#introduction" class="anc ">Introduction</a></h2>
 
-			  	<p>Betaplacae.com.ng is a platform to help you to  rent out your apartment or condomium easily. This guide will help you to package the apartment or condomium  (where we  refer to as “place”), profitably. We assume that you are either the house owner (LandLord) or the agent  (individual ) or agency company  entrusted with the responsibility of marketing or finding potential  tenant.		
+			  	<p>Betaplace.com.ng is a platform to help you to  rent out your apartment or condominium easily. This guide will help you to package the apartment or condomium  (where we  refer to as “place”), profitably. We assume that you are either the house owner (LandLord) or the agent  (individual ) or agency company  entrusted with the responsibility of marketing or finding potential  tenant.		
 			  	</p>
 
 
@@ -43,6 +43,10 @@
 				<p>You need to get permission from the landlord or the care taker of the place you want to rent out. Though our system does not enforce this but we assume that you already have a written or spoken permission to carry on.  The permission is to allow you to take the necessary data.</p>
 
 				<h4 class="headline" id="agreement"><a href="#agreement" class="">Agreement</a></h4>
+
+				<p>Except you are the landlord, you may need to reach an agreement about  your commission or accruable in cash or in kind from the potential transaction. The percentage or the benefits depends on you. We want  you to succeed as well.</p>
+
+				<h4 class="headline" id="agreement"><a href="#agreement" class="">Set up your profile</a></h4>
 
 				<p>Except you are the landlord, you may need to reach an agreement about  your commission or accruable in cash or in kind from the potential transaction. The percentage or the benefits depends on you. We want  you to succeed as well.</p>
 
@@ -79,17 +83,33 @@
 								 </ul>
 				</p>
 
+              
 
 
 
 
 
+				 <h4 class="headline" id="features"><a href="#features" class="">Cover Picture</a></h4>
+                  
 
-				<h4 class="display-1" id="first"><a href="#first" class="">Cover Picture</a></h4>
+				<p>Finally, you will need at least one photo of the place you want to rent out. For now, 2 clear pictures of the place is enough. Then add a title and a description linking the photo to the features you provided.</p>
 
-               
+               <h2 class="display-1" id="cover-picture"><a href="#cover-picture" class="anc">Marketing</a></h2>
+
+			   <h4 class="headline" id="features"><a href="#features" class="">Online Marketing</a></h4>
+				<p>To get the best out of this application, we have added some social media share button attached to each place you created.  You can fasten visits to your profile by sharing your profile link or the link to the place directly to your community .</p>
+			
+				<h4 class="headline" id="features"><a href="#features" class="">Offline Marketing</a></h4>
+
+				<p>If you are covering a collection of places in the same  geographical area, say an estate, we recommend that you make banners or posters of with the link to profile boldly written on it and placed in a place where it would be seen by most people there.</p>
+				
+				<p>For example:  “All available accommodation in this estate can be seen at www.betaplace.com.ng/@your_profile_handle”</p>
 
 
+                <h2 class="display-1" id="cover-picture"><a href="#cover-picture" class="anc">Conclusion</a></h2>
+
+				<p>Adding and marketing your places on betaplace.com.ng  is very easy.  Following this guide consistently will ensure better outcome. We solicit that you try as much as possible to avoid false information or posting any information unrelated to the purpose of this application. 
+				</p>
 
 
 
@@ -119,7 +139,9 @@ export default {
 .main_link,.sub_link
 	color: red
 	text-decoration: none
-	list-style: "#  "
+	list-style: none
+.main_link::before,.sub_link::before
+	content: "#"
 
 .main_link:hover,.sub_link:hover
 	color: grey
@@ -152,8 +174,15 @@ a
 	text-decoration: none !important
 h2 a
 	color: black !important
+h4 a
+	color: black !important
+
 article h2:first-of-type
-	margin-top: 35px
+	margin-top: -10px
+	margin-bottom: 10px
+
+article h2, article h4
+	margin-top: 20px
 	margin-bottom: 10px
 
 @media screen and (max-width: 1080px)
