@@ -5,6 +5,8 @@ import Logout from '@/auth/Logout'
 const PageNotFound = () => import(/* webpackChunkName: "pages-not-found" */ '@/pages/PageNotFound')
 const Privacy = () => import(/* webpackChunkName: "privacy" */ '@/pages/Privacy')
 const TandC = () => import(/* webpackChunkName: "terms-and-conditions" */ '@/pages/TandC')
+const Rules = () => import(/* webpackChunkName: "rules" */ '@/pages/Rules')
+const Contact = () => import(/* webpackChunkName: "contact" */ '@/pages/Contact')
 
 import PlaceView from '@/features/place_view/main.vue'
 
@@ -406,6 +408,40 @@ const routes = [
        path: '/company/terms-and-conditions',
        name: 'TC',
        component: TandC,
+       beforeEnter: (to, from , next) => {
+        const title = 'Terms And Conditions'
+        const layout = 'DefaultLayout'
+        //const authed = to.matched.some( (route) => route.meta.requires)
+         // Setup some per-page stuff.
+         document.title = title
+         store.dispatch('common/updateTitle',title)
+         store.dispatch('common/updateLayout', layout)
+     
+         next()
+       }
+     },
+
+     {
+       path: '/company/rules',
+       name: 'Rules',
+       component: Rules,
+       beforeEnter: (to, from , next) => {
+        const title = 'Terms And Conditions'
+        const layout = 'DefaultLayout'
+        //const authed = to.matched.some( (route) => route.meta.requires)
+         // Setup some per-page stuff.
+         document.title = title
+         store.dispatch('common/updateTitle',title)
+         store.dispatch('common/updateLayout', layout)
+     
+         next()
+       }
+     },
+
+     {
+       path: '/company/contact-us',
+       name: 'Contact',
+       component: Contact,
        beforeEnter: (to, from , next) => {
         const title = 'Terms And Conditions'
         const layout = 'DefaultLayout'

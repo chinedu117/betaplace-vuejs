@@ -144,7 +144,7 @@ store.registerModule('place_view_store', {
 
     },
 
-    retrieveAgentInfo({commit},agentSlug){
+    retrieveAgentInfo({commit,state},agentSlug){
          //allow it to also send and r eceive cookies
         
         var fromCache = agentFromCache(state,agentSlug)
@@ -176,7 +176,7 @@ store.registerModule('place_view_store', {
 
 
             })
-        }
+        }//else end
     }
 
   },

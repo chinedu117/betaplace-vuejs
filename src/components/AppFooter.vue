@@ -3,10 +3,10 @@
   <v-footer class="my-appfooter" :class="{ 'my-appfooter--sidebar-open': sidebarVisibility }" >
        <ul>
 
-          <li><a href="#">privacy policy</a></li>
-          <li><a href="#">terms and conditions</a></li>
-           <li><a href="#">Rules</a></li>
-           <li><a href="#">Contact us</a></li>
+          <li><router-link :to="{name: 'Privacy'}">privacy policy</router-link></li>
+          <li><router-link :to="{name: 'TC'}">terms and conditions</router-link></li>
+           <li><router-link :to="{name: 'Rules'}">Rules</router-link></li>
+           <li><router-link :to="{name: 'Contact'}">Contact us</router-link></li>
        </ul>
 
           <p>copyright © 2019 betaplace.com.ng</p>

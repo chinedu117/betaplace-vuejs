@@ -13,10 +13,7 @@
                   <div>
                       
                       <network network="facebook">
-                        <!-- <v-chip 
-                          :outline="$vuetify.breakpoint.lgAndUp"                   text-color="accent" 
-                          :class="{ 'mr-2 pa-2': $vuetify.breakpoint.lgAndUp}"
-                        > -->
+                      
                         <i class="fa fa-facebook"></i> facebook
                        <!--  </v-chip> -->
                       </network>
@@ -39,12 +36,11 @@
       <!-- </closable-prompt> -->
 </template>
 <script type="text/javascript">
-import ClosablePrompt from '@/components/ClosablePrompt.vue'
 
 	export default {
   
 		name: 'social-share',
-    components: { ClosablePrompt },
+    
     data(){
       return {
       }
@@ -69,8 +65,8 @@ import ClosablePrompt from '@/components/ClosablePrompt.vue'
                                          shareable_title: null,
                                          description: null,
                                          url: null,
-                                         quote: null,
-                                         hashtags: null,
+                                         // quote: null,
+                                        
                                          twitter_user: null,
                                          position_x:null,
                                          position_y: null
