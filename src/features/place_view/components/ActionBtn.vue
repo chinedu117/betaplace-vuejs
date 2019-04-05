@@ -1,10 +1,10 @@
 <template>
     <div>  
-           <social-share 
+        <!--    <social-share 
              :title='shareable_title'
              :description="social_description"
              >
-            </social-share>
+            </social-share> -->
                 
             <v-chip 
                 :outline="$vuetify.breakpoint.lgAndUp" 
@@ -21,12 +21,13 @@
             :outline="$vuetify.breakpoint.lgAndUp"
                 text-color="accent" 
             :class="{ 'mr-2 pa-2': $vuetify.breakpoint.lgAndUp}"
+            ref="share_page"
             @click.prevent="share"
                 >
                 <v-icon color="accent">share</v-icon>
             </v-chip>
 
-            <v-chip 
+            <!-- <v-chip 
                 
                 :outline="$vuetify.breakpoint.lgAndUp" 
                 text-color="accent" 
@@ -34,7 +35,7 @@
             @click="showAgentInfo"
                 >
                 <v-icon color="green darken-2" >person</v-icon>
-            </v-chip>
+            </v-chip> -->
 
             <v-chip 
             :outline="$vuetify.breakpoint.lgAndUp"
@@ -61,7 +62,7 @@
 <script>
 import ClosablePrompt from '@/components/ClosablePrompt'
 import Service from './../Service.js'
-import SocialShare from '@/components/SocialShare'
+// import SocialShare from '@/components/SocialShare'
 export default {
     service: new Service(),
     name: 'action-btn',
@@ -75,7 +76,7 @@ export default {
             timer: null
         }
     },
-    components: {SocialShare, ClosablePrompt },
+    components: { ClosablePrompt },
     mounted(){
         this.seen()
        
@@ -177,8 +178,22 @@ export default {
             this.tempLikes++
         },
         share(){  
-             
-                window.eventBus.$emit("SHARER_LAUNCHED",true)
+
+                 let sourceEl = this.$refs.share_page.$el
+                
+                 var   elemRect = sourceEl.getBoundingClientRect()
+
+                
+                this.$store.dispatch("common/updateSocialShare",{
+                     'show': true,
+                     'shareable_title': this.shareable_title,
+                     'description': this.description,
+                     'url': process.env.ROOT_URL + this.$route.fullPath,
+                     'source_element': elemRect,
+                     // 'position_x': pos_x,
+                     // 'position_y': pos_y
+
+                })
 
                 if(!this.userHasShared){
                  this.$options.service.statRequest(this.stat_id,'share')

@@ -70,7 +70,9 @@ a {
 
       display: none;
    }
-
+   .my-appfooter {
+     padding: 10px 10px;
+   }
 }
 
 </style>

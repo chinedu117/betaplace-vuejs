@@ -33,7 +33,9 @@
 
          </transition>
     </v-content>
-
+    <!-- social share -->
+          <social-share>
+          </social-share>
    <!-- the snackbar or toast section for displaying errors and success messages -->
     <v-snackbar
     
@@ -42,7 +44,7 @@
 	  :timeout="$store.state.common.snackBar.timeout"
 	  :bottom="$vuetify.breakpoint.mdAndDown"
       :top="$vuetify.breakpoint.lgAndUp"
-      color="$store.state.common.snackBar.color"
+      :color="$store.state.common.snackBar.color"
       >
     
         {{ $store.state.common.snackBar.msg }}
@@ -69,6 +71,7 @@ import ToolBar from '@/components/ToolBar.vue'
 import sidebar from '@/components/SideBar.vue'
 import search from '@/features/places_list/components/Search.vue'
 import FilterBox from '@/features/places_list/components/FilterBox.vue'
+import SocialShare from '@/components/SocialShare'
 
 export default {
 
@@ -80,7 +83,7 @@ export default {
         }
     },
 
-    components:{  AppFooter, FilterBox, Loader, sidebar, search, ToolBar},
+    components:{  SocialShare, AppFooter, FilterBox, Loader, sidebar, search, ToolBar},
   
     computed: {
     //   loggedIn() {

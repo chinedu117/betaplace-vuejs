@@ -25,9 +25,21 @@ const defaults = {
     toolBar:{
       show: true,
       component:''
+    },
+
+    socialShare:{
+      show: false,
+      shareable_title: null,
+      description: null,
+      url: null,
+      quote: null,
+      hashtags: null,
+      twitter_user: null,
+      position_x:null,
+      position_y: null,
     }
   }
-  
+
   // Global module loaded on first app load.
   export default {
     namespaced: true,
@@ -63,6 +75,10 @@ const defaults = {
       updateSnackBar (state, options) {
         state.snackBar = Object.assign({}, defaults.snackBar, options)
       },
+
+      updateSocialShare (state, options) {
+        state.socialShare = Object.assign({}, defaults.socialShare, options)
+      },
   
     //   error (state, options) {
     //     state.error = Object.assign({}, defaults.error, options)
@@ -82,6 +98,23 @@ const defaults = {
     //     commit('clear')
     //     dispatch('auth/clear', {}, { root: true })
     //   },
+      updateSocialShare ({ commit }, options) {
+        // alert("social share called")
+      if(options.show){
+           var bodyRect = document.body.getBoundingClientRect()
+         
+
+          let pos_x = Math.floor(options.source_element.left - bodyRect.left)
+
+          let pos_y = Math.floor(options.source_element.top - bodyRect.top)
+                    // console.log(sourceEl,pos_x,pos_y)
+
+          options.position_y = pos_y
+          options.position_x = pos_x
+         }
+              
+        commit('updateSocialShare', options)
+      },
   
       updateSidebar ({ commit }, options) {
         commit('updateSidebar', options)

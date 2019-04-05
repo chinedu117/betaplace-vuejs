@@ -2,12 +2,12 @@
   
   <div>
 
-
+      
      <v-card  v-bind="card_style">
       <!-- header -->
         <div class="pa-3 text-xs-left" height="250px" color="grey darken-3" width="100%" style="border-bottom:3px solid #dddd">
                   <v-layout row wrap>
-                      <v-flex md10>
+                      <v-flex md10 xs12>
                        <span class="headline text-capitalize">
                           {{ agentInfo.agency_name }}
                        </span><br>
@@ -15,11 +15,24 @@
                         {{ agent_slug }}
                        </span>
                      </v-flex>
-                     <v-flex md2>
-                        <v-avatar>
-                          <v-icon @click="toggleHideBody" v-if="!showBodyDetails">visibility</v-icon>
-                          <v-icon @click="toggleHideBody" v-else>visibility_off</v-icon>
-                        </v-avatar>
+                     <v-flex md2 xs12>
+                        <v-layout>
+                          <v-flex xs6>
+
+                            <v-avatar >
+                              <v-icon ref="share_profile" @click="share">share</v-icon>
+                            </v-avatar>
+                            
+
+                          </v-flex>
+                          <v-flex xs6>
+                            <v-avatar>
+                              <v-icon @click="toggleHideBody" v-if="!showBodyDetails">visibility</v-icon>
+                              <v-icon @click="toggleHideBody" v-else>visibility_off</v-icon>
+                            </v-avatar>
+                          </v-flex>
+                        </v-layout>
+                        
                      </v-flex>
                  </v-layout>
             </div>
@@ -111,15 +124,22 @@
                     </v-list-tile> -->
                       
                 </v-card-actions>
-
+                    
                    <slot name="link"></slot>
                 </div>
               </v-card>
+             <!--  <social-share 
+                       :title='shareable_title'
+                       :description="social_description"
+                       :url="social_url"
+                       >
+                </social-share> -->
     </div>
 </template>				
 <script>	
    import store from '@/features/place_view/store'
    import insertBreaksFilter from  '@/mixins/InsertBreaksFilter'
+   // import SocialShare from '@/components/SocialShare'
   export default {
   	 name: "agent-info",
   	 data(){
@@ -147,11 +167,7 @@
      created(){
      	//get the information
      	this.$store.dispatch("place_view_store/retrieveAgentInfo",this.agent_slug)
- 
       
-     },
-     beforeMount(){
-           
      },
      mounted(){
      	this.$store.dispatch("common/updateTitle",this.agentInfo.agency_name)
@@ -162,8 +178,19 @@
      },
 
 
-
+     // components: { SocialShare },
      computed:{
+        
+        social_url(){
+             return process.env.ROOT_URL + this.$route.fullPath
+        },
+        shareable_title(){
+             return this.agentInfo.agency_name
+        },
+
+        social_description(){
+              return this.agentInfo.about_us
+        },
         showBodyDetails(){
            return this.show_details
         },
@@ -203,7 +230,27 @@
                        this.show_details = false
                       this.$refs.profile_body.style.display = "none"
                  }
-        }
+        },
+         share(){  
+             
+            
+                 let sourceEl = this.$refs.share_profile.$el
+                
+                 var   elemRect = sourceEl.getBoundingClientRect()
+
+                
+                this.$store.dispatch("common/updateSocialShare",{
+                     'show': true,
+                     'shareable_title': this.agentInfo.name,
+                     'description': this.agentInfo.about_us,
+                     'url': process.env.ROOT_URL + this.$route.fullPath,
+                     'source_element': elemRect,
+
+                })
+
+        },
+
+
      },
 
      

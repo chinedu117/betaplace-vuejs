@@ -69,12 +69,13 @@
                     
                 </div>
            <v-card
-            class="mb-2"
+            class="mb-2 mx-auto"
             v-for="(place, index) in places"
-             
+             width="700px"
+             style="border-radius:5px"
              :index = "index"
              :key="Math.random() + '_' + place.slug"
-
+        
             >
              
              <v-card-title class="text-md-left mb-0 pb-0">

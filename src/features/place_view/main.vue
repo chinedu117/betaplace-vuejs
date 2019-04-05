@@ -144,12 +144,12 @@
 
 
                          <v-divider></v-divider>
-                        <v-card-actions height="100px" background-color="blue-grey lighten-5">
+                        <v-card-actions height="100px" background-color="grey lighten-5">
                          
                               <action-btn
                                :stat_id="place.statistics.id"
                                color="accent"
-                               class="action-btn-mobile"
+                               class="action-btn-mobile elevate-3"
                                :longitude="place.longitude"
                                :latitude="place.latitude"
                                :likes="place.statistics.like_no"
@@ -163,7 +163,7 @@
                        
                    </v-card>
                </v-tab-item>
-               <v-tab-item>
+               <v-tab-item class="pa-2">
                    
                     <!-- <v-subheader class="pb-0 font-weight-bold">AGENT INFO</v-subheader> -->
                       <agent-info
@@ -576,10 +576,9 @@ export default {
   }
 
   .action-btn-mobile {
-   z-index: 1000000;
    position: fixed;
    padding: 10px;
-   background-color:#3f51b5;
+   background-color:#e7e9ef33;
    left: 0px;
    bottom:0px;
    width: 100%;
