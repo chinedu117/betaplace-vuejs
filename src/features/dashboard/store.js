@@ -32,11 +32,12 @@ export default {
       const user = rootGetters['auth/getUser']
      
       let  slotRemaining = user.agent_statistics.max_no_places
+       // console.log(user)
       return {
          'places_no': state.places.length,
          'subscriptions_no': state.subscriptions.length,
-         'slots_remaining': slotRemaining
-
+         'slots_remaining': slotRemaining,
+          'created_by': user.name
       }
    }
 

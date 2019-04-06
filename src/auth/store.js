@@ -137,7 +137,7 @@ export default {
                 .catch((error)=> {
                      
                     commit('clearToken')
-                     console.log(error)
+                     // console.log(error)
                      reject(error)
                  })
           

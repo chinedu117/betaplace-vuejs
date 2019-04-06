@@ -1,5 +1,19 @@
 <template>
-    <div>
+    <div> 
+           <div class="toolbox">
+           <div class="toolbox-item">
+            <v-icon size="30px" >search</v-icon><br>
+             <span class="grey--text text-capitalize text-xs-center">Search</span>
+            </div>
+           <div class="toolbox-item">
+            <v-icon size="30px" >my_location</v-icon><br>
+             <span class="grey--text text-capitalize text-xs-center">Near me</span>
+            </div>
+            <div class="toolbox-item">
+            <v-icon size="30px" >filter_list</v-icon><br>
+             <span class="grey--text text-capitalize text-xs-center">Filter</span>
+            </div>
+           </div>
       <v-layout row v-if="$vuetify.breakpoint.smAndDown">
         <v-flex  xs12>
         <!-- template for mobile phones -->
@@ -141,6 +155,11 @@
         </v-layout>
 
       </v-container>
+
+       <div class="agent-prompt">
+        <v-btn outline class="mx-auto">Click here to Let Out</v-btn>
+      </div>
+
     </div>
       
       <!-- loader spinerre -->
@@ -237,7 +256,35 @@ export default {
 }
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
-<style>
+<style lang="stylus">
+.toolbox
+  display: grid
+  grid-template-columns: repeat(3,33.3%)
+  width: 700px
+  margin: 0 auto
+  padding: 0px 30px 10px 10px
+  text-align: center
+  background-color: #3f51b5;
+  grid-column-gap: 10px;
+.toolbox-item
+  width: 100%
+  height: 100%
+  padding: 10px 0px
+  background-color: white
+
+.agent-prompt
+  display:none
+@media screen and (max-width: 1080px)
+  .toolbox
+    width: 100%
+  
+  .agent-prompt
+    display: block
+    background-color: #dddd
+    height: auto
+    padding: 10px 5px
+    position: fixed
+    bottom: 0px
+    width: 100%
 
 </style>

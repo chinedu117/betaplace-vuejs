@@ -177,6 +177,11 @@ store.registerModule('place_view_store', {
 
             })
         }//else end
+    },
+
+    clearCache({state}){
+          state.place_cache = []
+          state.agents_cache = []
     }
 
   },

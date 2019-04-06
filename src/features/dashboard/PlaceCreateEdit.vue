@@ -169,7 +169,7 @@
                             </v-card>
                             
 
-                           <v-switch v-if="!geoLocation" label="Mark this Point" v-model="geoLocation"></v-switch>
+                           <v-switch  v-if="!geoLocation" label="Mark this Point" v-model="geoLocation"></v-switch>
                             <div v-if="geoLocation">
                                 <v-subheader>Location of the Accomodation</v-subheader>   
                                 <v-text-field
@@ -255,22 +255,22 @@
                                 v-for="(feature,index) in features" 
                                 :key="index"
                                 :index="index"
-                                fill-height
+                                
                                 >
-                                    <v-flex xs4 fill-height>
-                                        <div  class="pa-2 grey lighten-4 font-weight-bold " style="word-wrap:break-word"> 
+                                    <v-flex xs4 >
+                                        <div  class="pa-2 grey lighten-4 font-weight-bold " style="word-wrap:break-word; height: 100%"> 
                                             {{ feature.feature }}
                                         </div>
                                         
                                     </v-flex>
-                                    <v-flex xs6 class="justify-space-between"> 
-                                        <div style="height:auto" class="d-block pa-2 grey lighten-4 ">
+                                    <v-flex xs6 class="justify-space-between" > 
+                                        <div style="height:100%" class="d-block pa-2 grey lighten-4 ">
                                             {{ feature.value }}
                                             
                                         </div>
                                     </v-flex>
-                                    <v-flex xs2>
-                                        <v-icon class="pa-2 grey lighten-4" color="red" @click="removeFeature(index)">close</v-icon>
+                                    <v-flex xs2 >
+                                        <v-icon class="pa-2 grey lighten-4" style="display: block; height: 100%" color="red" @click="removeFeature(index)">close</v-icon>
                                     </v-flex>
                                 </v-layout>
                               
@@ -319,7 +319,7 @@
                             <v-img 
                             :src="image.src"
                             max-width="100%" 
-                               
+                                
                             >
                                 <v-layout 
                                     slot="placeholder"
@@ -389,7 +389,7 @@
                              </v-card-actions>
                         </v-card>
                         
-                        <v-btn fab dark @click='pickFile' left center fixed bottom color="primary">
+                        <v-btn fab dark @click='pickFile' left center v-bind="upload_button" bottom color="primary">
                             <v-icon dark>camera</v-icon>
                         </v-btn>
                         <!-- <v-text-field label="Select Image"  v-model='imageName' prepend-icon='attach_file'></v-text-field> -->
@@ -455,8 +455,8 @@ export default {
                 agent_id: this.$route.params.agentSlug,
                 price:'',
                 price_description: '',
-                location: 'ere',
-                timezone: 'rer',
+                location: '',
+                timezone: 'Africa/Lagos',
                 
            },
            placeSlug:'',//after creating the place
@@ -490,6 +490,7 @@ export default {
          }else{
              //editing mode
              // this.creating = false
+             this.$store.dispatch('place_view_store/clearCache')
              this.mixin_handleRequest(this.$store.dispatch('place_view_store/retrievePlace',this.$route.params.placeSlug)
             .then((response)=>{
                 //console.log(response.data)
@@ -518,6 +519,19 @@ export default {
             
     },
     computed:{
+         upload_button(){
+               
+               if (this.$vuetify.breakpoint.mdAndUp) {
+
+                   return {
+                            "style":" position: absolute; bottom: 30%" 
+                           } 
+               }else{
+                    return{
+                          "style":" position: fixed;"
+                       }
+               }
+         },
          states(){
              return NaijaStates.states()
          },
@@ -684,11 +698,13 @@ export default {
             formData.append('image_id',imageID)
             formData.append('place_slug',this.newPlace.slug)
             // console.log(index,this.images[index].src)
+            const sm = this
             this.mixin_handleRequest(this.$options.service.removeImage(formData)
-                    .then(response => {
-                        this.images.splice(index,1)
+                    .then((response) => {
+
+                        sm.images.splice(index,1)
                         
-                        this.$store.dispatch('common/updateSnackBar',{
+                        sm.$store.dispatch('common/updateSnackBar',{
                         show: true,
                         msg: 'Image Removed Successfully',
                         color: ''
@@ -739,6 +755,20 @@ export default {
        },
        submitPlace(){
         const editingMode = this.newPlace.slug ? true : false
+
+        //check foro geoloaction data
+        const locationPresent = (this.newPlace.latitude !== null) &&( this.newPlace.longitude !== null)
+
+        if(!locationPresent){
+
+           this.$store.dispatch('common/updateSnackBar',{
+                        show: true,
+                        msg: 'eolocation Information is needed',
+                        color: 'red'
+                        })
+
+           return false
+        }
         this.$validator.validate().then(result => {
         	if (result) {
                             //only go to the next field if all is well

@@ -1,6 +1,81 @@
 <template>
 <div>
       
+      <v-card  v-bind="card_style">
+      <!-- header -->
+        <div class="pa-3 text-xs-left" height="250px" color="grey darken-3" width="100%" style="border-bottom:3px solid #dddd">
+                  <v-layout row wrap>
+                      <v-flex md10 xs12>
+                       <span class="headline text-capitalize">
+                         Account Summary
+                       </span><br>
+                       <span class="grey--text subheading text-lowercase" style="letter-spacing: 2px; overflow: hidden">
+                         <!-- {{ }} -->
+                       </span>
+                     </v-flex>
+                     <v-flex md2 xs12>
+                        <v-layout>
+                          <v-flex xs6>
+
+                            <!-- <v-avatar >
+                              <v-icon ref="share_profile" @click="share">share</v-icon>
+                            </v-avatar> -->
+                            
+
+                          </v-flex>
+                          <v-flex xs6>
+                            <!-- <v-avatar>
+                              <v-icon @click="toggleHideBody" v-if="!showBodyDetails">visibility</v-icon>
+                              <v-icon @click="toggleHideBody" v-else>visibility_off</v-icon>
+                            </v-avatar> -->
+                          </v-flex>
+                        </v-layout>
+                        
+                     </v-flex>
+                 </v-layout>
+            </div>
+             <v-card-text>
+                <div class="account-summary-row">
+                  <div class="account-summary-row--cell">
+                     Total Places
+                  </div>
+                  <div class="account-summary-row--cell">
+                     {{ account_summary.places_no }}
+                  </div>
+                </div>
+                <div class="account-summary-row">
+                  <div class="account-summary-row--cell">
+                   Subscriptions
+                   
+                  </div>
+
+                  <div class="account-summary-row--cell">
+                     {{ account_summary.subscriptions_no }}
+                    
+                   </div>
+                   
+                </div>
+                <div class="account-summary-row">
+                  <div class="account-summary-row--cell">
+                   Slots Remaining
+                  </div>
+                  <div class="account-summary-row--cell">
+                     {{ account_summary.slots_remaining }}
+                   </div>
+                </div>
+                <div class="account-summary-row">
+                  <div class="account-summary-row--cell">
+                     Expiry Date
+                  </div>
+                  <div class="account-summary-row--cell">
+                      {{ account_summary.slots_remaining }}
+                  </div>
+                </div>
+              </v-card-text>
+
+          </v-card>
+
+
       <v-layout row v-if="$vuetify.breakpoint.smAndDown">
         
          <v-flex  xs12>
@@ -82,7 +157,7 @@
        
             <v-container v-else >
                <v-layout row wrap grid-list-xs >
-                  <v-flex md8 lg8 >
+                  <v-flex md12 lg12  >
                     <template 
                          v-for="(place,index) in places"
                   
@@ -90,8 +165,9 @@
                         <div 
                         :index="index"
                         :key="Math.random() + '_' + place.slug"
+                   
                         >
-                          <v-card height="auto" class="mb-3" width="100%">
+                          <v-card height="auto" class="mb-3 mx-auto " width="700px">
 
                             <div class="pa-3" color="grey darken-3" width="100%" style="background-color:#dddd">
                                   <v-layout row wrap>
@@ -166,7 +242,7 @@
 
                       </template>
 
-                        <v-btn color="success" class="mr-3 " outline @click="seePlanList()">Click to increase your limits</v-btn>
+                        
 
 
                       <v-btn fab dark  color="primary" fixed bottom v-bind="floating_button_style"  @click="createPlace()">
@@ -174,9 +250,10 @@
                     </v-btn>
 
                   </v-flex>
+                  <v-btn color="success" class="mx-auto " outline @click="seePlanList()">Click to increase your limits</v-btn>
 
 
-                  <v-flex md4 lg4>
+                 <!--  <v-flex md4 lg4>
 
                     <v-card style="position:fixed" class="ml-2">
                            <div class="pa-3" color="grey darken-3"  width="100%" style="background-color:#ddd">
@@ -227,7 +304,7 @@
 
                     </v-card>
                     
-                  </v-flex>
+                  </v-flex> -->
                 </v-layout>
             </v-container>
             <!-- end v-else -->
@@ -299,6 +376,20 @@ export default {
 
    },
    computed:{
+     card_style(){
+           
+           let cardStyle = {
+                             "style":"border-radius: 5px",
+                              "class": "mx-auto  text-xs-left"
+                              }
+                              
+           if(this.$vuetify.breakpoint.mdAndUp){
+             return Object.assign(cardStyle,{"width": "700px"})
+           }else{
+             return Object.assign(cardStyle,{"width": "auto"})
+           }
+        },
+
        account_summary(){
            return this.$store.getters['dashboard_store/summary']
        },
@@ -325,7 +416,7 @@ export default {
 
             if(this.$store.getters['auth/getUser'].agent_statistics.max_no_places > 0)
             {
-              this.$router.push({name: 'createEdit',params:{agentSlug:this.$route.params.agentSlug}})
+              this.$router.push({name: 'createEdit',params:{'agentSlug':this.$route.params.agentSlug}})
             }else{
 
               this.$store.dispatch('common/updateSnackBar',{
@@ -341,7 +432,7 @@ export default {
 
         editPlace(slug){
             
-            this.$router.push({name: 'createEdit',params:{agentSlug:this.$route.params.agentSlug ,placeSlug:slug}})
+            this.$router.push({name: 'createEdit', params:{"agentSlug":this.$route.params.agentSlug ,"placeSlug": slug}})
         },
         
 

@@ -22,7 +22,6 @@
             <v-btn flat  color="accent" @click="resetFilter">RESET</v-btn>
             <v-btn flat  color="accent" @click="closeFilterBox">CLOSE</v-btn>
              
-             {{selected}}
             
         </div>
 </template>

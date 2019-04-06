@@ -119,7 +119,8 @@
                               v-for="(feature,index) in place.features.features" 
                               :key="index"
                               :index="index"
-                              fill-height
+                               fill-height
+                               height="auto"
                                >
                                 <v-flex xs4 fill-height>
                                     <div  class="pa-2 grey lighten-4 font-weight-bold " style="word-wrap:break-word"> 
@@ -361,16 +362,16 @@
                                         v-for="(feature,index) in place.features.features" 
                                         :key="index"
                                         :index="index"
-                                        fill-height
+                                        
                                          >
-                                          <v-flex xs4 fill-height>
-                                              <div  class="pa-2 grey lighten-4 font-weight-bold " style="word-wrap:break-word"> 
+                                          <v-flex xs4 >
+                                              <div  class="pa-2 grey lighten-4 font-weight-bold " style="word-wrap:break-word; height: 100%"> 
                                                   {{ feature.feature }}
                                               </div>
                                               
                                           </v-flex>
                                           <v-flex xs8 fill-height> 
-                                              <div style="height:auto" class="d-block pa-2 grey lighten-4">
+                                              <div style="height:100%" class="d-block pa-2 grey lighten-4">
                                                    {{ feature.value }}
                                               </div>
 

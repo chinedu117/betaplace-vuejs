@@ -97,33 +97,34 @@ export default {
     },
     methods: {
         publish(){
+           const sm = this
            if(this.published){
             this.mixin_handleRequest(
                 this.$store.dispatch("dashboard_store/unpublishPlace",{'place_slug':this.slug})
                   .then((response) => { 
-                    this.agent_published = false
+                    sm.agent_published = false
                     
                }))
                
            }else{
               this.mixin_handleRequest(
-                  this.$store.dispatch("dashboard_store/publishPlace",
-                       {'place_slug':this.slug})
+                  sm.$store.dispatch("dashboard_store/publishPlace",
+                       {'place_slug':sm.slug})
                      .then((response) => { 
-                        this.agent_published = true
+                        sm.agent_published = true
                        
                }))
            }
         },
         deletePlace(){
-
+              const sm = this
             if(confirm("Do you want to delete this and all its content?")){
                this.mixin_handleRequest(
-                    this.$store.dispatch("dashboard_store/deletePlace",{'place_slug':this.slug})
+                    sm.$store.dispatch("dashboard_store/deletePlace",{'place_slug': ssm.slug})
                      .then((response) => { 
                     //emits delete event
                    
-                    this.$store.dispatch('common/updateSnackBar',{
+                   sm.$store.dispatch('common/updateSnackBar',{
                     show: true,
                     msg: 'Deleted',
                     color: ''
@@ -135,10 +136,11 @@ export default {
           }
     },
     renew(){
+        const sm = this
         this.mixin_handleRequest(
-            this.$store.dispatch("dashboard_store/renewPlace",{'place_slug':this.slug})
+            sm.$store.dispatch("dashboard_store/renewPlace",{'place_slug':this.slug})
               .then((response) => { 
-                    this.place_expired = true
+                     sm.place_expired = true
                   
                }))
     },

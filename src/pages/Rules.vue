@@ -1,6 +1,8 @@
 <template>
 	<div>
-		We will update it shortly
+		<h5>Work in Progress</h5>
+
+		<p>We will update it shortly</p>
 	</div>
 </template>
 <script type="text/javascript">
