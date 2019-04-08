@@ -1,19 +1,5 @@
 <template>
     <div> 
-           <div class="toolbox">
-           <div class="toolbox-item">
-            <v-icon size="30px" >search</v-icon><br>
-             <span class="grey--text text-capitalize text-xs-center">Search</span>
-            </div>
-           <div class="toolbox-item">
-            <v-icon size="30px" >my_location</v-icon><br>
-             <span class="grey--text text-capitalize text-xs-center">Near me</span>
-            </div>
-            <div class="toolbox-item">
-            <v-icon size="30px" >filter_list</v-icon><br>
-             <span class="grey--text text-capitalize text-xs-center">Filter</span>
-            </div>
-           </div>
       <v-layout row v-if="$vuetify.breakpoint.smAndDown">
         <v-flex  xs12>
         <!-- template for mobile phones -->
@@ -156,8 +142,18 @@
 
       </v-container>
 
-       <div class="agent-prompt">
-        <v-btn outline class="mx-auto">Click here to Let Out</v-btn>
+       <div class="agent-prompt elevate-3">
+           <div class="tool-icon">
+            <v-icon size="30px" >search</v-icon><br>
+             <span class="grey--text text-capitalize text-xs-center">Search</span>
+            </div>
+           <div class="tool-icon tool-icon-prominent">
+            <v-icon size="24px" color="white">my_location</v-icon><br>
+            </div>
+            <div class="tool-icon">
+            <v-icon size="30px"  >filter_list</v-icon><br>
+             <span class="grey--text text-capitalize text-xs-center">Filter</span>
+            </div>
       </div>
 
     </div>
@@ -279,12 +275,27 @@ export default {
     width: 100%
   
   .agent-prompt
-    display: block
-    background-color: #dddd
+    display: grid
+    grid-template-columns: repeat(3,33.3%)
+    background-color: #fff;
     height: auto
     padding: 10px 5px
     position: fixed
     bottom: 0px
     width: 100%
+    z-index: 100000
+    border-top: 2px solid #3f51b5
+    box-shadow: 0px -1.2px 6px rgba(0, 0, 0, 0.2)
 
+  .tool-icon
+    background-color: none
+    margin: 0px auto;
+  .tool-icon-prominent
+    width: 50px
+    height: 50px
+    border-radius:50%
+    background-color: #414190;
+    color: white;
+    margin: 0px auto;
+    padding: 12.5px;
 </style>
