@@ -20,10 +20,19 @@
              
              <v-card-title class="text-md-left mb-0 pb-0">
                <div style="width:100%">
-                 <div v-if="place.prefered">
-                   <span  class="grey--text font-weight-medium" >By Your Preference</span><br>
-                 </div>
-                 
+                
+                <v-layout  row wrap v-if="place.prefered || place.distance ">
+                  <v-flex xs8>
+                     <div  v-if="place.prefered">
+                       <span  class="grey--text font-weight-medium text-xs-left" >By Your Preference</span><br>
+                     </div>
+                   </v-flex>
+                  <v-flex xs4>
+                     <div class="grey--text font-weight-medium text-xs-right" v-show="hasUserCoords" v-if="place.distance"><b>{{place.distance | distance }}</b>
+                     </div>
+                  </v-flex>
+                </v-layout>
+
                  <v-layout  row wrap>
                      <v-flex md9>
                      <span class="title headline--mobile">{{place.category.name}}</span>
@@ -69,11 +78,11 @@
 
          </v-flex>
          
-
-          <v-flex md12 lg4 xs12>
+<!-- 
+          <v-flex md4 lg4>
                 <subscribe/>
                 
-         </v-flex>
+         </v-flex> -->
 
       
 
