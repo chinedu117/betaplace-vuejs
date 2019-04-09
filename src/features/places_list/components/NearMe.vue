@@ -53,7 +53,7 @@ export default {
                                 latitude: coordinates.lat,
                                 longitude: coordinates.lng
                             }
-                        console.log(myLocation.length > 0)
+                        // console.log(myLocation.length > 0)
                         this.$store.dispatch('places_list_store/updateUserCoords',myLocation)
                         
                     })  

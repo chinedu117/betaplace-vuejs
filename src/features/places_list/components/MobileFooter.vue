@@ -1,70 +1,42 @@
 <template>
-   <div>
-
     <div class="agent-prompt elevate-3">
            <div class="tool-icon">
-                 <v-tooltip bottom>
-                  <template v-slot:activator="{ on }">
-                  <v-icon v-on="on" v-bind="iconProps"  @click="displaySearchBox">search</v-icon>
-                   
-                 </template>
-                  <span>Search by Location</span>
-                </v-tooltip>
+                 
+                  <v-icon  size="30px" v-bind="iconProps"  @click="displaySearchBox">search</v-icon>
+                     <br>
+                   <span class="grey--text text-capitalize text-xs-center">Search</span>
+                
                 <!-- <v-icon size="30px" >search</v-icon><br>
                  <span class="grey--text text-capitalize text-xs-center">Search</span> -->
             </div>
 
 
            <div class="tool-icon tool-icon-prominent">
-            <v-icon size="24px" color="white">my_location</v-icon><br>
+            <near-me  v-bind="iconProps"></near-me>
             </div>
+            
+
             <div class="tool-icon">
 
-                <v-tooltip bottom>
-                  <template v-slot:activator="{ on }">
-                  <v-icon v-on="on"  v-bind="iconProps" @click="displayFilterBox">filter_list</v-icon>
-                 
-                 </template>
-                  <span>Filter by your priorities </span>
-                </v-tooltip>
+
+                  <v-icon  v-bind="iconProps" @click="displayFilterBox">filter_list</v-icon>
+                    <br>
+                    <span class="grey--text text-capitalize text-xs-center">Filter</span>
+                
             <!-- <v-icon size="30px"  >filter_list</v-icon><br>
              <span class="grey--text text-capitalize text-xs-center">Filter</span> -->
             </div>
-      </div>
 
 
-    <div>
-    <near-me  v-bind="iconProps"></near-me>
-    </div>
+
     
-    <div>
-    <v-tooltip bottom>
-      <template v-slot:activator="{ on }">
-      <v-icon v-on="on" v-bind="iconProps"  @click="displaySearchBox">search</v-icon>
-       
-     </template>
-      <span>Search by Location</span>
-    </v-tooltip>
-    </div>
-
-    <div>
-    <v-tooltip bottom>
-      <template v-slot:activator="{ on }">
-      <v-icon v-on="on"  v-bind="iconProps" @click="displayFilterBox">filter_list</v-icon>
-     
-     </template>
-      <span>Filter by your priorities </span>
-    </v-tooltip>
-     </div>
-   </div>
-
-
+</div>
 </template>
 
 <script>
 import NearMe from './NearMe.vue'
 export default {
-    name: 'tool-bar-items',
+    name: 'mobile-footer',
     components:{NearMe},
     computed: {
         iconProps(){
@@ -127,7 +99,7 @@ export default {
     grid-template-columns: repeat(3,33.3%)
     background-color: #fff;
     height: auto
-    padding: 10px 5px
+    padding: 8px 5px
     position: fixed
     bottom: 0px
     width: 100%
@@ -146,4 +118,5 @@ export default {
     color: white;
     margin: 0px auto;
     padding: 12.5px;
+    box-shadow: 0px -1.2px 6px rgba(0, 0, 0, 0.2)
 </style>

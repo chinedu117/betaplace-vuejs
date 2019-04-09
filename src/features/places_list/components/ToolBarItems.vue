@@ -1,5 +1,5 @@
 <template>
-   <div>
+   <div  v-if="$vuetify.breakpoint.mdAndUp">
     <div>
     <near-me  v-bind="iconProps"></near-me>
     </div>

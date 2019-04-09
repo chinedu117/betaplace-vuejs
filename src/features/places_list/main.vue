@@ -1,6 +1,6 @@
 <template>
     <div> 
-      <v-layout row v-if="$vuetify.breakpoint.smAndDown">
+      <v-layout row v-if="false">
         <v-flex  xs12>
         <!-- template for mobile phones -->
           <v-list two-line subheader class="pt-2" v-if="places.length > 0">
@@ -58,7 +58,7 @@
       </v-layout>
       
      
-      <v-container grid-list-xs  v-if="$vuetify.breakpoint.mdAndUp">
+      <!-- <v-container grid-list-xs  v-if="true">
         <v-layout row wrap>
             <v-flex md8 lg8 >
         <div
@@ -69,8 +69,9 @@
                     
                 </div>
            <v-card
-            class="mb-2 mx-auto"
-            v-for="(place, index) in places"
+             class="mb-2 mx-auto"
+             v-bind="card_style"
+             v-for="(place, index) in places"
              width="700px"
              style="border-radius:5px"
              :index = "index"
@@ -125,8 +126,74 @@
              </v-card-actions>
            </v-card>
             <load-more/>
-         </div> <!-- large screen display wrapper -->
+         </div> --> <!-- large screen display wrapper -->
+      <v-container grid-list-xs  v-if="true">
+        <v-layout row wrap>
+            <v-flex md8 lg8 >
+        <div
+         v-if="places.length > 0"
+        > 
+           <div class="d-flex justify-space-between">
+                    <v-subheader>Available Places <v-chip align-end>{{ places.length}}</v-chip></v-subheader>
+                    
+                </div>
+           <div
+             class="list-card"
+             v-bind="card_style"
+             v-for="(place, index) in places"
+             :index = "index"
+             :key="Math.random() + '_' + place.slug"
+        
+            >
+             
+             <v-card-title class="text-md-left mb-0 pb-0">
+               <div style="width:100%">
+                 <div v-if="place.prefered">
+                   <span  class="grey--text font-weight-medium" >By Your Preference</span><br>
+                 </div>
+                 
+                 <v-layout  row wrap>
+                     <v-flex md9>
+                     <span class="headline">{{place.category.name}}</span>
+                   </v-flex>
+                   <v-flex md3>
+                     <span  class="text-md-right red--text font-weight-medium" > {{place.price | currency}}</span>
+                   </v-flex>
+                 </v-layout>
+                 
 
+ 
+                 <div class="text--grey lighten-4 subheading text-capitalize">
+                  <v-icon class="pr-2 lighten-4" >place</v-icon>
+                  <span class="text-capitalize">{{ place.location }}, {{ place.state }}</span><br>
+                  
+                </div>
+               </div>
+             </v-card-title>
+
+
+             <v-card-text class="text-xs-left">
+
+                <span class=" wrap">{{ place.description }}</span><br>
+                
+             </v-card-text>
+              
+             <v-card-actions>
+               <v-layout  row wrap justify-space-between>
+                     <v-flex md6>
+                      <v-btn flat color="accent" @click="visitPlace(place.slug)">Let's See</v-btn>
+                   </v-flex>
+                   <v-flex md6>
+                     <span class="grey--text font-weight-medium" v-show="hasUserCoords" v-if="place.distance"> approx <b>{{place.distance | distance }}</b> from your location</span>
+                   </v-flex>
+                 </v-layout>
+              
+               
+               
+             </v-card-actions>
+           </div>
+            <load-more/>
+         </div>
 
          </v-flex>
          
@@ -142,7 +209,7 @@
 
       </v-container>
 
-       <div class="agent-prompt elevate-3">
+       <!-- <div class="agent-prompt elevate-3">
            <div class="tool-icon">
             <v-icon size="30px" >search</v-icon><br>
              <span class="grey--text text-capitalize text-xs-center">Search</span>
@@ -154,8 +221,8 @@
             <v-icon size="30px"  >filter_list</v-icon><br>
              <span class="grey--text text-capitalize text-xs-center">Filter</span>
             </div>
-      </div>
-
+      </div> -->
+       <mobile-footer/>
     </div>
       
       <!-- loader spinerre -->
@@ -164,7 +231,7 @@
 
 <script>
 
-
+import MobileFooter from './components/MobileFooter'
 import store from './store' 
 import Subscribe from '@/components/Subscribe.vue'
 import LoadMore from '@/features/places_list/components/LoadMore.vue'
@@ -186,7 +253,7 @@ export default {
       this.$store.dispatch('common/updateToolBar',{show: true, component: ''})
       next()
   },
-  components: { Subscribe, LoadMore},
+  components: { Subscribe, LoadMore, MobileFooter},
  
   created(){
         // console.log(this.$http)
@@ -220,7 +287,10 @@ export default {
 
 
   computed: {
-    
+    card_style(){
+         
+
+    },
     places:{
         get(){
             return this.$store.getters['places_list_store/placesFiltered']
@@ -268,9 +338,21 @@ export default {
   padding: 10px 0px
   background-color: white
 
+.list-card
+  display: block
+  width: 700px
+  border-radius: 5px
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)
 .agent-prompt
   display:none
 @media screen and (max-width: 1080px)
+  .list-card
+    width: 100%
+    margin: 0px 0px
+    padding: 5px
+    border-bottom: 2px solid #ddd
+    border-radius: 0px
+    box-shadow: 0px 0px
   .toolbox
     width: 100%
   
