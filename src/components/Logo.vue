@@ -20,7 +20,7 @@ methods:{
 		padding-right: 5px;
 	}
 	.logo-size-small {
-		width: 200px;
+		width: 150px;
 		height: 50px;
 		padding-right: 5px;
 	}

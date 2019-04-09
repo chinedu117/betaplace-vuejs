@@ -1,6 +1,18 @@
 <template>
     <div v-if="showFilters" id="filter-box" class="d-block pa-2 mx-auto">
             
+            <ul 
+              v-if="activeFilters"
+              >
+
+                <span color="accent">Actvie Filters</span><br>
+
+                <li 
+                  v-for="filter in activeFilters"
+                 >{{ filter[0] }}</li>
+                
+            </ul>
+
             <v-select
                  v-for="(filter,filIndex) in filters"
                 :key="filIndex"
@@ -17,15 +29,19 @@
                
             </v-select>
 
+            
+                     
+            <v-btn flat  color="accent" @click="closeFilterBox">CLOSE</v-btn>
+            
+            <v-btn flat  color="accent" @click="resetFilter">RESET</v-btn>
 
             <v-btn flat  color="accent" @click="filterItems">OK</v-btn>
-            <v-btn flat  color="accent" @click="resetFilter">RESET</v-btn>
-            <v-btn flat  color="accent" @click="closeFilterBox">CLOSE</v-btn>
              
             
         </div>
 </template>
 <script>
+import NaijaStates from 'naija-state-local-government'
 export default {
     name:'filter-box',
 
@@ -77,6 +93,9 @@ export default {
         }
     },
     created(){
+
+        //add the states
+
         if(this.$store.getters['places_list_store/placeCategories'] == null){
 
            this.$store.dispatch('places_list_store/getCategoryList')
@@ -116,8 +135,47 @@ export default {
             this.filters.push(categoryFilter)
 
         }
+
+        this.addStatesToFilters()
+    },
+
+    computed:{
+       activeFilters(){
+             
+
+             let activeObj = this.$store.state.places_list_store.preferredFilters
+             var objKeys = Object.keys(activeObj)
+
+             if(objKeys.length < 1) return false
+
+                let activeArray = objKeys.map(function(key) {
+                                             
+                                      return [key.replace('filter_','')];
+                                    });
+
+
+                        
+
+             return activeArray
+
+       }
     },
     methods:{
+        addStatesToFilters(){
+              let stateFilter =         { name: 'state',
+                                          label: 'Filter by State',
+                                         values: []
+                                        }
+                    NaijaStates.states().forEach((state)=>{
+                            stateFilter.values.push({
+                                            'label': state,
+                                            'name': "state",
+                                            'value': state
+                                             })
+                    })
+            this.filters.push(stateFilter)
+
+        },
         _closeFilterBox()
         {
             this.$store.dispatch('common/updateToolBar',{show: true, component: 'PlacesListToolBarItems'})
@@ -140,9 +198,9 @@ export default {
             const filterValue = payload.value
             
              
-            if(filterName == "distance"){
+            if(filterName == "state"){
 
-                 this.$store.commit('places_list_store/addPreferredFilters',{filter_distance: filterValue })
+                 this.$store.commit('places_list_store/addPreferredFilters',{filter_state: filterValue })
                 
             }else if(filterName == "budget"){
 
@@ -172,3 +230,11 @@ export default {
 }
 </script>
 
+<style lang="stylus" scoped>
+ul,li
+    list-style: none
+li::before
+    content: "#"
+    margin-left: -10px
+
+</style>
