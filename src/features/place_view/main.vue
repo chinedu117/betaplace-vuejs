@@ -35,9 +35,8 @@
 
                        <v-img 
                         :src="image.src"
-                        aspect-ratio="43/3"
-                         max-width="500px"
-                         
+                         max-width="100%"
+                         height="auto"
                          >
                          
                             <v-layout 
