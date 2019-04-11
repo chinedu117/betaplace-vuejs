@@ -50,7 +50,7 @@ Vue.use(VueCurrencyFilter,
     symbolSpacing: true
   })
 
-
+require('vue2-animate/dist/vue2-animate.min.css')
 Vue.use(veeValidate)
 Vue.use(VueCookie)
 
