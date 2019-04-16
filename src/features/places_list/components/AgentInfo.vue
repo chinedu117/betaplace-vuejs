@@ -1,8 +1,6 @@
 <template>	
   
   <div>
-
-      
      <v-card  v-bind="card_style">
       <!-- header -->
         <div class="pa-3 text-xs-left" height="250px" color="grey darken-3" width="100%" style="border-bottom:3px solid #dddd">

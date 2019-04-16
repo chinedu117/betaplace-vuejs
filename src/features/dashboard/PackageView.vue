@@ -1,42 +1,63 @@
 <template>
      <v-layout row>
-         <v-flex  xs12>
+         <v-flex  xs12 v-if="plan">
                 
-                <div  class="pricing-wrapper clearfix" >
-                 
-                  <div class="pricing-table" >
-                       <h3 class="pricing-title">{{plan.package_name}}</h3>
-                       <div class="price">N {{plan.price}}</div>
-                       <!-- Lista de Caracteristicas / Propiedades -->
-                <ul class="table-list">
+               <v-card :width="$vuetify.breakpoint.mdAndUp ? '700px' : 'auto' " class="mx-auto" style="border-radius: 5px; margin-top: 20px !important;">
+                        <!-- header -->
+                        <div class="pa-3 mb-3" height="250px" color="grey darken-3" width="100%" style="border-bottom:3px solid #dddd">
+                                  <v-layout row wrap>
+                                      <v-flex md8>
+                                       <span class="headline">
+                                          {{plan.package_name}}
+                                       </span>
+                                     </v-flex>
+                                     <v-flex md4>
+                                       <span  class="text-xs-right red--text font-weight-medium" style="font-weight: 700; ">
+                                         
+                                          N {{plan.price}}
+                                       </span>
+                                     </v-flex>
+                                 </v-layout>
+                            </div>
+                         <!-- header -end -->
 
-                    <li>{{plan.quantity_slot}}  <span>Slots</span></li>
-                    <li>{{plan.duration_days}} days <span>Duration</span></li>
-                    <li>Expires on <span> {{plan.expires_on }}</span></li>
-                    
-                </ul>
-                <!-- Contratar / Comprar -->
-                <div class="table-buy">
-                  <p>N {{plan.price}}</p>
-                   
-                   <div class="pricing-action">
-                       <paystack
-                          :metadata="paystackMetaData"
-                          :amount="plan.price * 100"
-                          :email="agentEmail"
-                          :paystackkey="paystackkey"
-                          :reference="reference"
-                          :callback="callback"
-                          :close="close"
-                          :embed="false"
-                       >
-                      <i class="fas fa-money-bill-alt"></i>
-                         <v-btn class="btn-color-action" :loading="loading" flat :disabled="loading"  @click="loading = true">BUY</v-btn>
-                      </paystack>
-                  </div>
-                </div>
-              </div>
-                  </div>
+                        <v-card-text class="pa-3" style="line-height: 1.9; font-size:16px">
+
+                          <p>
+                            You are about to pay <b>N {{plan.price}}</b>, for the purchase of  <b>{{plan.package_name}}</b>, which will enable you to upload <b>{{plan.quantity_slot}}</b> more places.
+                          </p>
+
+                          <p>
+                            This plan would last for <b> {{plan.duration_days}} days</b> and would expire on  <b>{{plan.expires_on }}.</b>
+                          </p>
+                            
+                          <p>
+                            Any active plan would be merged to the most recent subscription. Terms and conditions apply. Thank you.
+                          </p>
+                          
+
+                        </v-card-text>
+                        <v-card-actions>
+                           <div class="pricing-action mx-auto">
+                               <paystack
+                                  :metadata="paystackMetaData"
+                                  :amount="plan.price * 100"
+                                  :email="agentEmail"
+                                  :paystackkey="paystackkey"
+                                  :reference="reference"
+                                  :callback="callback"
+                                  :close="close"
+                                  :embed="false"
+                               >
+                              <i class="fas fa-money-bill-alt"></i>
+                                 <v-btn class="btn-color-action" color="white" :loading="loading" flat :disabled="loading"  @click="loading = true">BUY</v-btn>
+                              </paystack>
+                         </div>
+
+                        </v-card-actions>
+
+                </v-card>
+
                 
           </v-flex> <!-- End template for mobile display -->
          
@@ -52,7 +73,7 @@ components: {
     },
  data(){
      return {
-         plan:{},
+         plan:null,
          paystackkey: process.env.PAYSTACK_PUBLIC_KEY, //paystack public key
          loading: false
 
@@ -165,174 +186,10 @@ methods:{
 </script>
 
 <style scoped>
- * {
-    margin: 0;
-    padding: 0;
-    -webkit-box-sizing: border-box;
-    -moz-box-sizing: border-box;
-    box-sizing: border-box;
+.pricing-action:hover {
+    background: #cf4f3e;
 }
-
-body {
-    background: #2e2a2a;
-    color: #FFF;
-    font-size: 62.5%;
-    font-family: 'Roboto', Arial, Helvetica, Sans-serif, Verdana;
-}
-
-ul {
-    list-style-type: none;
-}
-
-a {
-    color: #e95846;
-    text-decoration: none;
-}
-
-.pricing-table-title {
-    text-transform: uppercase;
-    font-weight: 700;
-    font-size: 2.6em;
-    color: #FFF;
-    margin-top: 15px;
-    text-align: left;
-    margin-bottom: 25px;
-    text-shadow: 0 1px 1px rgba(0,0,0,0.4);
-}
-
-.pricing-table-title a {
-    font-size: 0.6em;
-}
- 
-.clearfix:after {
-    content: '';
-    display: block;
-    height: 0;
-    width: 0;
-    clear: both;
-}
-/** ========================
- * Contenedor
- ============================*/
-.pricing-wrapper {
-    width: 960px;
-    margin: 40px auto 0;
-}
-
-.pricing-table {
-    margin: 0 auto;
-    text-align: center;
-    width: 500px;
-    -webkit-box-shadow: 0 0 15px rgba(0,0,0,0.4);
-    box-shadow: 0 0 15px rgba(0,0,0,0.4);
-    -webkit-transition: all 0.25s ease;
-    -o-transition: all 0.25s ease;
-    transition: all 0.25s ease;
-}
-
-.pricing-table:hover {
-    -webkit-transform: scale(1.06);
-    -ms-transform: scale(1.06);
-    -o-transform: scale(1.06);
-    transform: scale(1.06);
-}
-
-.pricing-title {
-    color: #FFF;
-    background: #e95846;
-    padding: 20px 0;
-    font-size: 2em;
-    text-transform: uppercase;
-    text-shadow: 0 1px 1px rgba(0,0,0,0.4);
-}
-
-.pricing-table.recommended .pricing-title {
-    background: #2db3cb;
-}
-
-.pricing-table.recommended .pricing-action {
-    background: #2db3cb;
-}
-
-.pricing-table .price {
-    background: #403e3d;
-    font-size: 3.4em;
-    font-weight: 700;
-    padding: 20px 0;
-    text-shadow: 0 1px 1px rgba(0,0,0,0.4);
-    color:#fcf7f7e6;
-}
-
-
-.pricing-table .price sup {
-    font-size: 0.4em;
-    position: relative;
-    left: 5px;
-}
-
-.table-list {
-    background: #FFF;
-    color: #403d3a;
-}
-
-.table-list li {
-    font-size: 1.4em;
-    font-weight: 700;
-    padding: 12px 8px;
-}
-
-.table-list li:before {
-    content: "\e5ca";
-    font-family: 'Material Icons';
-    color: #3fab91;
-    display: inline-block;
-    position: relative;
-    right: 5px;
-    font-size: 16px;
-} 
-
-.table-list li span {
-    font-weight: 400;
-}
-
-.table-list li span.unlimited {
-    color: #FFF;
-    background: #e95846;
-    font-size: 0.9em;
-    padding: 5px 7px;
-    display: inline-block;
-    -webkit-border-radius: 38px;
-    -moz-border-radius: 38px;
-    border-radius: 38px;
-}
-
-
-.table-list li:nth-child(2n) {
-    background: #F0F0F0;
-}
-
-.table-buy {
-    background: #FFF;
-    padding: 15px;
-    text-align: left;
-    overflow: hidden;
-}
-
-.table-buy p {
-    float: left;
-    color: #37353a;
-    font-weight: 700;
-    font-size: 2.4em;
-}
-
-.table-buy p sup {
-    font-size: 0.5em;
-    position: relative;
-    left: 5px;
-}
-
-.table-buy .pricing-action {
-    float: right;
+.pricing-action {
     color: #FFF;
     background: #e95846;
     padding: 10px 16px;
@@ -346,57 +203,5 @@ a {
     -o-transition: all 0.25s ease;
     transition: all 0.25s ease;
 }
- .btn-color-action{
-    font-weight: 700;
-    font-size: 1.4em;
-    color: #FFF;
-    text-shadow: 0 1px 1px rgba(0,0,0,0.4);
-    -webkit-transition: all 0.25s ease;
-    -o-transition: all 0.25s ease;
-    transition: all 0.25s ease;
- }
-.table-buy .pricing-action:hover {
-    background: #cf4f3e;
-}
-
-.recommended .table-buy .pricing-action:hover {
-    background: #228799;    
-}
-
-/** ================
- * Responsive
- ===================*/
- @media only screen and (min-width: 768px) and (max-width: 959px) {
-    .pricing-wrapper {
-        width: 768px;
-    }
-
-    .pricing-table {
-        width: 236px;
-    }
-    
-    .table-list li {
-        font-size: 1.3em;
-    }
-
- }
-
- @media only screen and (max-width: 767px) {
-    .pricing-wrapper {
-        width: 420px;
-    }
-
-    .pricing-table {
-        display: block;
-        float: none;
-        margin: 0 0 20px 0;
-        width: 100%;
-    }
- }
-
-@media only screen and (max-width: 479px) {
-    .pricing-wrapper {
-        width: 300px;
-    }
-} 
+ 
 </style>

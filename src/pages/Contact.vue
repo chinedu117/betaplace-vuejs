@@ -1,6 +1,7 @@
 <template>
 	<div>
-		We will update it shortly
+		<p>Betaplace.com.ng can be reached at admin@betaplace.com.ng</p>
+		 
 	</div>
 </template>
 <script type="text/javascript">

@@ -94,13 +94,7 @@
 								 </ul>
 
 					Other things you can mention are: estimate of distance from certain focal areas of the town, accessibility, security and others.
-				</p>
-
-              
-
-
-
-
+				</p>      
 
 				 <h4 class="headline" id="cover-picture"><a href="#cover-picture" class="">Cover Picture</a></h4>
                   
@@ -123,12 +117,6 @@
 
 				<p>Adding and marketing your places on betaplace.com.ng  is very easy.  Following this guide consistently will ensure better outcome. We solicit that you try as much as possible to avoid false information or posting any information unrelated to the purpose of this application. 
 				</p>
-
-
-
-
-
-
 
   			</article>
 
