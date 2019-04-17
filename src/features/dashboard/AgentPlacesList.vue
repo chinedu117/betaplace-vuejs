@@ -60,15 +60,16 @@
                    Slots Remaining
                   </div>
                   <div class="account-summary-row--cell">
-                     {{ account_summary.slots_remaining }}
+                     {{ account_summary.agent_statistics.max_no_places }}
                    </div>
                 </div>
+
                 <div class="account-summary-row">
                   <div class="account-summary-row--cell">
                      Expiry Date
                   </div>
                   <div class="account-summary-row--cell">
-                      {{ account_summary.slots_remaining }}
+                      {{ account_summary.agent_statistics.active_subscription_expiry_date }}
                   </div>
                 </div>
               </v-card-text>
@@ -373,7 +374,7 @@ export default {
                  return sm.$store.dispatch("dashboard_store/retrieveMySubscriptions")
                         
            })
-
+ 
    },
    computed:{
      card_style(){

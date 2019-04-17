@@ -91,27 +91,3 @@ export const USER_INFO_URL = baseUrl + "/user"
 export const SOCIAL_LOGIN_URL = (provider) => {
          return baseUrl + '/login/' + provider
 }
-
-// export const PLACE_LIKE = baseUrl + '/p'
-
-// export const PLACE_SHARE_WHATSAPP = baseUrl + '/p'
-
-// export const PLACE_CONTACT_AGENT_WHATSAPP = baseUrl + '/p'
-
-
-
-// export const TODO_LIST_URL = baseUrl + '/todo'
-
-// export const ADD_TODO_URL = TODO_LIST_URL
-
-// export const DELETE_TODO_URL = TODO_LIST_URL + '/'
-
-// export const UPDATE_TODO_URL = DELETE_TODO_URL
-
-// export const CHECKALL_TODO_URL =  baseUrl  + "/todoCheckAll"
-
-// export const DELETE_COMPLETED_TODO_URL = baseUrl  + "/todoDeleteCompleted"
-
-
-
-

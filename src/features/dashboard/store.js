@@ -31,13 +31,12 @@ export default {
    summary(state,getters,rootState,rootGetters){
       const user = rootGetters['auth/getUser']
      
-      let  slotRemaining = user.agent_statistics.max_no_places
-       // console.log(user)
+    
       return {
          'places_no': state.places.length,
          'subscriptions_no': state.subscriptions.length,
-         'slots_remaining': slotRemaining,
-          'created_by': user.name
+         'created_by': user.name,
+         'agent_statistics': user.agent_statistics
       }
    }
 

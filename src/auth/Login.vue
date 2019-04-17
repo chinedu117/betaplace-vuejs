@@ -146,8 +146,9 @@
 					
 					return sm.mixin_handleRequest(sm.$store.dispatch('auth/retrieveUser')
 					  .then((response) => {
-						
-						 sm.redirectAfterLogin(false)
+						  
+						  
+						 return sm.redirectAfterLogin(false)
                         
 					})
 				)
@@ -168,15 +169,15 @@
 
            console.log(slug,hasProfile,hasVerifiedEmail)
 			if(!social){
-				console.log('Not using social login')
+				// console.log('Not using social login')
 				if(hasVerifiedEmail){
-				     console.log('has verified email')
+				     // console.log('has verified email')
 				        
 					   if(hasProfile){ 
-				             console.log('has profile ')
+				             // console.log('has profile ')
 							 
 							var res = this.$router.push({ name: 'MyPlaces', params: {"agentSlug": slug}})
-							console.log('Going to my places ')
+							// console.log('Going to my places ')
 						}else{
 	                        this.$router.push({ name: 'AgentProfile'})
 						}

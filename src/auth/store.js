@@ -11,7 +11,9 @@ export default {
   
     mutations: {
         saveUser(state, user) {
-      
+            
+            localStorage.removeItem('user')
+            state.user = ""
             const loggedUser = user
             state.user = loggedUser
             localStorage.setItem('user',JSON.stringify(loggedUser))
@@ -103,7 +105,7 @@ export default {
                   
                  // console.log(response.data)
                   //save the token to local storage
-                 
+                 // console.log(response.data)
                  commit('saveUser', response.data)
                  resolve(response)
                   })
