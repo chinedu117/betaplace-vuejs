@@ -176,18 +176,7 @@
                                  </v-btn>
                         </v-card-actions>
                       </agent-info>
-                         
-                           <!-- <rate-agent
-                                :agent_rating="place.agent.rating"
-                                :agent_id="place.agent.id"
-                                class="mx-auto"
-                          >
-
-                          </rate-agent> -->
-                         
-                          
                        
-                           
                </v-tab-item>
            </v-tabs>   
               

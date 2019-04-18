@@ -16,10 +16,6 @@
                class="mx-auto"
               > 
 
-               <div class="d-flex justify-space-between">
-                  <v-subheader>Available Places <v-chip align-end>{{ places.length}}</v-chip></v-subheader>
-               </div>
-
                 <place-list-item
                  v-for="(place, index) in places"
                  :index = "index"
@@ -49,6 +45,7 @@ import Subscribe from '@/components/Subscribe.vue'
 // import LoadMore from '@/features/places_list/components/LoadMore.vue'
 import AgentInfo from '@/features/places_list/components/AgentInfo.vue'
 import PlaceListItem from './components/PlaceListItem'
+import LoadMore from '@/features/places_list/components/LoadMore.vue'
 
 
 export default {
@@ -101,8 +98,6 @@ export default {
  }
 }
 </script>
-
-<!-- Add "scoped" attribute to limit CSS to this component only -->
 <style>
 
 </style>

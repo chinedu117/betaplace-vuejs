@@ -41,13 +41,13 @@
            </v-card-title>
 
 
-         <v-card-text class="text-xs-left" style="display: none">
+         <v-card-text class="text-xs-left list-body">
 
             <span class=" wrap">{{ place.description }}</span><br>
             
          </v-card-text>
           
-         <v-card-actions style="display: none">
+         <v-card-actions class="list-body">
            <v-layout  row wrap justify-space-between>
                  <v-flex md6>
                   <v-btn flat color="accent" @click="visitPlace(place.slug)">Let's See</v-btn>
@@ -100,13 +100,19 @@
    }
 }
   </script>
-<style lang="stylus">
+<style lang="stylus" scoped>
+.list-body
+  display: block
+
 .list-card
   display: block
   width: 700px
   border-radius: 5px
   margin-bottom: 16px
+  margin-left: auto 
+  margin-right: auto
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)
+  cursor: pointer
 @media screen and (max-width: 1080px)
   .list-card
     width: 100%
@@ -120,4 +126,6 @@
   .container--mobile
     width="100%"
     padding: 0px 0px !important
+  .list-body
+    display: none
 </style>
