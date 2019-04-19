@@ -62,7 +62,7 @@ export default {
              })
               let place = state.places[index]
             
-             place.agent_published = 1
+             place.agent_published = true
              state.places.splice(index,1,place)
           
         },
@@ -72,7 +72,7 @@ export default {
              })
              
              let place = state.places[index]
-             place.agent_published = 0
+             place.agent_published = false
              state.places.splice(index,1,place)
          
             

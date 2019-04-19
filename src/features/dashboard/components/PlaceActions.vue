@@ -87,7 +87,8 @@ export default {
         required:true   
       },
       'published':{
-         required:true   
+         required:true, 
+         type: Boolean,  
       },
       'index':{
           required: true,
