@@ -125,6 +125,25 @@ export default {
 
 actions:{
     
+    retrievePlace({commit},placeSlug){
+
+       axios.defaults.withCredentials = true
+            return new Promise( (resolve,reject) =>{
+          // console.log(API.PLACE_URL(placeSlug))
+              Vue.http.get(API.DASHBORD_PLACE_RETRIEVE_URL(placeSlug))
+              .then(function (response) {
+                         
+                      resolve(response)
+                  })
+              .catch(function (error) {
+                  //  console.log(error)
+                       reject(error)
+              });
+
+
+             })
+
+    },
     retrieveMySubscriptions({commit,state}){
         if(!state.hasLoadedSubscriptions){
             return new Promise( (resolve,reject) =>{

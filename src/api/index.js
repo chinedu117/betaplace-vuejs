@@ -29,6 +29,10 @@ export const AGENT_PLACE_DELETE_URL = (slug) => {
 
 export const DASHBORD_PLACE_IMAGE_SAVE_URL  = (placeSlug)  =>{
     return baseUrl + '/d/p/' + placeSlug +'/i'
+}
+
+export const DASHBORD_PLACE_RETRIEVE_URL  = (placeSlug)  =>{
+    return baseUrl + '/d/p/' + placeSlug
 }  
 
 export const DASHBORD_PLACE_FEATURE_SAVE_URL  = (placeSlug)  =>{

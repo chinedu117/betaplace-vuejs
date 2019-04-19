@@ -490,8 +490,7 @@ export default {
          }else{
              //editing mode
              // this.creating = false
-             this.$store.dispatch('place_view_store/clearCache')
-             this.mixin_handleRequest(this.$store.dispatch('place_view_store/retrievePlace',this.$route.params.placeSlug)
+             this.mixin_handleRequest(this.$store.dispatch('dashboard_store/retrievePlace',this.$route.params.placeSlug)
             .then((response)=>{
                 //console.log(response.data)
                 //delete it
@@ -505,10 +504,7 @@ export default {
                   this.images= response.data.images.images
                 }
                 
-                
-                delete response.data['statistics']
                 delete response.data['images']
-                delete response.data['agent']
                 delete response.data['features']
                 this.newPlace = response.data
                 

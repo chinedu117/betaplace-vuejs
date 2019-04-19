@@ -16,18 +16,8 @@
                      <v-flex md2 xs12>
                         <v-layout>
                           <v-flex xs6>
-
-                            <!-- <v-avatar >
-                              <v-icon ref="share_profile" @click="share">share</v-icon>
-                            </v-avatar> -->
-                            
-
                           </v-flex>
                           <v-flex xs6>
-                            <!-- <v-avatar>
-                              <v-icon @click="toggleHideBody" v-if="!showBodyDetails">visibility</v-icon>
-                              <v-icon @click="toggleHideBody" v-else>visibility_off</v-icon>
-                            </v-avatar> -->
                           </v-flex>
                         </v-layout>
                         
