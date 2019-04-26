@@ -84,7 +84,13 @@
           }
       },
 
+   computed: {
+      hasUserCoords(){
 
+           return this.$store.getters['places_list_store/hasUserCoords']
+        }
+     
+   },
    methods: {
 
        visitPlace(placeSlug)
