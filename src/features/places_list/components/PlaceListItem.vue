@@ -16,7 +16,7 @@
                    </div>
                  </v-flex>
                 <v-flex xs4>
-                   <div class="grey--text font-weight-medium text-xs-right" v-show="hasUserCoords" v-if="place.distance"><b>{{place.distance | distance }}</b>
+                   <div class="grey--text font-weight-medium text-xs-right" v-show="hasUserCoords && $vuetify.breakpoint.smAndDown" v-if="place.distance"><b>{{place.distance | distance }}</b>
                    </div>
                 </v-flex>
               </v-layout>
