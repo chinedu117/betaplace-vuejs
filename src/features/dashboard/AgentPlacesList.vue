@@ -1,6 +1,5 @@
 <template>
 <div>
-      
       <v-card  v-bind="card_style">
       <!-- header -->
         <div class="pa-3 text-xs-left" height="250px" color="grey darken-3" width="100%" style="border-bottom:3px solid #dddd">
@@ -242,60 +241,6 @@
 
                   </v-flex>
                   <v-btn color="success" class="mx-auto " outline @click="seePlanList()">Click to increase your limits</v-btn>
-
-
-                 <!--  <v-flex md4 lg4>
-
-                    <v-card style="position:fixed" class="ml-2">
-                           <div class="pa-3" color="grey darken-3"  width="100%" style="background-color:#ddd">
-                                 <span class="headline">
-                                     Account Summary                                  
-                                  </span>
-                                  
-                              </div>
-                              <v-card-text>
-                                <div class="account-summary-row">
-                                  <div class="account-summary-row--cell">
-                                     Total Places
-                                  </div>
-                                  <div class="account-summary-row--cell">
-                                     {{ account_summary.places_no }}
-                                  </div>
-                                </div>
-                                <div class="account-summary-row">
-                                  <div class="account-summary-row--cell">
-                                   Subscriptions
-                                   
-                                  </div>
-
-                                  <div class="account-summary-row--cell">
-                                     {{ account_summary.subscriptions_no }}
-                                    
-                                   </div>
-                                   
-                                </div>
-                                <div class="account-summary-row">
-                                  <div class="account-summary-row--cell">
-                                   Slots Remaining
-                                  </div>
-                                  <div class="account-summary-row--cell">
-                                     {{ account_summary.slots_remaining }}
-                                   </div>
-                                </div>
-                                <div class="account-summary-row">
-                                  <div class="account-summary-row--cell">
-                                     Expiry Date
-                                  </div>
-                                  <div class="account-summary-row--cell">
-                                      {{ account_summary.slots_remaining }}
-                                  </div>
-                                </div>
-                              </v-card-text>
-
-
-                    </v-card>
-                    
-                  </v-flex> -->
                 </v-layout>
             </v-container>
             <!-- end v-else -->
@@ -321,8 +266,6 @@ export default {
    },
     beforeRouteEnter(to,from,next){
       //if have no profile or statistic go back profile page
-     
-       
         const hasProfile = store.getters['auth/userHasProfile']
         const hasVerifiedEmail = store.getters['auth/userEmailVerified']
 

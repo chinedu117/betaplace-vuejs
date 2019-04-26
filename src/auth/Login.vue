@@ -2,7 +2,6 @@
  <v-container grid-list-md text-xs-center class="page-wrapper">
  	<v-layout row wrap>
  	   <v-flex xs12>
- 	   	    
 	 		<v-card>
 			 		<v-toolbar flat>
 			 			<v-toolbar-side-icon/>
@@ -122,12 +121,12 @@
           SocialLogin(provider,payload){
               const sm = this
              payload.provider = provider
-            this.mixin_handleRequest(this.$store.dispatch('auth/socialLogin',payload)
+            this.mixin_handleRequest(sm.$store.dispatch('auth/socialLogin',payload)
 			   .then((response) => {
 					// console.log('login Successfull')
 					return sm.mixin_handleRequest(sm.$store.dispatch('auth/retrieveUser')
-					   .then(response => {
-						     sm.redirectAfterLogin(true)
+					   .then((response) => {
+						     return sm.redirectAfterLogin(true)
 
 					})
 					)
@@ -167,7 +166,7 @@
            const hasProfile = this.$store.getters['auth/userHasProfile']
            const hasVerifiedEmail = this.$store.getters['auth/userEmailVerified']
 
-           console.log(slug,hasProfile,hasVerifiedEmail)
+           // console.log(slug,hasProfile,hasVerifiedEmail)
 			if(!social){
 				// console.log('Not using social login')
 				if(hasVerifiedEmail){
