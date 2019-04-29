@@ -8,7 +8,7 @@ export default {
         token: localStorage.getItem('access_token') || null,
         user: Object.assign({},JSON.parse(localStorage.getItem('user'))) || null
     },
-  
+      
     mutations: {
         saveUser(state, user) {
             

@@ -105,11 +105,7 @@ export default {
         set(val){}
 
     },
-    hasUserCoords(){
-
-           return this.$store.getters['places_list_store/hasUserCoords']
-        }
-     
+    
   }, 
 }
 </script>

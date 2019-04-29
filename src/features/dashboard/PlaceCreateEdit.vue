@@ -479,34 +479,37 @@ export default {
     created(){
         //  console.log(country.all())
          //fetch the category list from db
-         this.mixin_handleRequest(this.$options.service.getCategoryList()
+         this.mixin_handleRequest(this.$store.dispatch('dashboard_store/getCategoryList')
            .then( (response) => {
                this.category = response.data
            }))
-         
+           
+           // console.log(this.$route.params.placeSlug)
          if(!this.$route.params.placeSlug){
             //creating mode
             // this.creating = true
          }else{
              //editing mode
              // this.creating = false
+             const sm = this
              this.mixin_handleRequest(this.$store.dispatch('dashboard_store/retrievePlace',this.$route.params.placeSlug)
             .then((response)=>{
                 //console.log(response.data)
                 //delete it
                 if(response.data.features !== null)
                 {
-                   this.features = response.data.features.features
+                   sm.features = response.data.features.features
                 }
 
                 if(response.data.images !== null)
                 {
-                  this.images= response.data.images.images
+                  sm.images= response.data.images.images
                 }
                 
                 delete response.data['images']
                 delete response.data['features']
-                this.newPlace = response.data
+                sm.newPlace = response.data
+                // console.log(sm.newPlace)
                 
             })
              )//handle request
@@ -750,8 +753,8 @@ export default {
               
        },
        submitPlace(){
-        const editingMode = this.newPlace.slug ? true : false
-
+        const editingMode = this.newPlace.slug !== undefined ? true : false
+        alert("editing mode is "+ editingMode)
         //check foro geoloaction data
         const locationPresent = (this.newPlace.latitude !== null) &&( this.newPlace.longitude !== null)
 
@@ -759,19 +762,20 @@ export default {
 
            this.$store.dispatch('common/updateSnackBar',{
                         show: true,
-                        msg: 'eolocation Information is needed',
+                        msg: 'Please click "Makr this point" button',
                         color: 'red'
                         })
 
            return false
         }
+        const sm = this
         this.$validator.validate().then(result => {
         	if (result) {
                             //only go to the next field if all is well
-                this.mixin_handleRequest(this.$options.service.savePlace(this.newPlace,editingMode)
+                sm.mixin_handleRequest(sm.$store.dispatch('dashboard_store/savePlace',sm.newPlace,editingMode)
                             .then(response => {
                                 //set the new data
-                                this.newPlace = Object.assign(this.newPlace,response.data)
+                                sm.newPlace = Object.assign(sm.newPlace,response.data)
                                 // this.nextPage()
                                 //console.log(response.data.id)
                             }))
