@@ -1,7 +1,7 @@
 <template>
   <v-container>
   	<v-layout row wrap>
-  		<v-flex md12 xs12>
+  		<v-flex md12 xs12> 
   		 <header>
   			<h1 class="display-2 mb-2"> Getting Started</h1>
               <ul>
@@ -189,7 +189,7 @@ article h2, article h4
 
 @media screen and (max-width: 1080px)
 	article, header
-		padding: 15px 30px 30px
+		padding: 15px 2px 30px
 	p
 		line-height: 1.9
 		font-size: 16px

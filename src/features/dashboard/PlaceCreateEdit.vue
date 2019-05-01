@@ -754,7 +754,7 @@ export default {
        },
        submitPlace(){
         const editingMode = this.newPlace.slug !== undefined ? true : false
-        alert("editing mode is "+ editingMode)
+      
         //check foro geoloaction data
         const locationPresent = (this.newPlace.latitude !== null) &&( this.newPlace.longitude !== null)
 
@@ -771,8 +771,10 @@ export default {
         const sm = this
         this.$validator.validate().then(result => {
         	if (result) {
-                            //only go to the next field if all is well
-                sm.mixin_handleRequest(sm.$store.dispatch('dashboard_store/savePlace',sm.newPlace,editingMode)
+                  //only go to the next field if all is well
+                  
+                  sm.newPlace.editing_mode =  editingMode        
+                sm.mixin_handleRequest(sm.$store.dispatch('dashboard_store/savePlace',sm.newPlace)
                             .then(response => {
                                 //set the new data
                                 sm.newPlace = Object.assign(sm.newPlace,response.data)

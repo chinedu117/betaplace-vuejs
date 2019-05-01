@@ -8,6 +8,6 @@ module.exports = {
   FACEBOOK_CLIENT_ID: '"838567409811629"',
   FACEBOOK_CALLBACK_URL: '"https://www.betaplace.com.ng/login/facebook/callback"',
   PAYSTACK_PUBLIC_KEY: '"pk_test_22bdd340817a7abd23c1ade4fb5f131c60be3e7f"',
-
+  CONTACT_EMAIL: '"admin@betaplace.com.ng"',
 
 }

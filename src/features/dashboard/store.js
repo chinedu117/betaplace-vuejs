@@ -360,15 +360,15 @@ actions:{
   },
 
   //api call to create a place
-  savePlace({commit,state},payload,editingMode){
+  savePlace({commit,state},payload){
     let url = ''
-    if(editingMode)
+    if(payload.editing_mode)
     {
        url = API.DASHBORD_PLACE_EDIT_URL(payload.slug)
     }else{
        url = API.DASHBORD_PLACE_CREATE_URL
     }
-
+       
     return new Promise((resolve, reject) => {  
               Vue.http.post(url,payload)
                       .then(response => {

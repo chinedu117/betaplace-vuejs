@@ -49,13 +49,13 @@
 
       <div  v-else class="d-flex space-between justify-left">
          
-            <v-btn small  @click="deletePlace"  ><v-icon color="red">delete</v-icon>Delete</v-btn>
+            <v-btn small  :loading="loading" @click="deletePlace"  ><v-icon color="red">delete</v-icon>Delete</v-btn>
 
             <v-btn small   v-if="agent_published" @click="publish"><v-icon color="red">highlight_off</v-icon>Unpublish</v-btn>
 
             <v-btn small v-else @click="publish" ><v-icon  color="green">check_circle_outline</v-icon> Publish</v-btn>
 
-            <v-btn small dark v-if="place_expired" @click="renew" color="green darken-2"><v-icon>access_time</v-icon>Renew</v-btn>
+            <v-btn :loading="loading"small dark v-if="place_expired" @click="renew" color="green darken-2"><v-icon>access_time</v-icon>Renew</v-btn>
 
             <v-btn small dark @click="edit" color="green darken-2"><v-icon>edit</v-icon>EDIT</v-btn>
             
@@ -121,7 +121,7 @@ export default {
               const sm = this
             if(confirm("Do you want to delete this and all its content?")){
                this.mixin_handleRequest(
-                    sm.$store.dispatch("dashboard_store/deletePlace",{'place_slug': ssm.slug})
+                    sm.$store.dispatch("dashboard_store/deletePlace",{'place_slug': sm.slug})
                      .then((response) => { 
                     //emits delete event
                    

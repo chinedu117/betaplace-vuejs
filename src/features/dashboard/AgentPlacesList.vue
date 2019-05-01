@@ -111,7 +111,7 @@
                     </v-list-tile-content>
                     <v-list-tile-action>
                         <place-actions 
-                        :published="place.agent_published" 
+                        :published="place.agent_published == '1' ? true : false" 
                         :expired="place.expired" 
                         :slug="place.slug"
                         :index="index" 
@@ -211,7 +211,7 @@
                                         <flags :expired="place.expired" :published="place.agent_published" />
 
                                         <place-actions 
-                                          :published="place.agent_published" 
+                                          :published="place.agent_published == '1' ? true : false" 
                                           :expired="place.expired" 
                                           :slug="place.slug"
                                           :index="index" 
