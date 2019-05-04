@@ -22,6 +22,10 @@
                 <load-more/>
          </div>
 
+          <div class="pa-2 mt-3 elevate-2" style="font-size: 20px; width: 80%; border-radius: 3px; background: #dfe1e6 " v-else >
+              Sorry, we do not have the available places from your area. You can tell your friends and agents about us. Thank you (:    
+          </div>
+
          </v-flex>
          
         </v-layout>

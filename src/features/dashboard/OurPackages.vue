@@ -348,12 +348,12 @@ export default {
 
 
 .pricing-grid-cell.pricing-grid-cell--title::before {
-        content: "\e5ca";
+        content: "\e5cb";
         font-family: 'Material Icons';
         font-size: 24px !important;
         position: relative;
         right: 5px;
-        margin: 0 25px 0 10px;
+        margin-left: -10px;
 
 
 
