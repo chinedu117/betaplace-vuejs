@@ -1,5 +1,5 @@
 <template>
-      <v-layout row>
+      <v-layout row v-if="subscriptionList.length > 0">
          <v-flex  xs12>
 
             <div class="clearfix pricing-grid"
@@ -361,8 +361,6 @@ export default {
      }
 
 .pricing-grid-cell:not(.pricing-grid-cell--title,.pricing-grid-header)::before {
-        content: "\e5ca";
-        font-family: 'Material Icons';
         font-size: 24px !important;
         position: relative;
         right: 5px;

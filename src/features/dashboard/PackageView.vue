@@ -106,10 +106,8 @@ components: {
  created(){
     this.getPlan(this.$route.params.planID)
  },
- mounted(){
-     this.placeOrder()
- },
-methods:{
+
+  methods:{
     // placeOrder(){
     //     this.$store.dispatch('dashboard_store/placeOrder',{package_id: this.plan.id,transaction_ref:this.reference})
     // },
