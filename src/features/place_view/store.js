@@ -20,7 +20,7 @@ function placeFromCache(state,slug){
 
 function agentFromCache(state,slug){
        let index = state.agents_cache.findIndex((agent) =>{
-             return agents.slug  == slug
+             return agent.slug  == slug
         })
           // alert(index)
           if(index == '-1'){
