@@ -331,7 +331,7 @@ actions:{
   saveImage({commit},placeSlug,payload){
 
     return new Promise((resolve, reject) => {
-       Vue.http.post(API.DASHBORD_PLACE_IMAGE_SAVE_URL(placeSlug),payload)
+       Vue.http.post(API.DASHBORD_PLACE_IMAGE_SAVE_URL(payload.get('place_slug')),payload)
               .then(response => {
 
                 resolve(response)
